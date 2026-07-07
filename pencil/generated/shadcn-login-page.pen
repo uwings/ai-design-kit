@@ -1,0 +1,130 @@
+{
+  "version": "2.13",
+  "variables": {
+    "background": {
+      "type": "color",
+      "value": "0 0% 100%"
+    },
+    "foreground": {
+      "type": "color",
+      "value": "240 10% 3.9%"
+    },
+    "primary": {
+      "type": "color",
+      "value": "240 5.9% 10%"
+    },
+    "primary-foreground": {
+      "type": "color",
+      "value": "0 0% 98%"
+    },
+    "muted": {
+      "type": "color",
+      "value": "240 4.8% 95.9%"
+    },
+    "muted-foreground": {
+      "type": "color",
+      "value": "240 3.8% 46.1%"
+    },
+    "border": {
+      "type": "color",
+      "value": "240 5.9% 90%"
+    },
+    "ring": {
+      "type": "color",
+      "value": "240 5.9% 10%"
+    },
+    "radius": {
+      "type": "number",
+      "value": 0.5
+    },
+    "destructive": {
+      "type": "color",
+      "value": "0 72.2% 50.6%"
+    }
+  },
+  "children": [
+    {
+      "id": "page",
+      "type": "frame",
+      "name": "page",
+      "layout": "vertical",
+      "width": 1440,
+      "metadata": {
+        "type": "page",
+        "system": "shadcn"
+      },
+      "children": [
+        {
+          "id": "loginCard",
+          "type": "ref",
+          "ref": "shadcn.card",
+          "metadata": {
+            "componentId": "shadcn.card",
+            "system": "shadcn",
+            "contractVersion": "1.0.0",
+            "variant": {},
+            "dataBinding": null
+          },
+          "slots": {
+            "header": [
+              {
+                "id": "title1",
+                "type": "ref",
+                "ref": "shadcn.button",
+                "metadata": {
+                  "componentId": "shadcn.button",
+                  "system": "shadcn",
+                  "contractVersion": "1.0.0",
+                  "variant": {
+                    "variant": "link"
+                  },
+                  "dataBinding": null
+                },
+                "descendants": {
+                  "label": {
+                    "content": "Login to your account"
+                  }
+                }
+              }
+            ],
+            "content": [
+              {
+                "id": "emailInput",
+                "type": "ref",
+                "ref": "shadcn.input",
+                "metadata": {
+                  "componentId": "shadcn.input",
+                  "system": "shadcn",
+                  "contractVersion": "1.0.0",
+                  "variant": {},
+                  "dataBinding": null
+                }
+              }
+            ],
+            "footer": [
+              {
+                "id": "submitBtn",
+                "type": "ref",
+                "ref": "shadcn.button",
+                "metadata": {
+                  "componentId": "shadcn.button",
+                  "system": "shadcn",
+                  "contractVersion": "1.0.0",
+                  "variant": {
+                    "variant": "default"
+                  },
+                  "dataBinding": null
+                },
+                "descendants": {
+                  "label": {
+                    "content": "Login"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

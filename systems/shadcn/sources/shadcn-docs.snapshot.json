@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "0.1",
+  "system": "shadcn",
+  "sourceKind": "url",
+  "sourceUrl": "https://ui.shadcn.com/docs/components",
+  "notes": "agent 抓取 shadcn/ui 三个组件文档页（button/input/card）转 markdown 后抽取的事实。严禁脑补——只采集页面上有证据的事实。",
+  "components": [
+    {
+      "id": "shadcn.button",
+      "name": "Button",
+      "codeImport": "import { Button } from \"@/components/ui/button\"",
+      "props": [
+        {
+          "name": "variant",
+          "type": "enum",
+          "values": [
+            "default",
+            "secondary",
+            "destructive",
+            "outline",
+            "ghost",
+            "link"
+          ],
+          "default": "default",
+          "evidence": "<Button variant=\"outline|secondary|destructive|ghost|link\">"
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "values": [
+            "default",
+            "sm",
+            "lg",
+            "icon"
+          ],
+          "default": "default",
+          "evidence": "<Button size=\"sm|icon\">"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "default": false,
+          "evidence": "<Button asChild>"
+        },
+        {
+          "name": "children",
+          "type": "string",
+          "evidence": "<Button>Button</Button>"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "evidence": "<Button disabled>"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "evidence": "<Button type=\"submit\">"
+        }
+      ],
+      "evidence": [
+        "https://ui.shadcn.com/docs/components/button"
+      ],
+      "sourceUrl": "https://ui.shadcn.com/docs/components"
+    },
+    {
+      "id": "shadcn.input",
+      "name": "Input",
+      "codeImport": "import { Input } from \"@/components/ui/input\"",
+      "props": [
+        {
+          "name": "type",
+          "type": "string",
+          "evidence": "<Input type=\"email|file|password\">"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "evidence": "<Input placeholder=\"Email\">"
+        },
+        {
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "evidence": "<Input disabled>"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "evidence": "<Input id=\"email\">"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "evidence": "<Input required>"
+        }
+      ],
+      "evidence": [
+        "https://ui.shadcn.com/docs/components/input"
+      ],
+      "sourceUrl": "https://ui.shadcn.com/docs/components"
+    },
+    {
+      "id": "shadcn.card",
+      "name": "Card",
+      "codeImport": "import { Card, CardHeader, CardTitle, CardDescription, CardAction, CardContent, CardFooter } from \"@/components/ui/card\"",
+      "props": [],
+      "evidence": [
+        "https://ui.shadcn.com/docs/components/card"
+      ],
+      "sourceUrl": "https://ui.shadcn.com/docs/components"
+    }
+  ],
+  "tokenRefs": [
+    "primary",
+    "background",
+    "foreground",
+    "muted",
+    "muted-foreground",
+    "border",
+    "ring",
+    "radius"
+  ],
+  "coverage": {
+    "componentsSelected": 3
+  }
+}

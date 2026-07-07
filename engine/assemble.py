@@ -46,8 +46,14 @@ def assemble_knowledge_pack(intent: str, system: Optional[str] = None, query: st
     entry = intent_index.get(intent, {})
     candidate_ids: List[str] = []
     for cid in entry.get("components", []):
-        if cid not in candidate_ids:
+        # 按目标体系过滤候选项（intent-index 是跨体系全局的；retrieve 以目标体系为主）
+        if cid.startswith(f"{system}.") and cid not in candidate_ids:
             candidate_ids.append(cid)
+    if not candidate_ids:
+        # 目标体系无命中时，回退到跨体系候选（并标注）
+        for cid in entry.get("components", []):
+            if cid not in candidate_ids:
+                candidate_ids.append(cid)
     if include_contracts:
         for cid in include_contracts:
             if cid not in candidate_ids:

@@ -6,7 +6,8 @@
   "maturityTarget": "Level 2 — 组件可控：AI 只能通过合法 operation 使用组件，违规被 validator 拦截",
   "description": "AI Design Kit — 把设计规范编译成 AI 可消费、可校验、可执行的组件契约。AI 只操作组件图，不直接画像素/写 HTML。语义图是唯一真相源，Pencil 与代码都是编译目标。",
   "systems": [
-    "ant-design"
+    "ant-design",
+    "shadcn"
   ],
   "defaultSystem": "ant-design",
   "corePrinciples": [

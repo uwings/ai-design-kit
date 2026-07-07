@@ -43,7 +43,7 @@ class Kit:
         return self.root / "systems" / name
 
     def has_system(self, name: str) -> bool:
-        return self.system_dir(name).exists()
+        return (self.system_dir(name) / "system.json").exists()
 
     def load_contracts(self, system: str) -> ContractIndex:
         return ContractIndex.load_system(self.system_dir(system))

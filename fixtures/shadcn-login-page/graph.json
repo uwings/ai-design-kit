@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "0.1",
+  "project": {
+    "name": "Untitled",
+    "system": "shadcn"
+  },
+  "pages": [
+    {
+      "id": "page",
+      "type": "page",
+      "width": 1440,
+      "children": [
+        {
+          "id": "loginCard",
+          "component": "shadcn.card",
+          "slots": {
+            "header": [
+              {
+                "id": "title1",
+                "component": "shadcn.button",
+                "variant": {
+                  "variant": "link"
+                },
+                "props": {
+                  "children": "Login to your account"
+                }
+              }
+            ],
+            "content": [
+              {
+                "id": "emailInput",
+                "component": "shadcn.input",
+                "props": {
+                  "type": "email",
+                  "placeholder": "m@example.com",
+                  "id": "email",
+                  "required": true
+                }
+              }
+            ],
+            "footer": [
+              {
+                "id": "submitBtn",
+                "component": "shadcn.button",
+                "variant": {
+                  "variant": "default"
+                },
+                "props": {
+                  "type": "submit",
+                  "children": "Login"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

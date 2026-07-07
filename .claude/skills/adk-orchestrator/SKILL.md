@@ -38,6 +38,16 @@ Then verify: `python -m engine.cli validate-contracts && validate-tokens --syste
 3. rerun affected validators; confirm the rule now catches the case
 4. `adk-release-manager` → patch/minor bump
 
+### D. Compile a design system from a source（系统核心能力）
+ADK 是编译器，契约从源编译出来，不是手写。给一个源（URL/Figma/代码/Storybook）→ 编译出整个体系：
+1. `adk-source-ingestion` — 抓取源 + 抽事实 → `ingest-snapshot` 归一化 → `systems/<sys>/sources/*.snapshot.json`
+2. `adk-contract-author` — `compile-context` 取编译上下文 → AI 从事实编译契约/token 图/system.json → `write-contract`/`write-tokens`/`write-system` 校验落盘
+3. `python -m engine.cli index` — 重建检索索引（含新体系）
+4. `validate-contracts` + `validate-tokens` 自检
+5. （可选）`adk-release-manager` minor bump
+
+按需编译：用户不指定源时，系统里什么都没有；指定一个源就编译出一个体系，多体系共存于 `systems/<sys>/`。范例：`systems/shadcn/`（从 ui.shadcn.com URL 编译出 3 组件）。
+
 ## Hard rules (never violate)
 - Every generated screen produces: `semantic/*.graph.json`, `semantic/*.ops.json` (or `fixtures/`), `pencil/generated/*.pen`, `reports/validation/*.json`, rationale.
 - AI only emits semantic ops; all rendering/compilation/validation is deterministic in `engine/`.
@@ -47,7 +57,7 @@ Then verify: `python -m engine.cli validate-contracts && validate-tokens --syste
 ## Routing cheatsheet
 | user says | skill |
 |---|---|
-| "把这套 Figma/官网规范编译成 ADK" | workflow A |
+| "把这套 Figma/官网规范编译成 ADK" / "ingest this spec" | workflow D（编译器核心）|
 | "做一个 XX 页面" / "生成 admin 后台" | workflow B |
 | "以后这类操作必须 XX" / "这个设计不对，记住" | workflow C |
 | "换个主题色" / "整体调成紫色" | `token.reference` on semantic token (theme.switch), then recompile |

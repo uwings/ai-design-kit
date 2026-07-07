@@ -1,0 +1,16 @@
+[
+  { "op": "component.insert", "componentId": "shadcn.card", "parentId": null,
+    "node": { "id": "loginCard" }, "reason": "登录卡容器", "contractRefs": ["shadcn.card"] },
+  { "op": "component.fillSlot", "nodeId": "loginCard", "slot": "header",
+    "children": [ { "id": "title1", "component": "shadcn.button", "variant": { "variant": "link" },
+      "props": { "children": "Login to your account" } } ],
+    "reason": "卡片标题区（用 link variant 作标题占位）", "contractRefs": ["shadcn.button"] },
+  { "op": "component.fillSlot", "nodeId": "loginCard", "slot": "content",
+    "children": [ { "id": "emailInput", "component": "shadcn.input",
+      "props": { "type": "email", "placeholder": "m@example.com", "id": "email", "required": true } } ],
+    "reason": "邮箱输入字段", "contractRefs": ["shadcn.input"] },
+  { "op": "component.fillSlot", "nodeId": "loginCard", "slot": "footer",
+    "children": [ { "id": "submitBtn", "component": "shadcn.button",
+      "variant": { "variant": "default" }, "props": { "type": "submit", "children": "Login" } } ],
+    "reason": "提交按钮（default 作 primary，组内唯一）", "contractRefs": ["shadcn.button"] }
+]

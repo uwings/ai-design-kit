@@ -1,0 +1,26 @@
+{
+  "name": "shadcn",
+  "displayName": "shadcn/ui",
+  "version": "1.0.0",
+  "description": "shadcn/ui 组件体系——由 Source Ingestion→Contract Author 编译链路从公开文档 URL 自动编译产出（非手写）。",
+  "source": {
+    "kind": "url",
+    "url": "https://ui.shadcn.com/docs/components",
+    "notes": "agent 抓取 button/input/card 三页 markdown，抽取事实归一化为 snapshot，AI 据编译上下文编译契约。"
+  },
+  "ingestedAt": "2026-07-07",
+  "coverage": {
+    "components": 3,
+    "tokens": 10,
+    "notes": "编译链路 demo；可增量补齐 shadcn 其余组件。"
+  },
+  "components": [
+    "shadcn.button",
+    "shadcn.input",
+    "shadcn.card"
+  ],
+  "kcHookup": {
+    "enabled": false,
+    "exportPath": "index/_kc/shadcn.manifest.json"
+  }
+}

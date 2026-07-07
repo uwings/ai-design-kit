@@ -215,6 +215,73 @@ def cmd_pencil_verify(args) -> int:
     return 0 if rep.passed else 2
 
 
+def cmd_compile_context(args) -> int:
+    from .compiler import build_compiler_context
+    ctx = build_compiler_context(args.system, args.snapshot, for_tokens=args.for_tokens)
+    print(json.dumps(ctx, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_write_contract(args) -> int:
+    from .compiler import write_contract
+    contract = _load_json(args.file)
+    path = write_contract(args.system, contract, overwrite=not args.no_overwrite)
+    print(json.dumps({"ok": True, "path": str(path), "componentId": contract.get("id")}, ensure_ascii=False))
+    return 0
+
+
+def cmd_write_tokens(args) -> int:
+    from .compiler import write_token_graph
+    tg = _load_json(args.file)
+    path = write_token_graph(args.system, tg, overwrite=not args.no_overwrite)
+    print(json.dumps({"ok": True, "path": str(path)}, ensure_ascii=False))
+    return 0
+
+
+def cmd_write_system(args) -> int:
+    from .compiler import write_system_manifest
+    manifest = _load_json(args.file)
+    path = write_system_manifest(args.system, manifest)
+    print(json.dumps({"ok": True, "path": str(path)}, ensure_ascii=False))
+    return 0
+
+
+def cmd_ingest_snapshot(args) -> int:
+    """把 agent 抽取的 raw 事实归一化为 snapshot 并落盘（Source Ingestion 的确定性步）。"""
+    from .ingest.figma import ingest_figma
+    from .ingest.codebase import ingest_codebase
+    from .ingest.docs import ingest_docs
+    from .ingest.normalize import normalize_snapshot
+    raw = _load_json(args.raw)
+    components = raw.get("components", [])
+    tokens = raw.get("tokenRefs", [])
+    url = args.url or raw.get("url", "")
+    if args.from_ == "figma":
+        snap = ingest_figma(args.system, args.figma_key or raw.get("figmaKey", "unknown"), components, tokens)
+    elif args.from_ == "code":
+        snap = ingest_codebase(args.system, url or raw.get("repoUrl", "code://"), components, tokens)
+    elif args.from_ == "url":
+        snap = ingest_docs(args.system, url, components, tokens, raw.get("notes", ""))
+    elif args.from_ == "docs":
+        snap = normalize_snapshot(args.system, "docs", url, components, tokens, raw.get("notes", ""))
+    else:
+        raise ValueError(f"unknown source kind: {args.from_}")
+    out = Path(args.out) if args.out else (PROJECT_ROOT / "systems" / args.system / "sources" / f"{args.from_}.snapshot.json")
+    if not out.is_absolute():
+        out = PROJECT_ROOT / out
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(snap, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({"ok": True, "path": str(out.relative_to(PROJECT_ROOT)),
+                      "components": len(snap.get("components", []))}, ensure_ascii=False))
+    return 0
+
+
+def cmd_compile_report(args) -> int:
+    from .compiler import compile_report
+    print(json.dumps(compile_report(args.system), ensure_ascii=False, indent=2))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="adk", description="AI Design Kit 确定性引擎 CLI")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -283,6 +350,43 @@ def build_parser() -> argparse.ArgumentParser:
     sp = sub.add_parser("pencil-verify", help=".pen 结构自检 + 实时 MCP 协议")
     sp.add_argument("file")
     sp.set_defaults(func=cmd_pencil_verify)
+
+    # ---- Source Ingestion → Contract Author 编译链路 ----
+    sp = sub.add_parser("compile-context", help="构建编译器上下文（AI 据此从 snapshot 编译契约）")
+    sp.add_argument("--system", required=True)
+    sp.add_argument("--snapshot", required=True, help="sources/*.snapshot.json 路径")
+    sp.add_argument("--for-tokens", action="store_true", help="同时给出 token 编译上下文")
+    sp.set_defaults(func=cmd_compile_context)
+
+    sp = sub.add_parser("write-contract", help="校验契约 schema 并落盘（编译产物写入）")
+    sp.add_argument("--system", required=True)
+    sp.add_argument("--file", required=True, help="契约草稿 JSON")
+    sp.add_argument("--no-overwrite", action="store_true")
+    sp.set_defaults(func=cmd_write_contract)
+
+    sp = sub.add_parser("write-tokens", help="校验 token 图 schema 并落盘")
+    sp.add_argument("--system", required=True)
+    sp.add_argument("--file", required=True)
+    sp.add_argument("--no-overwrite", action="store_true")
+    sp.set_defaults(func=cmd_write_tokens)
+
+    sp = sub.add_parser("write-system", help="写体系 system.json")
+    sp.add_argument("--system", required=True)
+    sp.add_argument("--file", required=True)
+    sp.set_defaults(func=cmd_write_system)
+
+    sp = sub.add_parser("ingest-snapshot", help="归一化 raw 事实 → snapshot（Source Ingestion 确定性步）")
+    sp.add_argument("--system", required=True)
+    sp.add_argument("--from", dest="from_", required=True, choices=["figma", "code", "url", "docs", "storybook"])
+    sp.add_argument("--raw", required=True, help="agent 抽取的 raw 事实 JSON")
+    sp.add_argument("--url", default=None)
+    sp.add_argument("--figma-key", default=None)
+    sp.add_argument("--out", default=None)
+    sp.set_defaults(func=cmd_ingest_snapshot)
+
+    sp = sub.add_parser("compile-report", help="汇总某体系编译产物")
+    sp.add_argument("--system", required=True)
+    sp.set_defaults(func=cmd_compile_report)
 
     return p
 

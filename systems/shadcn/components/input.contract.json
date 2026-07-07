@@ -1,0 +1,114 @@
+{
+  "id": "shadcn.input",
+  "version": "1.0.0",
+  "system": "shadcn",
+  "displayName": "Input",
+  "category": "data-entry",
+  "sourceRefs": [
+    "https://ui.shadcn.com/docs/components/input"
+  ],
+  "semanticRole": "input",
+  "intents": [
+    "data_entry",
+    "search"
+  ],
+  "meaning": {
+    "definition": "shadcn Input：单行表单输入。type 驱动语义（email/file/password/...）。",
+    "useWhen": [
+      "单行文本采集（姓名/邮箱/搜索词）",
+      "表单字段（配合 Label）"
+    ],
+    "doNotUseWhen": [
+      "多行长文本（用 Textarea）",
+      "枚举选择（用 Select/Combobox）"
+    ]
+  },
+  "variants": {},
+  "props": {
+    "type": {
+      "type": "string",
+      "description": "原生 input type，如 email/file/password/text"
+    },
+    "placeholder": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "value": {
+      "type": "string"
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "id": {
+      "type": "string",
+      "description": "用于关联 Label（htmlFor）"
+    },
+    "required": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "slots": {},
+  "states": [
+    "default",
+    "focus",
+    "disabled",
+    "error"
+  ],
+  "tokenBindings": {
+    "root.fill": "background",
+    "root.stroke": "border",
+    "label.fill": "foreground"
+  },
+  "compositionRules": [],
+  "pencil": {
+    "componentRefPattern": "shadcn.input",
+    "rootNodeType": "frame",
+    "allowedDescendantOverrides": {},
+    "forbiddenOverrides": [
+      "root.fill",
+      "root.stroke"
+    ]
+  },
+  "code": {
+    "framework": "react",
+    "import": "import { Input } from \"@/components/ui/input\"",
+    "component": "Input",
+    "propMap": {
+      "type": "type",
+      "placeholder": "placeholder",
+      "value": "value",
+      "disabled": "disabled",
+      "id": "id",
+      "required": "required"
+    }
+  },
+  "examples": {
+    "good": [
+      "<Input type=\"email\" placeholder=\"Email\" />",
+      "<Input id=\"email\" required />"
+    ],
+    "bad": [
+      "无 Label/id 关联（无障碍缺失）"
+    ]
+  },
+  "hardRules": [
+    {
+      "id": "shadcn.input.placeholder_maxlength",
+      "kind": "schema",
+      "expr": "props.placeholder.maxLength<=80",
+      "message": "placeholder ≤ 80 字符"
+    }
+  ],
+  "softRules": [
+    "每个 Input 应配 Label（htmlFor=id）以满足无障碍。",
+    "错误态应有可操作的反馈文案。"
+  ],
+  "sourceEvidence": [
+    "https://ui.shadcn.com/docs/components/input",
+    "snapshot: systems/shadcn/sources/shadcn-docs.snapshot.json#shadcn.input"
+  ],
+  "confidence": 0.82,
+  "needsReview": false
+}

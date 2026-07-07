@@ -1,0 +1,101 @@
+{
+  "id": "shadcn.card",
+  "version": "1.0.0",
+  "system": "shadcn",
+  "displayName": "Card",
+  "category": "layout",
+  "sourceRefs": [
+    "https://ui.shadcn.com/docs/components/card"
+  ],
+  "semanticRole": "container",
+  "intents": [
+    "section",
+    "content"
+  ],
+  "meaning": {
+    "definition": "shadcn Card：分组容器，含 CardHeader(CardTitle/CardDescription/CardAction)、CardContent、CardFooter 三个 slot-like 区域。",
+    "useWhen": [
+      "把相关内容分组呈现（登录卡、设置块、摘要卡）",
+      "需要 header/content/footer 结构化分区"
+    ],
+    "doNotUseWhen": [
+      "纯流式正文",
+      "密集表格数据（用 Table）"
+    ]
+  },
+  "variants": {},
+  "props": {},
+  "slots": {
+    "header": {
+      "accepts": [],
+      "max": 1,
+      "layout": "vertical",
+      "rules": [
+        "含 CardTitle/CardDescription/CardAction"
+      ]
+    },
+    "content": {
+      "accepts": [],
+      "max": 1,
+      "layout": "vertical"
+    },
+    "footer": {
+      "accepts": [],
+      "max": 1,
+      "layout": "horizontal",
+      "rules": [
+        "常放提交/次操作按钮"
+      ]
+    }
+  },
+  "states": [],
+  "tokenBindings": {
+    "root.fill": "background",
+    "root.stroke": "border",
+    "root.cornerRadius": "radius"
+  },
+  "compositionRules": [],
+  "pencil": {
+    "componentRefPattern": "shadcn.card",
+    "rootNodeType": "frame",
+    "allowedDescendantOverrides": {},
+    "forbiddenOverrides": [
+      "root.fill",
+      "root.stroke",
+      "root.cornerRadius"
+    ]
+  },
+  "code": {
+    "framework": "react",
+    "import": "import { Card, CardHeader, CardTitle, CardDescription, CardAction, CardContent, CardFooter } from \"@/components/ui/card\"",
+    "component": "Card",
+    "propMap": {}
+  },
+  "examples": {
+    "good": [
+      "Card > CardHeader(CardTitle,CardDescription,CardAction) + CardContent(form) + CardFooter(primary+outline)",
+      "登录卡：header 标题 + content 表单 + footer 提交"
+    ],
+    "bad": [
+      "Card 内用裸 div 模拟 CardTitle（应用注册子组件）"
+    ]
+  },
+  "hardRules": [
+    {
+      "id": "shadcn.card.uses_registered_slots",
+      "kind": "slot",
+      "expr": "slot children only in header/content/footer",
+      "message": "Card 内容应放入 header/content/footer slot，而非裸挂"
+    }
+  ],
+  "softRules": [
+    "CardHeader 建议含 CardTitle；详情用 CardDescription。",
+    "CardFooter 放操作按钮时遵循 primary 唯一原则。"
+  ],
+  "sourceEvidence": [
+    "https://ui.shadcn.com/docs/components/card",
+    "snapshot: systems/shadcn/sources/shadcn-docs.snapshot.json#shadcn.card"
+  ],
+  "confidence": 0.8,
+  "needsReview": false
+}

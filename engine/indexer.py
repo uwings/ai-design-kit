@@ -86,6 +86,13 @@ def build_intent_index(kit: Kit, systems: List[str]) -> dict:
             for c in comps:
                 if c not in slot["components"]:
                     slot["components"].append(c)
+        # 契约自身 intents 是单一真相源；直接入索引（新体系无 intent-mapping.json 也能检索）
+        cidx = kit.load_contracts(sys_name)
+        for c in cidx.all():
+            for intent in c.intents:
+                slot = idx.setdefault(intent, {"components": [], "patterns": [], "preferredVariants": {}})
+                if c.id not in slot["components"]:
+                    slot["components"].append(c.id)
         # 模式 intent
         comp_dir = kit.system_dir(sys_name) / "compositions"
         if comp_dir.exists():

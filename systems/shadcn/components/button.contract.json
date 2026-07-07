@@ -1,0 +1,191 @@
+{
+  "id": "shadcn.button",
+  "version": "1.0.0",
+  "system": "shadcn",
+  "displayName": "Button",
+  "category": "general",
+  "sourceRefs": [
+    "https://ui.shadcn.com/docs/components/button"
+  ],
+  "semanticRole": "action_trigger",
+  "intents": [
+    "primary_action",
+    "secondary_action",
+    "destructive_action"
+  ],
+  "meaning": {
+    "definition": "shadcn Button：在当前上下文触发一个用户操作，或用 asChild 让任意元素表现为按钮（如链接成按钮）。",
+    "useWhen": [
+      "提交/确认/继续/创建等显式操作（variant=default 作主操作）",
+      "次要/支持性操作（variant=secondary/outline）",
+      "不可逆破坏性操作（variant=destructive，须二次确认）",
+      "把链接等元素视觉表现为按钮（asChild=true）"
+    ],
+    "doNotUseWhen": [
+      "纯导航且非主操作（用 Link/文字链接更合适）",
+      "整张卡片可点击时放置冗余按钮",
+      "密集列表中的重复操作（用 IconButton，size=icon）"
+    ]
+  },
+  "variants": {
+    "variant": {
+      "values": [
+        "default",
+        "secondary",
+        "destructive",
+        "outline",
+        "ghost",
+        "link"
+      ],
+      "default": "default",
+      "semantics": {
+        "default": "主操作（primary，使用 --primary 底色）",
+        "secondary": "支持性次操作",
+        "destructive": "破坏性/不可逆操作，须二次确认",
+        "outline": "弱强调次操作（描边）",
+        "ghost": "最低强调（透明）",
+        "link": "链接型，弱化为下划线文字"
+      }
+    },
+    "size": {
+      "values": [
+        "default",
+        "sm",
+        "lg",
+        "icon"
+      ],
+      "default": "default",
+      "semantics": {
+        "default": "标准",
+        "sm": "密集/工具栏",
+        "lg": "页面级强调 CTA",
+        "icon": "仅图标方形按钮（须 aria-label）"
+      }
+    }
+  },
+  "props": {
+    "variant": {
+      "type": "enum",
+      "enum": [
+        "default",
+        "secondary",
+        "destructive",
+        "outline",
+        "ghost",
+        "link"
+      ],
+      "description": "变体（来自 shadcn button 源码 variant enum）"
+    },
+    "size": {
+      "type": "enum",
+      "enum": [
+        "default",
+        "sm",
+        "lg",
+        "icon"
+      ]
+    },
+    "asChild": {
+      "type": "boolean",
+      "default": false,
+      "description": "把子元素作为按钮渲染（Radix Slot）"
+    },
+    "children": {
+      "type": "string",
+      "maxLength": 28,
+      "contentRules": [
+        "动词优先的动作标签"
+      ]
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "type": {
+      "type": "string",
+      "description": "原生 button type，如 submit"
+    }
+  },
+  "slots": {},
+  "states": [
+    "default",
+    "hover",
+    "focus",
+    "active",
+    "disabled",
+    "loading"
+  ],
+  "tokenBindings": {
+    "root.fill": "primary",
+    "label.fill": "primary-foreground",
+    "root.cornerRadius": "radius"
+  },
+  "compositionRules": [],
+  "pencil": {
+    "componentRefPattern": "shadcn.button",
+    "rootNodeType": "frame",
+    "allowedDescendantOverrides": {
+      "label.content": "props.children"
+    },
+    "forbiddenOverrides": [
+      "root.fill",
+      "root.cornerRadius"
+    ]
+  },
+  "code": {
+    "framework": "react",
+    "import": "import { Button } from \"@/components/ui/button\"",
+    "component": "Button",
+    "propMap": {
+      "variant": "variant",
+      "size": "size",
+      "children": "children",
+      "asChild": "asChild",
+      "disabled": "disabled",
+      "type": "type"
+    }
+  },
+  "examples": {
+    "good": [
+      "Save changes",
+      "Create workspace",
+      "Subscribe"
+    ],
+    "bad": [
+      "Click here",
+      "Submit（语境不清时）",
+      "OK"
+    ]
+  },
+  "hardRules": [
+    {
+      "id": "shadcn.button.variant_enum",
+      "kind": "schema",
+      "expr": "props.variant in [default,secondary,destructive,outline,ghost,link]",
+      "message": "variant 必须在 shadcn button 的 6 个值内"
+    },
+    {
+      "id": "shadcn.button.size_enum",
+      "kind": "schema",
+      "expr": "props.size in [default,sm,lg,icon]",
+      "message": "size 必须在 shadcn button 的 4 个值内"
+    },
+    {
+      "id": "shadcn.button.children_maxlength",
+      "kind": "schema",
+      "expr": "props.children.maxLength<=28",
+      "message": "children(label) ≤ 28 字符"
+    }
+  ],
+  "softRules": [
+    "destructive variant 是破坏性操作，提交前应二次确认（shadcn 用 AlertDialog）。",
+    "每个 action group 建议最多 1 个 default(primary) 按钮。",
+    "size=icon 必须提供 aria-label（无障碍）。"
+  ],
+  "sourceEvidence": [
+    "https://ui.shadcn.com/docs/components/button",
+    "snapshot: systems/shadcn/sources/shadcn-docs.snapshot.json#shadcn.button"
+  ],
+  "confidence": 0.86,
+  "needsReview": false
+}

@@ -540,6 +540,117 @@
           "text.fill"
         ]
       }
+    },
+    {
+      "id": "shadcn.button",
+      "system": "shadcn",
+      "L0": {
+        "index": "Button — shadcn Button：在当前上下文触发一个用户操作，或用 asChild 让任意元素表现为按钮（如链接成按钮）。"
+      },
+      "L1": {
+        "displayName": "Button",
+        "semanticRole": "action_trigger",
+        "category": "general",
+        "intents": [
+          "primary_action",
+          "secondary_action",
+          "destructive_action"
+        ],
+        "summary": "shadcn Button：在当前上下文触发一个用户操作，或用 asChild 让任意元素表现为按钮（如链接成按钮）。",
+        "keyVariants": {
+          "variant": [
+            "default",
+            "secondary",
+            "destructive",
+            "outline",
+            "ghost",
+            "link"
+          ],
+          "size": [
+            "default",
+            "sm",
+            "lg",
+            "icon"
+          ]
+        },
+        "useWhen": [
+          "提交/确认/继续/创建等显式操作（variant=default 作主操作）",
+          "次要/支持性操作（variant=secondary/outline）",
+          "不可逆破坏性操作（variant=destructive，须二次确认）"
+        ],
+        "doNotUseWhen": [
+          "纯导航且非主操作（用 Link/文字链接更合适）",
+          "整张卡片可点击时放置冗余按钮",
+          "密集列表中的重复操作（用 IconButton，size=icon）"
+        ],
+        "tokenized": [
+          "root.fill",
+          "label.fill",
+          "root.cornerRadius"
+        ]
+      }
+    },
+    {
+      "id": "shadcn.card",
+      "system": "shadcn",
+      "L0": {
+        "index": "Card — shadcn Card：分组容器，含 CardHeader(CardTitle/CardDescription/Card"
+      },
+      "L1": {
+        "displayName": "Card",
+        "semanticRole": "container",
+        "category": "layout",
+        "intents": [
+          "section",
+          "content"
+        ],
+        "summary": "shadcn Card：分组容器，含 CardHeader(CardTitle/CardDescription/CardAction)、CardContent、CardFooter 三个 slot-like 区域。",
+        "keyVariants": {},
+        "useWhen": [
+          "把相关内容分组呈现（登录卡、设置块、摘要卡）",
+          "需要 header/content/footer 结构化分区"
+        ],
+        "doNotUseWhen": [
+          "纯流式正文",
+          "密集表格数据（用 Table）"
+        ],
+        "tokenized": [
+          "root.fill",
+          "root.stroke",
+          "root.cornerRadius"
+        ]
+      }
+    },
+    {
+      "id": "shadcn.input",
+      "system": "shadcn",
+      "L0": {
+        "index": "Input — shadcn Input：单行表单输入。type 驱动语义（email/file/password/...）。"
+      },
+      "L1": {
+        "displayName": "Input",
+        "semanticRole": "input",
+        "category": "data-entry",
+        "intents": [
+          "data_entry",
+          "search"
+        ],
+        "summary": "shadcn Input：单行表单输入。type 驱动语义（email/file/password/...）。",
+        "keyVariants": {},
+        "useWhen": [
+          "单行文本采集（姓名/邮箱/搜索词）",
+          "表单字段（配合 Label）"
+        ],
+        "doNotUseWhen": [
+          "多行长文本（用 Textarea）",
+          "枚举选择（用 Select/Combobox）"
+        ],
+        "tokenized": [
+          "root.fill",
+          "root.stroke",
+          "label.fill"
+        ]
+      }
     }
   ]
 }

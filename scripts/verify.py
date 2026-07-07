@@ -117,6 +117,39 @@ rc, out = cli("validate-ops", "fixtures/notification-settings-page/ops.json")
 d = json.loads(out)
 check("8. AI e2e: notification page validates clean", d["passed"])
 
+# 9. 编译链路：shadcn 体系从 URL 源经 ingest→compile 产出（非手写）
+shad_sys = ROOT / "systems/shadcn/system.json"
+shad_snap = ROOT / "systems/shadcn/sources/shadcn-docs.snapshot.json"
+shad_contracts = list((ROOT / "systems/shadcn/components").glob("*.contract.json"))
+check("9a. compile pipeline: shadcn system + snapshot exist",
+      shad_sys.exists() and shad_snap.exists())
+snap = json.loads(shad_snap.read_text(encoding="utf-8"))
+sysm = json.loads(shad_sys.read_text(encoding="utf-8"))
+provenance_ok = (snap.get("sourceUrl", "").startswith("https://ui.shadcn.com")
+                 and sysm.get("source", {}).get("kind") == "url")
+check("9b. compile pipeline: snapshot source = shadcn URL (real ingestion)", provenance_ok,
+      snap.get("sourceUrl", ""))
+check("9c. compile pipeline: 3 contracts compiled (button/input/card)", len(shad_contracts) == 3,
+      f"{len(shad_contracts)} contracts")
+# 契约的 sourceEvidence 指向源 URL（可审计，非脑补）
+ev_ok = all(any("ui.shadcn.com" in e for e in json.loads(c.read_text(encoding="utf-8")).get("sourceEvidence", []))
+            for c in shad_contracts)
+check("9d. compile pipeline: contracts cite source URL in evidence", ev_ok)
+# compile-context 可跑
+rc, out = cli("compile-context", "--system", "shadcn", "--snapshot", str(shad_snap))
+ctx_ok = rc == 0 and json.loads(out)["systemDefaults"]["newSystem"] is False and \
+         len(json.loads(out)["componentIdsInSnapshot"]) == 3
+check("9e. compile pipeline: compile-context runs (newSystem + 3 ids)", ctx_ok)
+# shadcn 契约全过 schema
+rc, _ = cli("validate-contracts", "systems/shadcn/components/*.json")
+check("9f. compile pipeline: shadcn contracts schema-valid", rc == 0)
+# shadcn 页面可编译（多体系可用）
+rc, _ = cli("compile-code", "fixtures/shadcn-login-page/graph.json", "--framework", "react",
+            "-o", "generated-code/shadcn-login-page/ShadcnLoginPage.tsx")
+tsx = (ROOT / "generated-code/shadcn-login-page/ShadcnLoginPage.tsx").read_text(encoding="utf-8")
+check("9g. compile pipeline: shadcn page → real React import",
+      rc == 0 and "@/components/ui/card" in tsx)
+
 print("\n" + "=" * 50)
 passed = sum(1 for _, ok, _ in results if ok)
 print(f"{passed}/{len(results)} checks passed")
