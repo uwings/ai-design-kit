@@ -1,0 +1,6 @@
+[
+  { "op": "component.insert", "componentId": "antd.input", "parentId": null,
+    "node": { "id": "inp1", "variant": { "intent": "search" },
+      "props": { "label": "搜索", "value": "", "placeholder": "搜索啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊" } },
+    "reason": "placeholder 100+ 字符，触发人审固化后的 maxLength=50 规则", "contractRefs": ["antd.input"] }
+]

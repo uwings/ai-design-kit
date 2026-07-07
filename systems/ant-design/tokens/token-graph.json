@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "0.1",
+  "system": "ant-design",
+  "modes": ["light", "dark"],
+  "defaultMode": "light",
+  "tokens": {
+    "color.primary.seed": { "type": "color", "level": "primitive", "modes": { "light": "#1677ff", "dark": "#1668dc" }, "description": "Daybreak Blue — AntD 品牌主色种子（seed token）" },
+    "color.success.seed": { "type": "color", "level": "primitive", "modes": { "light": "#52c41a", "dark": "#49aa19" } },
+    "color.warning.seed": { "type": "color", "level": "primitive", "modes": { "light": "#faad14", "dark": "#d89614" } },
+    "color.error.seed": { "type": "color", "level": "primitive", "modes": { "light": "#ff4d4f", "dark": "#dc4446" } },
+    "color.neutral.0": { "type": "color", "level": "primitive", "modes": { "light": "#ffffff", "dark": "#000000" } },
+    "color.neutral.1": { "type": "color", "level": "primitive", "modes": { "light": "#fafafa", "dark": "#141414" } },
+    "color.neutral.2": { "type": "color", "level": "primitive", "modes": { "light": "#f5f5f5", "dark": "#1d1d1d" } },
+    "color.neutral.3": { "type": "color", "level": "primitive", "modes": { "light": "#f0f0f0", "dark": "#262626" } },
+    "color.neutral.5": { "type": "color", "level": "primitive", "modes": { "light": "#d9d9d9", "dark": "#434343" } },
+    "color.neutral.7": { "type": "color", "level": "primitive", "modes": { "light": "#8c8c8c", "dark": "#bfbfbf" } },
+    "color.neutral.9": { "type": "color", "level": "primitive", "modes": { "light": "#434343", "dark": "#d9d9d9" } },
+    "color.neutral.10": { "type": "color", "level": "primitive", "modes": { "light": "#000000", "dark": "#ffffff" } },
+
+    "color.brand.primary": { "type": "color", "level": "semantic", "alias": "color.primary.seed", "description": "改此 semantic token 即整体换品牌主色（别名传播到所有 component token）" },
+    "color.success": { "type": "color", "level": "semantic", "alias": "color.success.seed" },
+    "color.warning": { "type": "color", "level": "semantic", "alias": "color.warning.seed" },
+    "color.danger": { "type": "color", "level": "semantic", "alias": "color.error.seed" },
+
+    "font.size.base": { "type": "number", "level": "semantic", "value": 14, "description": "基础字号（PY 残片引用）" },
+    "font.lineHeight.base": { "type": "number", "level": "semantic", "value": 1.5715, "description": "基础行高（PY 残片引用）" },
+    "space.grid.unit": { "type": "number", "level": "semantic", "value": 8, "description": "栅格间距单位（PY 残片引用）" },
+    "color.text.default": { "type": "color", "level": "semantic", "modes": { "light": "#000000d9", "dark": "#ffffffd9" }, "description": "默认文本色（PY 残片引用）" },
+    "color.text.secondary": { "type": "color", "level": "semantic", "modes": { "light": "#00000073", "dark": "#ffffff73" }, "description": "次要文本色（PY 残片引用）" },
+    "color.text.disabled": { "type": "color", "level": "semantic", "modes": { "light": "#00000040", "dark": "#ffffff40" }, "description": "禁用文本色（PY 残片引用）" },
+    "color.border.default": { "type": "color", "level": "semantic", "modes": { "light": "#d9d9d9", "dark": "#434343" }, "description": "默认边框色（PY 残片引用）" },
+    "color.bg.layout": { "type": "color", "level": "semantic", "modes": { "light": "#f5f5f5", "dark": "#000000" }, "description": "布局背景色（PY 残片引用）" },
+    "theme.algorithm.default": { "type": "string", "level": "semantic", "value": "defaultAlgorithm", "description": "AntD 主题算法（PY 残片引用）" },
+
+    "button.primary.background": { "type": "color", "level": "component", "alias": "color.brand.primary" },
+    "button.primary.foreground": { "type": "color", "level": "component", "value": "#ffffff" },
+    "button.default.background": { "type": "color", "level": "component", "modes": { "light": "#ffffff", "dark": "#141414" } },
+    "button.default.border": { "type": "color", "level": "component", "alias": "color.border.default" },
+    "button.danger.background": { "type": "color", "level": "component", "alias": "color.danger" },
+    "button.radius": { "type": "number", "level": "component", "value": 6 },
+    "button.height.md": { "type": "number", "level": "component", "value": 32 },
+
+    "input.border.color": { "type": "color", "level": "component", "alias": "color.border.default" },
+    "input.background": { "type": "color", "level": "component", "modes": { "light": "#ffffff", "dark": "#141414" } },
+    "input.height.md": { "type": "number", "level": "component", "value": 32 },
+
+    "card.background": { "type": "color", "level": "component", "modes": { "light": "#ffffff", "dark": "#141414" } },
+    "card.title.fill": { "type": "color", "level": "component", "alias": "color.text.default" },
+
+    "table.header.background": { "type": "color", "level": "component", "modes": { "light": "#fafafa", "dark": "#1d1d1d" } },
+    "table.row.background": { "type": "color", "level": "component", "modes": { "light": "#ffffff", "dark": "#141414" } },
+    "table.row.bg.subtle": { "type": "color", "level": "component", "modes": { "light": "#fafafa", "dark": "#1d1d1d" }, "description": "斑马纹/striped 行底色" },
+    "table.border.color": { "type": "color", "level": "component", "alias": "color.border.default" },
+
+    "modal.background": { "type": "color", "level": "component", "modes": { "light": "#ffffff", "dark": "#1f1f1f" } },
+    "modal.mask.background": { "type": "color", "level": "component", "value": "#00000073" },
+
+    "tag.background": { "type": "color", "level": "component", "modes": { "light": "#fafafa", "dark": "#1d1d1d" } },
+    "badge.background": { "type": "color", "level": "component", "alias": "color.brand.primary" },
+
+    "alert.info.background": { "type": "color", "level": "component", "modes": { "light": "#e6f4ff", "dark": "#111b26" } },
+    "alert.warning.background": { "type": "color", "level": "component", "modes": { "light": "#fffbe6", "dark": "#2b2111" } },
+    "alert.error.background": { "type": "color", "level": "component", "modes": { "light": "#fff2f0", "dark": "#2a1215" } },
+
+    "menu.background": { "type": "color", "level": "component", "modes": { "light": "#ffffff", "dark": "#141414" } },
+    "menu.item.selected": { "type": "color", "level": "component", "alias": "color.brand.primary" }
+  },
+  "bindings": {
+    "color.brand.primary": ["antd.button:root.fill", "antd.badge:root.fill", "antd.menu:item.selected.fill"],
+    "color.border.default": ["antd.input:root.stroke", "antd.button:root.stroke", "antd.table:cell.stroke"],
+    "color.text.default": ["antd.typography:text.fill", "antd.card:title.fill"],
+    "color.bg.layout": ["antd.layout:root.fill"]
+  }
+}

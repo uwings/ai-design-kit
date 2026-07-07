@@ -1,0 +1,47 @@
+{
+  "description": "组件选择决策树——帮助 AI 在场景歧义时选对组件。配合 intent-taxonomy 使用。",
+  "decisionPoints": [
+    {
+      "question": "用户要触发一个动作吗？",
+      "branches": [
+        { "if": "是，且是最重要的局部动作", "use": "antd.button", "variant": { "intent": "primary" }, "intent": "primary_action" },
+        { "if": "是，支持性动作", "use": "antd.button", "variant": { "intent": "default" }, "intent": "secondary_action" },
+        { "if": "是，且造成不可逆/高风险变化", "use": "antd.button", "variant": { "intent": "danger" }, "intent": "destructive_action", "then": "destructive-confirmation 模式" },
+        { "if": "否，只是移动到相关视图/文档", "use": "antd.breadcrumb / antd.menu", "intent": "navigation", "note": "不要用 Button 做纯导航" }
+      ]
+    },
+    {
+      "question": "要展示一批同构记录吗？",
+      "branches": [
+        { "if": "是，密集、需排序/筛选", "use": "antd.table", "intent": "data_management", "then": "table-with-filters 模式" },
+        { "if": "记录含状态/分类", "use": "antd.tag", "intent": "status_display" },
+        { "if": "记录含计数/未读", "use": "antd.badge", "intent": "status_display" }
+      ]
+    },
+    {
+      "question": "用户要输入数据吗？",
+      "branches": [
+        { "if": "结构化表单", "use": "antd.form", "intent": "data_entry" },
+        { "if": "单行文本/搜索", "use": "antd.input", "intent": "data_entry / search" },
+        { "if": "从枚举中选择", "use": "antd.select", "intent": "data_entry" },
+        { "if": "二态切换（开/关）", "use": "antd.switch", "intent": "toggle", "note": "不要用 Button 做开关" }
+      ]
+    },
+    {
+      "question": "要传达系统状态/结果吗？",
+      "branches": [
+        { "if": "无数据", "use": "EmptyState 模式（antd.typography + antd.button）", "intent": "empty_state", "antiPattern": "alert_for_empty_state" },
+        { "if": "提示/警告/错误横幅", "use": "antd.alert", "intent": "feedback" },
+        { "if": "纯文本内容/标题", "use": "antd.typography", "intent": "content" }
+      ]
+    },
+    {
+      "question": "需要页面骨架/分区吗？",
+      "branches": [
+        { "if": "整页布局（顶栏+侧栏+内容）", "use": "antd.layout", "intent": "section" },
+        { "if": "侧边导航", "use": "antd.menu", "intent": "navigation" },
+        { "if": "路径指示", "use": "antd.breadcrumb", "intent": "navigation" }
+      ]
+    }
+  ]
+}

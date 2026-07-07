@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-design-kit/schemas/semantic-graph.schema.json",
+  "title": "Semantic Design Graph (Component Graph)",
+  "description": "语义设计图——唯一真相源。组件图节点树，每个节点引用注册组件 id。Pencil 与 HTML/React 都从它编译，不互相反推。",
+  "type": "object",
+  "required": ["schemaVersion", "project", "pages"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "project": {
+      "type": "object",
+      "required": ["name", "system"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "system": { "type": "string", "description": "使用的体系，如 ant-design" },
+        "themeMode": { "type": "string", "description": "主题模式，如 light/dark" },
+        "title": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "tokens": { "type": "object", "description": "可选：本项目对 token 的覆盖（projectId/值），留作扩展", "additionalProperties": {} },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "children"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string", "default": "page" },
+          "title": { "type": "string" },
+          "width": { "type": "integer" },
+          "children": { "type": "array", "items": { "$ref": "#/$defs/node" } }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "node": {
+      "type": "object",
+      "required": ["id", "component"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "description": "节点实例 id（页面内唯一）" },
+        "component": { "type": "string", "description": "注册组件 id，如 antd.button（layout-only 容器可用 antd.layout/antd.flex 等）" },
+        "variant": { "type": "object", "description": "变体取值，如 {\"intent\":\"primary\",\"size\":\"large\"}", "additionalProperties": {} },
+        "props": { "type": "object", "description": "契约 props 取值", "additionalProperties": {} },
+        "slots": {
+          "type": "object",
+          "description": "slot 名 -> 子节点数组",
+          "additionalProperties": { "type": "array", "items": { "$ref": "#/$defs/node" } }
+        },
+        "children": { "type": "array", "description": "直接子节点（非 slot 通道）", "items": { "$ref": "#/$defs/node" } },
+        "layout": { "type": "object", "description": "布局意图（响应式覆盖）", "additionalProperties": {} },
+        "states": { "type": "object", "description": "状态绑定", "additionalProperties": {} },
+        "dataBinding": { "type": "string", "description": "数据绑定引用" },
+        "reason": { "type": "string", "description": "为何用此组件（设计理由）" }
+      }
+    }
+  }
+}

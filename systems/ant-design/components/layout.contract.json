@@ -1,0 +1,148 @@
+{
+  "category": "layout",
+  "code": {
+    "component": "Layout",
+    "framework": "react",
+    "import": "import { Layout } from \"antd\";",
+    "propMap": {}
+  },
+  "compositionRules": [
+    {
+      "assert": "Page-level region composition must go through Layout's named slots (header, sider, content, footer) rather than free absolute positioning.",
+      "condition": "always",
+      "id": "layout-is-source-of-truth",
+      "severity": "hard"
+    },
+    {
+      "assert": "Use hasSider on the Layout wrapper when nesting a Sider region so the horizontal flex direction is applied.",
+      "condition": "when a Sider is rendered inside Layout",
+      "id": "sider-requires-hasSider",
+      "severity": "soft"
+    }
+  ],
+  "confidence": 0.9,
+  "displayName": "Layout",
+  "examples": {
+    "bad": [
+      "<Layout><div style={{position:'absolute',top:0,left:0}}>floating header</div></Layout>",
+      "<div style={{display:'flex',flexDirection:'row'}}><Header/><Sider/><Content/></div>",
+      "<Layout>topbar above header without slot routing</Layout>",
+      "<Layout hasSider={undefined} with nested <Sider/></Layout>"
+    ],
+    "good": [
+      "<Layout><Header /><Content /></Layout>",
+      "<Layout hasSider><Sider /><Layout><Header /><Content /></Layout></Layout>",
+      "<Layout><Layout hasSider><Sider /><Content /></Layout><Footer /></Layout>",
+      "<Layout><Header /><Layout hasSider><Sider /><Content /></Layout></Layout>"
+    ]
+  },
+  "hardRules": [
+    {
+      "expr": "props.hasSider == null or typeof props.hasSider === 'boolean'",
+      "id": "hasSider-boolean",
+      "kind": "schema",
+      "message": "hasSider must be omitted or a boolean; it is a hint that Layout contains a Sider child."
+    },
+    {
+      "expr": "slots.header and slots.footer imply horizontal/single-row regions; do not nest another Layout in header without explicit grouping",
+      "id": "region-content-only",
+      "kind": "slot",
+      "message": "Header and Footer are single-region horizontal containers; do not treat them as multi-region flex parents."
+    },
+    {
+      "expr": "no node under content/header/sider/footer carries free absolute positioning (style.position='absolute'/'fixed')",
+      "id": "no-free-absolute-position",
+      "kind": "graph",
+      "message": "Layout is the single source of truth for placement; free absolute/fixed positioning inside regions is forbidden."
+    }
+  ],
+  "id": "antd.layout",
+  "intents": [
+    "section"
+  ],
+  "meaning": {
+    "definition": "Establishes the page-level structural skeleton: a top-level region container that arranges primary regions (header, sider, content, footer) into a coherent application shell so each region occupies an unambiguous place in the spatial hierarchy.",
+    "doNotUseWhen": [
+      "A single inline UI block without page-region semantics (use Card or section instead).",
+      "Positioning a single decorative element that does not warrant a named page region.",
+      "Creating one-off absolutely positioned overlays (use Modal or Popover)."
+    ],
+    "useWhen": [
+      "Assembling the top-level application shell (header + sider + content + footer).",
+      "Defining a distinct page region that other content slots into (header bar, sidebar, main content, footer).",
+      "Establishing the spatial hierarchy before placing interactive content."
+    ]
+  },
+  "needsReview": false,
+  "pencil": {
+    "allowedDescendantOverrides": {},
+    "componentRefPattern": "antd.layout",
+    "forbiddenOverrides": [
+      "root.fill"
+    ],
+    "rootNodeType": "frame"
+  },
+  "props": {
+    "hasSider": {
+      "description": "Hint that the Layout contains a Sider child. Sets the Layout's flex direction to row so a Sider region renders alongside content; omit when there is no Sider.",
+      "type": "boolean"
+    }
+  },
+  "semanticRole": "container",
+  "slots": {
+    "content": {
+      "accepts": [],
+      "layout": "vertical",
+      "required": false
+    },
+    "footer": {
+      "accepts": [],
+      "layout": "horizontal",
+      "required": false
+    },
+    "header": {
+      "accepts": [],
+      "layout": "horizontal",
+      "required": false
+    },
+    "sider": {
+      "accepts": [],
+      "layout": "vertical",
+      "required": false
+    }
+  },
+  "softRules": [
+    "Prefer composing regions with the named Header/Sider/Content/Footer slots over arbitrary nesting.",
+    "Set hasSider on the outer Layout whenever a Sider is present so the row layout applies automatically.",
+    "Avoid overriding root.fill; let the layout background token drive the region surface so the skeleton stays token-driven."
+  ],
+  "sourceEvidence": [
+    "https://ant.design/components/layout/"
+  ],
+  "sourceRefs": [
+    "https://ant.design/components/layout/"
+  ],
+  "states": [
+    "default"
+  ],
+  "system": "ant-design",
+  "tokenBindings": {
+    "root.fill": "color.bg.layout"
+  },
+  "variants": {
+    "structure": {
+      "default": "header-content-footer",
+      "semantics": {
+        "header-content-footer": "Vertical page shell with a top header, main content, and optional bottom footer.",
+        "header-content": "Minimal shell with a header and a single content region.",
+        "hasSider": "Side-by-side shell: a Sider region plus a nested content area; selected via hasSider=true."
+      },
+      "values": [
+        "header-content-footer",
+        "header-content",
+        "hasSider"
+      ]
+    }
+  },
+  "version": "1.0.0"
+}

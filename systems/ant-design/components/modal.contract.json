@@ -1,0 +1,221 @@
+{
+  "category": "feedback",
+  "code": {
+    "component": "Modal",
+    "framework": "react",
+    "import": "import { Modal } from \"antd\";",
+    "propMap": {
+      "cancelText": "cancelText",
+      "okText": "okText",
+      "open": "open",
+      "title": "title"
+    }
+  },
+  "compositionRules": [
+    {
+      "assert": "footer slot contains exactly 2 buttons when both confirm and dismiss actions are offered",
+      "condition": "slot.footer is provided",
+      "id": "footer-pair",
+      "severity": "hard"
+    },
+    {
+      "assert": "a destructive confirm button renders as secondary placement (right-most) unless the entire modal flow is destructive and uses okButtonProps danger",
+      "condition": "footer contains a destructive (danger) button",
+      "id": "destructive-secondary",
+      "severity": "hard"
+    },
+    {
+      "assert": "only one footer button carries the primary intent",
+      "condition": "always",
+      "id": "primary-single",
+      "severity": "hard"
+    },
+    {
+      "assert": "Modal is rendered above a mask/overlay and blocks interaction with the underlying page until dismissed",
+      "condition": "props.open === true",
+      "id": "blocking-layer",
+      "severity": "soft"
+    },
+    {
+      "assert": "Modal title begins with a verb naming the action being confirmed",
+      "condition": "props.title is set",
+      "id": "title-verb",
+      "severity": "soft"
+    }
+  ],
+  "confidence": 0.9,
+  "displayName": "Modal",
+  "examples": {
+    "bad": [
+      "<Modal open={false} title=\"Sure?\" onOk={deleteAccount} onCancel={close} />  // title is vague, not a verb; user cannot tell what is being confirmed",
+      "<Modal open title=\"Delete\" okText=\"Yes\" cancelText=\"No\" onOk={permanentDelete} onCancel={close} />  // okText='Yes' is non-descriptive; destructive ok button lacks danger intent",
+      "<Modal open title=\"Delete project\" onOk={remove} />  // missing onCancel, user has no explicit dismiss path",
+      "<Modal open title=\"Delete everything\" okText=\"Delete\" cancelText=\"Delete\" onOk={wipe} onCancel={close} />  // ambiguous identical labels for both actions"
+    ],
+    "good": [
+      "<Modal open={showDelete} title=\"Delete project\" okText=\"Delete\" cancelText=\"Cancel\" onOk={confirmDelete} onCancel={close} />",
+      "<Modal open={showDiscard} title=\"Discard changes\" okText=\"Discard\" cancelText=\"Keep editing\" okButtonProps={{ danger: true }} onOk={discard} onCancel={close} />",
+      "<Modal open={showSignOut} title=\"Sign out\" okText=\"Sign out\" cancelText=\"Cancel\" onOk={signOut} onCancel={close} />"
+    ]
+  },
+  "hardRules": [
+    {
+      "expr": "fn:destructive_requires_confirmation",
+      "id": "modal-destructive-confirm",
+      "kind": "fn",
+      "message": "Destructive actions must be confirmed via a Modal with explicit okText/cancelText before committing; never execute destructive state changes inline."
+    },
+    {
+      "expr": "props.open.required === true",
+      "id": "modal-open-controlled",
+      "kind": "schema",
+      "message": "Modal must set props.open to control visibility (AntD v5+); uncontrolled visibility is forbidden."
+    },
+    {
+      "expr": "count(slot.footer[*] where intent=='primary') <= 1",
+      "id": "modal-primary-footer",
+      "kind": "slot",
+      "message": "At most one footer button may carry the primary/confirm intent; the dismiss action must be secondary."
+    },
+    {
+      "expr": "props.title.length > 0",
+      "id": "modal-title-required",
+      "kind": "token",
+      "message": "Modal.title must be a non-empty string starting with a verb that names the action being confirmed."
+    }
+  ],
+  "id": "antd.modal",
+  "intents": [
+    "destructive_confirmation",
+    "feedback"
+  ],
+  "meaning": {
+    "definition": "A blocking, decision-forcing dialog that interrupts the current flow to obtain an explicit user commitment before the system proceeds, used to gate consequential (especially destructive or irreversible) actions and to confirm intent before committing state changes.",
+    "doNotUseWhen": [
+      "The content is informational and does not require a decision — use Alert, Notification, or Toast instead",
+      "The interaction can be expressed as an inline confirmation on the triggering control",
+      "Gathering form input is the primary goal and no irreversible action is gated — use a Form in a Drawer or Popover",
+      "Frequent or low-stakes confirmations that would train users to dismiss without reading"
+    ],
+    "useWhen": [
+      "Confirming destructive or irreversible actions such as delete, discard, or overwrite before commit",
+      "Gating data loss or destructive state transitions that cannot be undone",
+      "Requiring explicit acknowledgement before navigating away from unsaved work"
+    ]
+  },
+  "needsReview": false,
+  "pencil": {
+    "allowedDescendantOverrides": {
+      "": ""
+    },
+    "componentRefPattern": "antd.modal",
+    "forbiddenOverrides": [
+      "root.fill",
+      "mask.fill",
+      "root.border.color",
+      "root.radius"
+    ],
+    "rootNodeType": "modal"
+  },
+  "props": {
+    "cancelText": {
+      "default": "Cancel",
+      "description": "Text label for the dismiss button. Use a verb or verb phrase describing the safe alternative (e.g. 'Keep editing', 'Cancel').",
+      "maxLength": 24,
+      "requiredWhen": "props.open === true",
+      "type": "string"
+    },
+    "okText": {
+      "default": "OK",
+      "description": "Text label for the confirm button. Use a concrete action verb (e.g. 'Delete', 'Discard', 'Sign out') rather than generic 'Yes'/'OK'.",
+      "maxLength": 24,
+      "requiredWhen": "props.open === true && intents.includes('destructive_confirmation')",
+      "type": "string"
+    },
+    "open": {
+      "description": "Whether the modal is visible. Must be controlled by parent state (AntD v5+ uses open).",
+      "required": true,
+      "type": "boolean"
+    },
+    "title": {
+      "description": "Modal title. Must be a non-empty verb-led phrase naming the action being confirmed (e.g. 'Delete project').",
+      "maxLength": 60,
+      "minLength": 1,
+      "required": true,
+      "type": "string"
+    }
+  },
+  "semanticRole": "feedback",
+  "slots": {
+    "body": {
+      "accepts": [],
+      "layout": "vertical",
+      "max": 1,
+      "min": 1,
+      "required": true,
+      "rules": [
+        "Describe the consequence of the action concretely; name the affected object",
+        "Avoid generic filler; tell the user what happens if they confirm"
+      ]
+    },
+    "footer": {
+      "accepts": [
+        "antd.button"
+      ],
+      "layout": "horizontal",
+      "max": 2,
+      "min": 1,
+      "required": true,
+      "rules": [
+        "primary max 1",
+        "destructive must be secondary unless destructive flow"
+      ]
+    }
+  },
+  "softRules": [
+    "Prefer verb-led titles that name the action (e.g. 'Delete project') over vague labels like 'Are you sure?'",
+    "Use concrete okText verbs ('Delete', 'Discard') rather than 'Yes' or 'OK'",
+    "When confirming a destructive action, render the confirm button with danger intent via okButtonProps danger",
+    "Keep body copy short and consequence-focused; do not repeat the title verbatim",
+    "Default to right-aligned confirm/dismiss pair; confirm on the right matches user expectation for OK/Cancel"
+  ],
+  "sourceEvidence": [
+    "https://ant.design/components/modal/",
+    "https://ant.design/components/modal-cn/"
+  ],
+  "sourceRefs": [
+    "https://ant.design/components/modal/",
+    "https://ant.design/components/modal-cn/"
+  ],
+  "states": [
+    "closed",
+    "open",
+    "confirming",
+    "canceling"
+  ],
+  "system": "ant-design",
+  "tokenBindings": {
+    "mask.fill": "modal.mask.background",
+    "root.fill": "modal.background"
+  },
+  "variants": {
+    "intent": {
+      "default": "default",
+      "semantics": {
+        "confirm": "Standard confirmation requiring an OK / Cancel decision before proceeding",
+        "danger": "Destructive / irreversible confirmation; the confirm action commits data loss or removal",
+        "default": "Neutral informational or form-bearing modal without explicit confirmation semantics",
+        "info": "Informational modal conveying context before an action",
+        "warning": "Cautionary confirmation surfacing risk before proceeding"
+      },
+      "values": [
+        "default",
+        "confirm",
+        "info",
+        "warning",
+        "danger"
+      ]
+    }
+  },
+  "version": "1.0.0"
+}

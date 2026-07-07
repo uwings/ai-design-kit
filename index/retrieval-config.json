@@ -1,0 +1,15 @@
+{
+  "defaultBackend": "fileread",
+  "availableBackends": [
+    "fileread",
+    "vector",
+    "kc"
+  ],
+  "note": "v1 = 文件直读 + 意图路由（确定性）。vector/kc 由知识编译引擎（KC）接入时实现：KC 消费 index/_kc/<system>.manifest.json 建向量副本。",
+  "contextLevels": {
+    "L0": "index",
+    "L1": "card",
+    "L2": "contract",
+    "L3": "deep"
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "category": "general",
+  "code": {
+    "component": "Typography",
+    "framework": "react",
+    "import": "import { Typography } from \"antd\";",
+    "propMap": {
+      "text": "children",
+      "variant": "variant"
+    }
+  },
+  "compositionRules": [
+    {
+      "assert": "Empty_state patterns SHOULD compose a Title (emphasis) with a secondary Paragraph (description) rather than a single text node, to convey both absence and guidance.",
+      "condition": "intent === 'empty_state'",
+      "id": "typography.composition.empty_state_title_description",
+      "severity": "soft"
+    },
+    {
+      "assert": "Heading variants (h1/h2/h3) MUST be nested in document order and SHOULD NOT skip levels (no h1 -> h3) to preserve semantic document structure.",
+      "condition": "variant in [h1,h2,h3]",
+      "id": "typography.composition.heading_order",
+      "severity": "soft"
+    }
+  ],
+  "confidence": 0.85,
+  "displayName": "Typography",
+  "examples": {
+    "bad": [
+      "{\"variant\":\"h1\",\"text\":\"\"} (empty heading provides no content anchor)",
+      "{\"variant\":\"h3\",\"text\":\"Dashboard\"} after skipping an h1/h2 in the outline (broken heading order)",
+      "Using a heading variant for a one-line instruction that is not a section title",
+      "Wrapping a large interactive block as Typography text instead of a button/link when an action is intended"
+    ],
+    "good": [
+      "{\"variant\":\"h1\",\"text\":\"结算设置\"}",
+      "{\"variant\":\"body\",\"text\":\"默认对账周期为 T+1，可在此调整。\"}",
+      "{\"variant\":\"secondary\",\"text\":\"最后更新于 2026-07-07\"}",
+      "empty_state: a Title \"暂无数据\" plus a secondary Paragraph \"创建你的第一条记录以开始\" composed together"
+    ]
+  },
+  "hardRules": [
+    {
+      "expr": "props.variant.enum in ['h1','h2','h3','body','secondary']",
+      "id": "typography.variant.must_be_known",
+      "kind": "schema",
+      "message": "Typography.variant must be one of h1, h2, h3, body, secondary."
+    },
+    {
+      "expr": "props.children.type === 'string' && length(props.children) > 0",
+      "id": "typography.text.required_nonempty",
+      "kind": "schema",
+      "message": "Typography requires non-empty string children; an empty text node provides no content anchor."
+    },
+    {
+      "expr": "intent === 'empty_state' IMPLIES count(child_components_in(['antd.typography'])) >= 2",
+      "id": "typography.empty_state.composes_title_description",
+      "kind": "graph",
+      "message": "Empty_state intent must compose at least two Typography nodes (title + description) to express absence with guidance."
+    },
+    {
+      "expr": "tokens.used ⊆ ['color.text.default','color.text.secondary']",
+      "id": "typography.tokens.only_text_palette",
+      "kind": "token",
+      "message": "Typography text fill must bind only to color.text.default or color.text.secondary token."
+    },
+    {
+      "expr": "slots == {}",
+      "id": "typography.no_layout_slot",
+      "kind": "slot",
+      "message": "Typography exposes no layout slots; it renders text content only."
+    }
+  ],
+  "id": "antd.typography",
+  "intents": [
+    "content",
+    "empty_state"
+  ],
+  "meaning": {
+    "definition": "Renders textual content with a clear role in the content hierarchy — headings to name a section or decision context, body to convey the substance, and secondary text to de-emphasize supporting or meta information. As an empty_state pattern it composes a title with a description to communicate the absence of data while orienting the user toward a next action.",
+    "doNotUseWhen": [
+      "An action is the primary intent (use Button) or navigation is required (use Menu/Link).",
+      "Long-form structured documentation spanning many paragraphs (prefer a dedicated document/article layout).",
+      "Displaying status that should be glanceable at a distance (use Tag/Badge/Alert)."
+    ],
+    "useWhen": [
+      "Naming a section or decision context via a heading (h1/h2/h3).",
+      "Presenting the main readable substance of a screen or card.",
+      "Conveying meta, helper, timestamp, or de-emphasized secondary information.",
+      "Composing an empty_state with a concise title plus a secondary description and next step."
+    ]
+  },
+  "needsReview": false,
+  "pencil": {
+    "allowedDescendantOverrides": {
+      "text.content": "props.children"
+    },
+    "componentRefPattern": "antd.typography",
+    "forbiddenOverrides": [
+      "root.fill",
+      "root.color",
+      "root.fontSize",
+      "root.fontWeight",
+      "root.lineHeight"
+    ],
+    "rootNodeType": "text"
+  },
+  "props": {
+    "children": {
+      "accepts": [
+        "string"
+      ],
+      "contentRules": [
+        "Must be a non-empty string for heading variants.",
+        "May be empty string only for secondary helper text that intentionally carries no content."
+      ],
+      "description": "Text content to render. Headings and body require meaningful non-empty text; secondary text may carry de-emphasized meta or helper content.",
+      "maxLength": 280,
+      "required": true,
+      "type": "string"
+    },
+    "variant": {
+      "accepts": [
+        "h1",
+        "h2",
+        "h3",
+        "body",
+        "secondary"
+      ],
+      "default": "body",
+      "description": "Content role in the hierarchy: h1/h2/h3 name a section or decision context, body conveys the main readable substance, secondary de-emphasizes meta/helper information.",
+      "enum": [
+        "h1",
+        "h2",
+        "h3",
+        "body",
+        "secondary"
+      ],
+      "required": true,
+      "type": "enum"
+    }
+  },
+  "semanticRole": "content",
+  "slots": {},
+  "softRules": [
+    "Prefer the 'secondary' variant for timestamps, helper text, and footnotes rather than graying out body text manually.",
+    "Keep heading text concise and noun- or action-oriented so it names the section's decision context.",
+    "In empty_state, keep the title short (one phrase) and put the explanation/guidance in the secondary description.",
+    "Do not use a heading variant to label a single control; use the control's own label instead."
+  ],
+  "sourceEvidence": [
+    "https://ant.design/components/typography",
+    "https://ant.design/components/typography#typography-title",
+    "https://ant.design/components/typography#typography-paragraph"
+  ],
+  "sourceRefs": [
+    "https://ant.design/components/typography"
+  ],
+  "states": [
+    "default",
+    "secondary"
+  ],
+  "system": "ant-design",
+  "tokenBindings": {
+    "secondary.fill": "color.text.secondary",
+    "text.fill": "color.text.default"
+  },
+  "variants": {
+    "variant": {
+      "default": "body",
+      "semantics": {
+        "body": "main readable content of the current context",
+        "h1": "top-level section or page title",
+        "h2": "subsection title within a section",
+        "h3": "nested subsection title",
+        "secondary": "de-emphasized meta, helper, or supporting text"
+      },
+      "values": [
+        "h1",
+        "h2",
+        "h3",
+        "body",
+        "secondary"
+      ]
+    }
+  },
+  "version": "1.0.0"
+}

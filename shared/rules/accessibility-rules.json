@@ -1,0 +1,10 @@
+{
+  "description": "无障碍硬规则（WCAG 取向）。低置信不阻塞但 risky。",
+  "rules": [
+    { "id": "icon_only_aria_label", "severity": "hard", "expr": "icon-only interactive component must have ariaLabel", "enforcedBy": "validator:RULE_FNS[icon_only_requires_aria_label]" },
+    { "id": "form_label_required", "severity": "hard", "expr": "every form field has an accessible label (label or ariaLabel)" },
+    { "id": "color_contrast_text", "severity": "hard", "expr": "text on background meets WCAG AA contrast (≥4.5:1 body, ≥3:1 large)", "note": "v1 由 token 对保证；contrast 数值校验留作扩展" },
+    { "id": "not_color_only_state", "severity": "hard", "expr": "status not conveyed by color alone (use tag text + icon, not only color)" },
+    { "id": "focus_visible", "severity": "soft", "expr": "interactive components preserve visible focus ring (token focus.ring)" }
+  ]
+}

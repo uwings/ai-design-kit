@@ -1,0 +1,21 @@
+{
+  "version": "2.0.1",
+  "previous": "2.0.0",
+  "kind": "patch",
+  "system": "ant-design",
+  "checks": {
+    "contractsOk": true,
+    "tokenIssues": 0,
+    "components": 14
+  },
+  "notes": "首版端到端管线跑通：14 契约 + token 图 + 校验 + 编译 + 学习闭环",
+  "package": {
+    "kit.json": "kit.json",
+    "contracts": "systems/ant-design/components/*.contract.json",
+    "tokenGraph": "systems/ant-design/tokens/token-graph.json",
+    "compositions": "systems/ant-design/compositions/*.pattern.json",
+    "schemas": "schemas/*.schema.json",
+    "mappings": "systems/ant-design/mappings/*.json",
+    "index": "index/*.json"
+  }
+}

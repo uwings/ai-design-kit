@@ -1,0 +1,25 @@
+# AI Design Kit — MCP 配置示例（可移植：Codex / Claude Code / 通用 agent）
+# 复制为 .codex/config.toml（Codex）或对应 harness 的 MCP 配置位置。
+
+[mcp_servers.pencil]
+# Pencil MCP：操作 .pen 设计文件（本地，无云依赖）。ADK 用它做视觉校验闭环。
+command = "pencil"
+args = ["mcp"]
+
+# [mcp_servers.figma]                    # 可选：从 Figma 组件库抽取事实（Source Ingestion）
+# url = "https://mcp.figma.com/mcp"
+# bearer_token_env_var = "FIGMA_OAUTH_TOKEN"
+
+# [mcp_servers.playwright]               # 可选：浏览器截图 QA / 视觉对比
+# command = "npx"
+# args = ["-y", "@playwright/mcp"]
+
+# [mcp_servers.github]                   # 可选：代码库 / Code Connect 访问
+# command = "npx"
+# args = ["-y", "@modelcontextprotocol/server-github"]
+# env_vars = ["GITHUB_TOKEN"]
+
+# ADK 约定：
+# - Figma MCP 是"抽取器"，不是"真理层"——抽取事实进入 sources/，编译成契约后才生效。
+# - Pencil MCP 是"编译目标 + 校验器"——ADK 先把语义图确定性编译为 .pen，再用 Pencil MCP 验证。
+# - AI 永远不直接用 batch_design 画类组件 UI；只输出语义操作，由 engine 编译。

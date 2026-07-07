@@ -1,0 +1,8 @@
+[
+  { "op": "component.insert", "componentId": "antd.button", "parentId": null,
+    "node": { "id": "cta1", "variant": { "intent": "primary" }, "props": { "label": "保存" } },
+    "reason": "x", "contractRefs": ["antd.button"] },
+  { "op": "component.insert", "componentId": "antd.button", "parentId": null,
+    "node": { "id": "cta2", "variant": { "intent": "primary" }, "props": { "label": "提交" } },
+    "reason": "同组第二个 primary（违规）", "contractRefs": ["antd.button"] }
+]

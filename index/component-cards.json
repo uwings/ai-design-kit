@@ -1,0 +1,545 @@
+{
+  "cards": [
+    {
+      "id": "antd.alert",
+      "system": "ant-design",
+      "L0": {
+        "index": "Alert — 向用户反馈当前上下文中影响其决策的系统状态、结果或风险，使其能在继续操作前明确知晓并采取相应行动。"
+      },
+      "L1": {
+        "displayName": "Alert",
+        "semanticRole": "feedback",
+        "category": "feedback",
+        "intents": [
+          "feedback"
+        ],
+        "summary": "向用户反馈当前上下文中影响其决策的系统状态、结果或风险，使其能在继续操作前明确知晓并采取相应行动。",
+        "keyVariants": {
+          "intent": [
+            "info",
+            "success",
+            "warning",
+            "error"
+          ]
+        },
+        "useWhen": [
+          "操作结果反馈（成功/失败）",
+          "需要用户注意的上下文风险或警告",
+          "与当前决策相关的信息提示"
+        ],
+        "doNotUseWhen": [
+          "用于表达\"无数据\"或空状态（使用专门的 empty-state 组件）",
+          "作为页面常驻的装饰性横幅或营销文案",
+          "承载可重复的表单字段校验错误（应在对应表单项内联展示）"
+        ],
+        "tokenized": [
+          "error.fill",
+          "info.fill",
+          "warning.fill"
+        ]
+      }
+    },
+    {
+      "id": "antd.badge",
+      "system": "ant-design",
+      "L0": {
+        "index": "Badge — 在锚点元素旁（如头像、列表项、按钮、标签）标注少量数字计数或单一语义状态（如成功/处理中/错误/警告），用于传递'有未读"
+      },
+      "L1": {
+        "displayName": "Badge",
+        "semanticRole": "status_display",
+        "category": "data-display",
+        "intents": [
+          "status_display"
+        ],
+        "summary": "在锚点元素旁（如头像、列表项、按钮、标签）标注少量数字计数或单一语义状态（如成功/处理中/错误/警告），用于传递'有未读/有更新/处于某状态'的当前上下文信号，而非触发操作。",
+        "keyVariants": {
+          "count": [
+            "counted",
+            "status-only"
+          ],
+          "status": [
+            "success",
+            "processing",
+            "default",
+            "error",
+            "warning"
+          ]
+        },
+        "useWhen": [
+          "需要标注未读消息/通知/待办数量",
+          "需要在列表项或头像上标注单一运行状态（success/processing/error/warning）",
+          "需要用一个小点提示'有更新/新内容'"
+        ],
+        "doNotUseWhen": [
+          "需要触发用户操作时（用 Button）",
+          "需要对事物做分类标签时（用 Tag）",
+          "需要展示长文本说明时"
+        ],
+        "tokenized": [
+          "root.fill"
+        ]
+      }
+    },
+    {
+      "id": "antd.breadcrumb",
+      "system": "ant-design",
+      "L0": {
+        "index": "Breadcrumb — 指示当前页面在站点/应用层级结构中的位置（一条从根到当前位置的路径），帮助用户理解所在上下文并定位可回溯的上级路径，而非"
+      },
+      "L1": {
+        "displayName": "Breadcrumb",
+        "semanticRole": "navigation",
+        "category": "navigation",
+        "intents": [
+          "navigation"
+        ],
+        "summary": "指示当前页面在站点/应用层级结构中的位置（一条从根到当前位置的路径），帮助用户理解所在上下文并定位可回溯的上级路径，而非触发明确操作。",
+        "keyVariants": {},
+        "useWhen": [
+          "需要展示当前页面在层级路径中的位置（面包屑路径）",
+          "需要让用户了解「我从哪里来 / 我在哪」的导航上下文",
+          "需要提供回溯到上级页面的层级指示"
+        ],
+        "doNotUseWhen": [
+          "需要触发一个明确的用户操作（保存/提交/删除）——用 Button 或 Link",
+          "需要切换或切换状态——用 Switch",
+          "需要分页导航——用 Pagination"
+        ],
+        "tokenized": [
+          "text.fill"
+        ]
+      }
+    },
+    {
+      "id": "antd.button",
+      "system": "ant-design",
+      "L0": {
+        "index": "Button — 在当前决策上下文触发一个明确的、有边界的用户操作，是页面中可执行动作的最小语义单元。"
+      },
+      "L1": {
+        "displayName": "Button",
+        "semanticRole": "action_trigger",
+        "category": "general",
+        "intents": [
+          "primary_action",
+          "secondary_action",
+          "destructive_action"
+        ],
+        "summary": "在当前决策上下文触发一个明确的、有边界的用户操作，是页面中可执行动作的最小语义单元。",
+        "keyVariants": {
+          "intent": [
+            "primary",
+            "default",
+            "danger",
+            "dashed",
+            "link",
+            "text"
+          ],
+          "size": [
+            "large",
+            "middle",
+            "small"
+          ]
+        },
+        "useWhen": [
+          "页面/弹窗底部需要主操作提交（intent=primary，每组最多 1 个）",
+          "需要次要/取消类操作（intent=default）",
+          "需要不可逆的破坏性操作（intent=danger，须二次确认）"
+        ],
+        "doNotUseWhen": [
+          "仅用于装饰或视觉分隔（用 layout/typography）",
+          "承载可展开收起的内容容器（用 collapse 或 tag）",
+          "作为纯导航且非主操作时（导航优先用 link 文本或 menu）"
+        ],
+        "tokenized": [
+          "label.fill",
+          "root.cornerRadius",
+          "root.fill",
+          "root.height"
+        ]
+      }
+    },
+    {
+      "id": "antd.form",
+      "system": "ant-design",
+      "L0": {
+        "index": "Form — A structured input container that collects a set of related "
+      },
+      "L1": {
+        "displayName": "Form",
+        "semanticRole": "container",
+        "category": "data-entry",
+        "intents": [
+          "data_entry"
+        ],
+        "summary": "A structured input container that collects a set of related user-supplied values, drives field-level validation, and yields a typed values object to the system once all constraints are satisfied.",
+        "keyVariants": {
+          "layout": [
+            "horizontal",
+            "vertical",
+            "inline"
+          ]
+        },
+        "useWhen": [
+          "The user is creating or editing a structured record with two or more logically related fields.",
+          "The system must validate one or more inputs before committing them as a coherent unit.",
+          "Submission should only fire after all required fields pass validation, producing a single values payload."
+        ],
+        "doNotUseWhen": [
+          "Displaying read-only data, single confirm actions, or navigation - use Alert/Modal/Menu instead.",
+          "Capturing a single immediate action rather than a record - use a standalone Button or Switch.",
+          "Presenting tabular existing data without editing - use Table."
+        ],
+        "tokenized": []
+      }
+    },
+    {
+      "id": "antd.input",
+      "system": "ant-design",
+      "L0": {
+        "index": "Input — Captures a single line of free-form text input from the user"
+      },
+      "L1": {
+        "displayName": "Input",
+        "semanticRole": "input",
+        "category": "data-entry",
+        "intents": [
+          "data_entry",
+          "search",
+          "filtering"
+        ],
+        "summary": "Captures a single line of free-form text input from the user as the value of a decision variable within a form or filtering context. intent=search designates the field as a query submission affordance rather than a generic data-entry field, implying a search action is available; intent=password designates a sensitive credential field that must be masked.",
+        "keyVariants": {
+          "intent": [
+            "default",
+            "search",
+            "password"
+          ]
+        },
+        "useWhen": [
+          "A single short free-text value (name, title, identifier, note) must be collected",
+          "The field is a search box that triggers query/filtering submission (intent=\"search\")",
+          "A sensitive credential such as a password must be entered with masked display (intent=\"password\")"
+        ],
+        "doNotUseWhen": [
+          "Multi-line text entry is needed (use TextArea).",
+          "A constrained value from a finite set is required (use Select).",
+          "A numeric value with units / step semantics is required (use InputNumber)."
+        ],
+        "tokenized": [
+          "root.fill",
+          "root.height",
+          "root.stroke"
+        ]
+      }
+    },
+    {
+      "id": "antd.layout",
+      "system": "ant-design",
+      "L0": {
+        "index": "Layout — Establishes the page-level structural skeleton: a top-level "
+      },
+      "L1": {
+        "displayName": "Layout",
+        "semanticRole": "container",
+        "category": "layout",
+        "intents": [
+          "section"
+        ],
+        "summary": "Establishes the page-level structural skeleton: a top-level region container that arranges primary regions (header, sider, content, footer) into a coherent application shell so each region occupies an unambiguous place in the spatial hierarchy.",
+        "keyVariants": {
+          "structure": [
+            "header-content-footer",
+            "header-content",
+            "hasSider"
+          ]
+        },
+        "useWhen": [
+          "Assembling the top-level application shell (header + sider + content + footer).",
+          "Defining a distinct page region that other content slots into (header bar, sidebar, main content, footer).",
+          "Establishing the spatial hierarchy before placing interactive content."
+        ],
+        "doNotUseWhen": [
+          "A single inline UI block without page-region semantics (use Card or section instead).",
+          "Positioning a single decorative element that does not warrant a named page region.",
+          "Creating one-off absolutely positioned overlays (use Modal or Popover)."
+        ],
+        "tokenized": [
+          "root.fill"
+        ]
+      }
+    },
+    {
+      "id": "antd.menu",
+      "system": "ant-design",
+      "L0": {
+        "index": "Menu — Provides persistent navigation structure, indicating the use"
+      },
+      "L1": {
+        "displayName": "Menu",
+        "semanticRole": "navigation",
+        "category": "navigation",
+        "intents": [
+          "navigation"
+        ],
+        "summary": "Provides persistent navigation structure, indicating the user's current location within an application and offering destinations reachable in one step.",
+        "keyVariants": {
+          "mode": [
+            "inline",
+            "vertical",
+            "horizontal"
+          ]
+        },
+        "useWhen": [
+          "Navigating between top-level or section destinations",
+          "Showing current selection/location in a persistent navigation tree",
+          "Side or top navigation menus with many peer destinations"
+        ],
+        "doNotUseWhen": [
+          "Triggering a one-off action that is not a destination (use Button)",
+          "Showing transient status that is not a navigational location (use Alert/Tag)",
+          "Primary task execution (use Button)"
+        ],
+        "tokenized": [
+          "itemSelected.fill",
+          "root.fill"
+        ]
+      }
+    },
+    {
+      "id": "antd.modal",
+      "system": "ant-design",
+      "L0": {
+        "index": "Modal — A blocking, decision-forcing dialog that interrupts the curr"
+      },
+      "L1": {
+        "displayName": "Modal",
+        "semanticRole": "feedback",
+        "category": "feedback",
+        "intents": [
+          "destructive_confirmation",
+          "feedback"
+        ],
+        "summary": "A blocking, decision-forcing dialog that interrupts the current flow to obtain an explicit user commitment before the system proceeds, used to gate consequential (especially destructive or irreversible) actions and to confirm intent before committing state changes.",
+        "keyVariants": {
+          "intent": [
+            "default",
+            "confirm",
+            "info",
+            "warning",
+            "danger"
+          ]
+        },
+        "useWhen": [
+          "Confirming destructive or irreversible actions such as delete, discard, or overwrite before commit",
+          "Gating data loss or destructive state transitions that cannot be undone",
+          "Requiring explicit acknowledgement before navigating away from unsaved work"
+        ],
+        "doNotUseWhen": [
+          "The content is informational and does not require a decision — use Alert, Notification, or Toast instead",
+          "The interaction can be expressed as an inline confirmation on the triggering control",
+          "Gathering form input is the primary goal and no irreversible action is gated — use a Form in a Drawer or Popover"
+        ],
+        "tokenized": [
+          "mask.fill",
+          "root.fill"
+        ]
+      }
+    },
+    {
+      "id": "antd.select",
+      "system": "ant-design",
+      "L0": {
+        "index": "Select — Lets the user commit a single choice (or a bounded set of ch"
+      },
+      "L1": {
+        "displayName": "Select",
+        "semanticRole": "input",
+        "category": "data-entry",
+        "intents": [
+          "data_entry",
+          "filtering"
+        ],
+        "summary": "Lets the user commit a single choice (or a bounded set of choices) from a finite, enumerated domain — turning an open-ended question into a constrained, machine-resolvable answer. In a filtering context it narrows a dataset to the rows matching the chosen value(s).",
+        "keyVariants": {
+          "mode": [
+            "single",
+            "multiple",
+            "tags"
+          ]
+        },
+        "useWhen": [
+          "The user must pick one value from a known, finite list of options.",
+          "A form field has a constrained enum domain (status, category, assignee).",
+          "A list or table needs a filter control that reduces rows by an enumerated attribute."
+        ],
+        "doNotUseWhen": [
+          "The answer space is effectively unbounded or free-form (use antd.input instead).",
+          "There are only two mutually-exclusive states (use antd.switch).",
+          "The choice triggers an immediate primary action rather than recording a value (use antd.button)."
+        ],
+        "tokenized": [
+          "root.fill",
+          "root.stroke"
+        ]
+      }
+    },
+    {
+      "id": "antd.switch",
+      "system": "ant-design",
+      "L0": {
+        "index": "Switch — 在两个互斥状态之间进行明确的二态切换（开启/关闭、启用/禁用），且变更即时作用于当前上下文的状态设置。"
+      },
+      "L1": {
+        "displayName": "Switch",
+        "semanticRole": "input",
+        "category": "data-entry",
+        "intents": [
+          "toggle"
+        ],
+        "summary": "在两个互斥状态之间进行明确的二态切换（开启/关闭、启用/禁用），且变更即时作用于当前上下文的状态设置。",
+        "keyVariants": {
+          "state": [
+            "unchecked",
+            "checked",
+            "disabled"
+          ]
+        },
+        "useWhen": [
+          "在设置或筛选上下文中即时切换某个布尔选项的生效状态",
+          "启用/禁用某个持续性功能或偏好（通知、自动保存、Wi-Fi 等）",
+          "在表格行/列表项上对单条记录的开关型字段进行内联编辑"
+        ],
+        "doNotUseWhen": [
+          "需要从多个选项中选一时（用 Select/Radio/Checkbox）",
+          "变更不可逆或具破坏性、应先确认（用 Modal 或带确认的二次操作）",
+          "需要文本命令触发瞬时动作而非持续状态（用 Button）"
+        ],
+        "tokenized": []
+      }
+    },
+    {
+      "id": "antd.table",
+      "system": "ant-design",
+      "L0": {
+        "index": "Table — 在结构化、同构的记录集合上提供可扫描、可对比、可逐行操作的视图，支撑用户对数据进行浏览、定位与行级管理。"
+      },
+      "L1": {
+        "displayName": "Table",
+        "semanticRole": "data_display",
+        "category": "data-display",
+        "intents": [
+          "data_management"
+        ],
+        "summary": "在结构化、同构的记录集合上提供可扫描、可对比、可逐行操作的视图，支撑用户对数据进行浏览、定位与行级管理。",
+        "keyVariants": {
+          "density": [
+            "default",
+            "compact",
+            "loose"
+          ],
+          "zebra": [
+            "none",
+            "striped"
+          ]
+        },
+        "useWhen": [
+          "需要逐行展示同构记录（如用户列表、订单、日志）",
+          "用户需要在多个字段间横向对比、排序、分页",
+          "需要行内/行尾对单条记录执行操作（编辑、删除、查看详情）"
+        ],
+        "doNotUseWhen": [
+          "用 Table 画营销卡片或富媒体网格——它是记录容器而非视觉排版工具",
+          "只展示一两个字段、无对比或排序需求时，过度工程",
+          "需要树形/分组的探索式分析而非扁平记录浏览时"
+        ],
+        "tokenized": [
+          "cell.stroke",
+          "header.fill",
+          "row.fill",
+          "rowAlt.fill"
+        ]
+      }
+    },
+    {
+      "id": "antd.tag",
+      "system": "ant-design",
+      "L0": {
+        "index": "Tag — Conveys a discrete classification or current state of an ite"
+      },
+      "L1": {
+        "displayName": "Tag",
+        "semanticRole": "status_display",
+        "category": "data-display",
+        "intents": [
+          "status_display"
+        ],
+        "summary": "Conveys a discrete classification or current state of an item within a compact, scannable chip so the user can recognize status, category, or attribute at a glance without reading surrounding context.",
+        "keyVariants": {
+          "status": [
+            "default",
+            "success",
+            "processing",
+            "error",
+            "warning"
+          ]
+        },
+        "useWhen": [
+          "Marking the lifecycle/state of a record (e.g. Approved, Under review, Failed, Draft).",
+          "Categorizing items with a short attribute label (e.g. category, type).",
+          "Providing at-a-glance status in tables, cards, and lists where color + text encode meaning."
+        ],
+        "doNotUseWhen": [
+          "The element is the primary call-to-action or an interactive button — use antd.button instead.",
+          "The information must be read in detail (use typography or a description list).",
+          "Status is critical and requires interruption of the workflow — use antd.alert."
+        ],
+        "tokenized": [
+          "label.fill",
+          "root.fill"
+        ]
+      }
+    },
+    {
+      "id": "antd.typography",
+      "system": "ant-design",
+      "L0": {
+        "index": "Typography — Renders textual content with a clear role in the content hie"
+      },
+      "L1": {
+        "displayName": "Typography",
+        "semanticRole": "content",
+        "category": "general",
+        "intents": [
+          "content",
+          "empty_state"
+        ],
+        "summary": "Renders textual content with a clear role in the content hierarchy — headings to name a section or decision context, body to convey the substance, and secondary text to de-emphasize supporting or meta information. As an empty_state pattern it composes a title with a description to communicate the absence of data while orienting the user toward a next action.",
+        "keyVariants": {
+          "variant": [
+            "h1",
+            "h2",
+            "h3",
+            "body",
+            "secondary"
+          ]
+        },
+        "useWhen": [
+          "Naming a section or decision context via a heading (h1/h2/h3).",
+          "Presenting the main readable substance of a screen or card.",
+          "Conveying meta, helper, timestamp, or de-emphasized secondary information."
+        ],
+        "doNotUseWhen": [
+          "An action is the primary intent (use Button) or navigation is required (use Menu/Link).",
+          "Long-form structured documentation spanning many paragraphs (prefer a dedicated document/article layout).",
+          "Displaying status that should be glanceable at a distance (use Tag/Badge/Alert)."
+        ],
+        "tokenized": [
+          "secondary.fill",
+          "text.fill"
+        ]
+      }
+    }
+  ]
+}

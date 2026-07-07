@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-design-kit/schemas/component-contract.schema.json",
+  "title": "Component Contract",
+  "description": "单个组件的机器可读契约——语义、结构、视觉(token)、行为、代码、Pencil、规则、示例、反例。框架无关 JSON。每条 hardRule 必须可程序化校验（schema/graph/token/slot/fn）。",
+  "type": "object",
+  "required": ["id", "version", "system", "displayName", "semanticRole", "meaning", "variants", "props", "hardRules", "pencil", "code"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*(\\.[a-z0-9-]+)+$",
+      "description": "分层组件 id，体系前缀 + 名字，如 antd.button"
+    },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "system": { "type": "string", "description": "所属体系，如 ant-design" },
+    "displayName": { "type": "string" },
+    "category": {
+      "type": "string",
+      "description": "布局归类：layout | navigation | data-entry | data-display | feedback | general"
+    },
+    "sourceRefs": { "type": "array", "items": { "type": "string" }, "description": "源出处引用（Figma key / 文档 URL / 源码路径）" },
+    "semanticRole": {
+      "type": "string",
+      "description": "语义角色，如 action_trigger / navigation / data_display / input / feedback / container"
+    },
+    "intents": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "ontology 意图标签（见 shared/ontology/intent-taxonomy.json），用于意图路由召回。如 primary_action / destructive_action / data_management"
+    },
+    "meaning": {
+      "type": "object",
+      "required": ["definition"],
+      "additionalProperties": false,
+      "properties": {
+        "definition": { "type": "string" },
+        "useWhen": { "type": "array", "items": { "type": "string" } },
+        "doNotUseWhen": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "variants": {
+      "type": "object",
+      "description": "变体轴 -> {values, default, semantics}。semantics 描述每个值的语义差异（不是视觉）",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["values"],
+        "additionalProperties": false,
+        "properties": {
+          "values": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "default": { "type": "string" },
+          "semantics": { "type": "object", "additionalProperties": { "type": "string" } }
+        }
+      }
+    },
+    "props": {
+      "type": "object",
+      "description": "属性名 -> 属性定义",
+      "additionalProperties": { "$ref": "#/$defs/prop" }
+    },
+    "slots": {
+      "type": "object",
+      "description": "slot 名 -> slot 契约（强类型：accepts/min/max）",
+      "additionalProperties": { "$ref": "#/$defs/slot" }
+    },
+    "states": { "type": "array", "items": { "type": "string" }, "description": "如 default/hover/disabled/loading/error/empty" },
+    "tokenBindings": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "视觉路径 -> token 表达式，如 {\"root.fill\":\"button.{intent}.background\"}。AI 不硬编码这些值"
+    },
+    "compositionRules": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/compositionRule" }
+    },
+    "pencil": { "$ref": "#/$defs/pencilMapping" },
+    "code": { "$ref": "#/$defs/codeMapping" },
+    "examples": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "good": { "type": "array", "items": { "type": "string" } },
+        "bad": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "hardRules": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/hardRule" },
+      "description": "硬规则：可机器校验，违反则阻塞。kind 决定校验器类别"
+    },
+    "softRules": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "软规则：风格/偏好，提示或扣分，不阻塞"
+    },
+    "sourceEvidence": { "type": "array", "items": { "type": "string" }, "description": "每条判断的来源证据" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "needsReview": { "type": "boolean", "description": "低置信判断标记待人工审核" }
+  },
+  "$defs": {
+    "prop": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "enum": ["string", "number", "boolean", "enum", "componentRef", "asset", "color", "object", "array"] },
+        "required": { "type": "boolean" },
+        "requiredWhen": { "type": "string", "description": "条件必填，如 'label visually hidden or iconOnly==true'" },
+        "default": {},
+        "enum": { "type": "array", "items": {} },
+        "minLength": { "type": "integer", "minimum": 0 },
+        "maxLength": { "type": "integer", "minimum": 0 },
+        "minimum": { "type": "number" },
+        "maximum": { "type": "number" },
+        "accepts": { "type": "array", "items": { "type": "string" }, "description": "type=componentRef 时允许的组件 id" },
+        "contentRules": { "type": "array", "items": { "type": "string" } },
+        "description": { "type": "string" }
+      }
+    },
+    "slot": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "accepts": { "type": "array", "items": { "type": "string" }, "description": "允许放入的 component id 列表" },
+        "min": { "type": "integer", "minimum": 0 },
+        "max": { "type": "integer", "minimum": 0 },
+        "required": { "type": "boolean" },
+        "layout": { "enum": ["vertical", "horizontal", "grid", "none"] },
+        "rules": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "compositionRule": {
+      "type": "object",
+      "required": ["id", "severity", "assert"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "severity": { "enum": ["hard", "soft"] },
+        "condition": { "type": "string", "description": "触发条件，留空=全局" },
+        "assert": { "type": "string", "description": "可程序化判定的断言表达式" }
+      }
+    },
+    "hardRule": {
+      "type": "object",
+      "required": ["id", "kind", "expr"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "enum": ["schema", "graph", "token", "slot", "fn"], "description": "校验器类别：schema=结构/类型；graph=组件图关系；token=token 合规；slot=slot 契约；fn=自定义函数" },
+        "expr": { "type": "string", "description": "可机器校验的表达式/约束（如 label.maxLength<=28；fill must reference token）" },
+        "message": { "type": "string" }
+      }
+    },
+    "pencilMapping": {
+      "type": "object",
+      "required": ["componentRefPattern"],
+      "additionalProperties": false,
+      "properties": {
+        "componentRefPattern": { "type": "string", "description": "Pencil reusable 组件 id 模式，如 antd.button.{intent}.{size}" },
+        "rootNodeType": { "type": "string", "description": "Pencil 根节点类型，如 frame/text/group；默认 frame" },
+        "allowedDescendantOverrides": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "允许覆盖的 descendant path -> 来源（props.x / tokens.y）"
+        },
+        "forbiddenOverrides": { "type": "array", "items": { "type": "string" }, "description": "禁止覆盖的 path（通常是 token 化的视觉属性）" }
+      }
+    },
+    "codeMapping": {
+      "type": "object",
+      "required": ["framework", "component"],
+      "additionalProperties": false,
+      "properties": {
+        "framework": { "type": "string", "description": "如 react" },
+        "import": { "type": "string", "description": "import 语句，如 'import { Button } from \"antd\"'" },
+        "component": { "type": "string", "description": "代码组件名，如 Button" },
+        "propMap": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "契约 prop -> 代码 prop，如 {\"label\":\"children\",\"intent\":\"type\"}"
+        }
+      }
+    }
+  }
+}

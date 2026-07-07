@@ -1,0 +1,9 @@
+{
+  "system": "ant-design",
+  "modes": ["light", "dark"],
+  "defaultMode": "light",
+  "modeBehavior": "主题切换只改 semantic token（如 color.brand.primary / color.text.* / color.bg.*），让别名传播到 component token；不直接改组件颜色。",
+  "axes": [
+    { "name": "mode", "values": ["light", "dark"] }
+  ]
+}

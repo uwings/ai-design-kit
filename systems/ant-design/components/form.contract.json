@@ -1,0 +1,204 @@
+{
+  "category": "data-entry",
+  "code": {
+    "component": "Form",
+    "framework": "react",
+    "import": "import { Form } from \"antd\";",
+    "propMap": {
+      "layout": "layout"
+    }
+  },
+  "compositionRules": [
+    {
+      "assert": "Submit trigger must render a Form.Item with htmlType=\"submit\" placed after all data fields, not interleaved",
+      "condition": "form has a submit action",
+      "id": "submit-at-end",
+      "severity": "soft"
+    },
+    {
+      "assert": "No two sibling input fields should share the same name prop within a single Form instance",
+      "condition": "always",
+      "id": "unique-field-names",
+      "severity": "hard"
+    },
+    {
+      "assert": "Form fields should not be nested inside a Card with no label; the field-annotator relationship is lost for assistive tech",
+      "condition": "always",
+      "id": "fields-not-orphaned",
+      "severity": "soft"
+    }
+  ],
+  "confidence": 0.9,
+  "displayName": "Form",
+  "examples": {
+    "bad": [
+      "<Form><Form.Item name=\"email\" label=\"Email\"><Input /></Form.Item></Form> where onFinish is omitted so the entered data never gets validated or captured",
+      "<Button htmlType=\"submit\" /> placed above the first field, breaking top-to-bottom read order before submit",
+      "<Form><Form.Item><Input /></Form.Item><Form.Item><Input /></Form.Item></Form> with no name on any item, so values are unreachable on submit",
+      "Using plain <input> elements directly inside <Form.Item> instead of an antd input component, losing validation binding and field-annotator wiring",
+      "A form with required fields but no rules on those items, so the required asterisk is purely decorative"
+    ],
+    "good": [
+      "<Form layout=\"vertical\" onFinish={handleSubmit}><Form.Item name=\"email\" label=\"Email\" rules={[{ required: true }]}><Input /></Form.Item><Form.Item><Button type=\"primary\" htmlType=\"submit\">Submit</Button></Form.Item></Form>",
+      "<Form layout=\"horizontal\" onFinish={onFinish} onFinishFailed={onFinishFailed}>...fields...</Form>",
+      "<Form.Item name=\"username\" label=\"Username\" rules={[{ required: true, message: 'Please enter username' }]}><Input /></Form.Item>",
+      "<Form layout=\"inline\"><Form.Item name=\"keyword\"><Input placeholder=\"Search\" /></Form.Item><Form.Item><Button type=\"primary\" htmlType=\"submit\">Go</Button></Form.Item></Form>"
+    ]
+  },
+  "hardRules": [
+    {
+      "expr": "root.props.onFinish != null",
+      "id": "form-must-have-onfinish",
+      "kind": "schema",
+      "message": "A Form must declare an onFinish handler; without it the entered data is not captured on a successful validation pass."
+    },
+    {
+      "expr": "descendant[type='submit'] exists",
+      "id": "form-needs-submit-trigger",
+      "kind": "schema",
+      "message": "Every Form must contain at least one submit trigger (Form.Item wrapping a Button with htmlType=\"submit\") so the user can complete the entry."
+    },
+    {
+      "expr": "every Form.Item has name",
+      "id": "field-item-must-have-name",
+      "kind": "schema",
+      "message": "Each Form.Item that wraps an input must have a name prop so its value is reachable in the onFinish values object."
+    },
+    {
+      "expr": "not exists slot.fields descendant of type Form",
+      "id": "form-not-nested-in-form",
+      "kind": "graph",
+      "message": "A Form must not be nested inside another Form; field binding and submission scope become ambiguous."
+    }
+  ],
+  "id": "antd.form",
+  "intents": [
+    "data_entry"
+  ],
+  "meaning": {
+    "definition": "A structured input container that collects a set of related user-supplied values, drives field-level validation, and yields a typed values object to the system once all constraints are satisfied.",
+    "doNotUseWhen": [
+      "Displaying read-only data, single confirm actions, or navigation - use Alert/Modal/Menu instead.",
+      "Capturing a single immediate action rather than a record - use a standalone Button or Switch.",
+      "Presenting tabular existing data without editing - use Table.",
+      "Filtering or searching a dataset - prefer a compact search/filter bar unless a multi-field record is genuinely being created."
+    ],
+    "useWhen": [
+      "The user is creating or editing a structured record with two or more logically related fields.",
+      "The system must validate one or more inputs before committing them as a coherent unit.",
+      "Submission should only fire after all required fields pass validation, producing a single values payload."
+    ]
+  },
+  "needsReview": false,
+  "pencil": {
+    "allowedDescendantOverrides": {
+      "label.content": "props.label"
+    },
+    "componentRefPattern": "antd.form",
+    "forbiddenOverrides": [
+      "root.fill",
+      "root.stroke",
+      "label.fill",
+      "item.border.color"
+    ],
+    "rootNodeType": "container"
+  },
+  "props": {
+    "layout": {
+      "default": "horizontal",
+      "description": "Arrangement axis for label/control pairs: horizontal (label left), vertical (label above), or inline (single row, compact).",
+      "enum": [
+        "horizontal",
+        "vertical",
+        "inline"
+      ],
+      "required": false,
+      "type": "enum"
+    },
+    "onFinish": {
+      "description": "Function invoked only after all field validations pass, receiving the finished values object as its sole argument. Required so entered data is actually captured.",
+      "required": true,
+      "requiredWhen": "form has at least one submit trigger",
+      "type": "string"
+    },
+    "onFinishFailed": {
+      "description": "Function invoked when submission is attempted but one or more fields fail validation, receiving the error info.",
+      "required": false,
+      "type": "string"
+    },
+    "requiredMark": {
+      "default": true,
+      "description": "Whether to render the required-field asterisk marker. Must stay true when any field declares a required rule.",
+      "required": false,
+      "type": "boolean"
+    }
+  },
+  "semanticRole": "container",
+  "slots": {
+    "fields": {
+      "accepts": [
+        "antd.input",
+        "antd.select",
+        "antd.switch"
+      ],
+      "layout": "vertical",
+      "min": 1,
+      "rules": [
+        "Each field should be wrapped by a Form.Item so its value and validation participate in onFinish.",
+        "At least one Form.Item should host a submit Button (htmlType=\"submit\") at the bottom of the form."
+      ]
+    },
+    "submit": {
+      "accepts": [
+        "antd.button"
+      ],
+      "layout": "vertical",
+      "max": 1,
+      "min": 1,
+      "required": true,
+      "rules": [
+        "Must be a single Button with htmlType=\"submit\", typically type=\"primary\", placed as the last field row."
+      ]
+    }
+  },
+  "softRules": [
+    "Prefer layout=\"vertical\" on long or unfamiliar forms so labels stay readable on narrow viewports.",
+    "Always provide a meaningful message on required-field rules so failed validation gives actionable feedback.",
+    "Place the primary submit button at the bottom-right of the form, with any secondary/reset action to its left.",
+    "Group semantically related fields with the headings/section affordance rather than one flat list when there are 7+ fields."
+  ],
+  "sourceEvidence": [
+    "https://ant.design/components/form",
+    "https://ant.design/components/form#api"
+  ],
+  "sourceRefs": [
+    "https://ant.design/components/form"
+  ],
+  "states": [
+    "pristine",
+    "dirty",
+    "validating",
+    "valid",
+    "invalid",
+    "submitting",
+    "submitted"
+  ],
+  "system": "ant-design",
+  "tokenBindings": {},
+  "variants": {
+    "layout": {
+      "default": "horizontal",
+      "semantics": {
+        "horizontal": "Label aligned to the left of its control; best for wide forms on desktop.",
+        "inline": "All fields and the submit action collapsed onto a single row; best for compact, single-action bars like quick filters.",
+        "vertical": "Label stacked above its control; best for long or narrow-view forms and accessible label pairing."
+      },
+      "values": [
+        "horizontal",
+        "vertical",
+        "inline"
+      ]
+    }
+  },
+  "version": "1.0.0"
+}

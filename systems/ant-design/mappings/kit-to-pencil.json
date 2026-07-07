@@ -1,0 +1,21 @@
+{
+  "system": "ant-design",
+  "target": "pencil",
+  "conventions": {
+    "reusableIdPattern": "<componentId>",
+    "variablePrefix": "$",
+    "metadataKey": "metadata"
+  },
+  "componentMaps": [
+    { "componentId": "antd.button", "targetId": "antd.button", "propMap": { "label": "label.content", "intent": "metadata.variant.intent", "size": "metadata.variant.size" }, "tokenMap": { "root.fill": "button.{intent}.background", "label.fill": "button.{intent}.foreground" } },
+    { "componentId": "antd.table", "targetId": "antd.table", "tokenMap": { "header.fill": "table.header.background", "row.fill": "table.row.background", "rowAlt.fill": "table.row.bg.subtle" } },
+    { "componentId": "antd.input", "targetId": "antd.input", "tokenMap": { "root.stroke": "input.border.color", "root.fill": "input.background" } },
+    { "componentId": "antd.modal", "targetId": "antd.modal", "tokenMap": { "root.fill": "modal.background", "mask.fill": "modal.mask.background" } },
+    { "componentId": "antd.tag", "targetId": "antd.tag", "tokenMap": { "root.fill": "tag.background" } },
+    { "componentId": "antd.badge", "targetId": "antd.badge", "tokenMap": { "root.fill": "badge.background" } },
+    { "componentId": "antd.layout", "targetId": "antd.layout", "tokenMap": { "root.fill": "color.bg.layout" } },
+    { "componentId": "antd.menu", "targetId": "antd.menu", "tokenMap": { "root.fill": "menu.background", "itemSelected.fill": "menu.item.selected" } },
+    { "componentId": "antd.alert", "targetId": "antd.alert", "tokenMap": { "info.fill": "alert.info.background", "warning.fill": "alert.warning.background", "error.fill": "alert.error.background" } },
+    { "componentId": "antd.card", "targetId": "antd.card", "tokenMap": { "root.fill": "card.background", "title.fill": "card.title.fill" } }
+  ]
+}

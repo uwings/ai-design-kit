@@ -1,0 +1,5 @@
+[
+  { "op": "component.insert", "componentId": "antd.button", "parentId": null,
+    "node": { "id": "del1", "variant": { "intent": "danger" }, "props": { "label": "删除" } },
+    "reason": "破坏性操作但页面无确认 Modal（违规）", "contractRefs": ["antd.button"] }
+]

@@ -1,0 +1,7 @@
+[
+  { "op": "component.insert", "componentId": "antd.button", "parentId": null,
+    "node": { "id": "b1", "variant": { "intent": "primary" }, "props": { "label": "保存" } },
+    "reason": "x", "contractRefs": ["antd.button"] },
+  { "op": "component.setProp", "nodeId": "b1", "prop": "color", "value": "#ff0000",
+    "reason": "硬编码颜色（应走 token）", "contractRefs": ["antd.button"] }
+]

@@ -1,0 +1,182 @@
+{
+  "category": "feedback",
+  "code": {
+    "component": "Alert",
+    "framework": "react",
+    "import": "import { Alert } from \"antd\";",
+    "propMap": {
+      "description": "description",
+      "intent": "type",
+      "message": "message",
+      "showIcon": "showIcon"
+    }
+  },
+  "compositionRules": [],
+  "confidence": 0.9,
+  "displayName": "Alert",
+  "examples": {
+    "bad": [
+      "<Alert type=\"info\" message=\"No results found\" />",
+      "<Alert type=\"error\" message=\"Save failed\" /> (无 description 说明可纠正的修复路径)",
+      "<Alert message=\"WIP, ignore this\" /> (装饰性横幅，无明确决策上下文)",
+      "<Alert type=\"warning\" message=\"\" />",
+      "用多个并列 Alert 表达一组互斥的表单校验错误（应收敛为表单内联校验）"
+    ],
+    "good": [
+      "<Alert type=\"success\" message=\"Profile updated\" showIcon />",
+      "<Alert type=\"warning\" message=\"Unsaved changes\" description=\"You have 3 unsaved fields. Review before leaving.\" showIcon action={<Button>Save now</Button>} />",
+      "<Alert type=\"error\" message=\"Payment failed\" description=\"Your card was declined. Try a different card or contact your bank.\" showIcon />",
+      "<Alert type=\"info\" message=\"We updated our pricing\" description=\"New plans start July 1. See details.\" showIcon />"
+    ]
+  },
+  "hardRules": [
+    {
+      "expr": "props.intent in ['info','success','warning','error']",
+      "id": "intent-axis",
+      "kind": "schema",
+      "message": "AntD Alert type must be one of success|info|warning|error"
+    },
+    {
+      "expr": "props.message != null and len(trim(props.message)) > 0",
+      "id": "message-required",
+      "kind": "schema",
+      "message": "Alert.message is required and must be non-empty"
+    },
+    {
+      "expr": "props.intent == 'error' implies props.description != null or child::*[self::action] exists",
+      "id": "error-actionable",
+      "kind": "graph",
+      "message": "error Alert must be actionable/correctable: provide description with a corrective path or an action affordance"
+    },
+    {
+      "expr": "not(props.intent == 'info' and exists(context('empty_state')))",
+      "id": "no-empty-state",
+      "kind": "schema",
+      "message": "Do not use Alert for empty-state (anti-pattern alert_for_empty_state); use the dedicated empty-state component"
+    }
+  ],
+  "id": "antd.alert",
+  "intents": [
+    "feedback"
+  ],
+  "meaning": {
+    "definition": "向用户反馈当前上下文中影响其决策的系统状态、结果或风险，使其能在继续操作前明确知晓并采取相应行动。",
+    "doNotUseWhen": [
+      "用于表达\"无数据\"或空状态（使用专门的 empty-state 组件）",
+      "作为页面常驻的装饰性横幅或营销文案",
+      "承载可重复的表单字段校验错误（应在对应表单项内联展示）",
+      "需要持续操作的主操作入口（应使用 Button 或页面区段）"
+    ],
+    "useWhen": [
+      "操作结果反馈（成功/失败）",
+      "需要用户注意的上下文风险或警告",
+      "与当前决策相关的信息提示",
+      "错误状态需要用户知晓并可纠正"
+    ]
+  },
+  "needsReview": false,
+  "pencil": {
+    "allowedDescendantOverrides": {
+      "message.content": "props.message"
+    },
+    "componentRefPattern": "antd.alert",
+    "forbiddenOverrides": [
+      "root.fill",
+      "root.borderColor",
+      "root.iconColor",
+      "root.textColor"
+    ]
+  },
+  "props": {
+    "description": {
+      "accepts": [
+        "string"
+      ],
+      "contentRules": [
+        "非空",
+        "当用于 error 时建议给出可纠正的修复路径"
+      ],
+      "description": "辅助说明文本，用于补充 message，常用于解释可采取的纠正操作。",
+      "type": "string"
+    },
+    "intent": {
+      "accepts": [
+        "success",
+        "info",
+        "warning",
+        "error"
+      ],
+      "description": "反馈意图轴，映射到 AntD type prop，决定语义与对应的设计 token 配色。",
+      "enum": [
+        "info",
+        "success",
+        "warning",
+        "error"
+      ],
+      "required": true,
+      "type": "enum"
+    },
+    "message": {
+      "accepts": [
+        "string"
+      ],
+      "contentRules": [
+        "必填",
+        "非空",
+        "表达可被用户理解的语义而非技术错误码"
+      ],
+      "description": "主反馈文本，必填，概述本次反馈的核心信息。",
+      "required": true,
+      "type": "string"
+    },
+    "showIcon": {
+      "default": false,
+      "description": "是否显示与 intent 对应的图标，以增强反馈语义的可识别性。",
+      "type": "boolean"
+    }
+  },
+  "semanticRole": "feedback",
+  "slots": {},
+  "softRules": [
+    "优先使用与 AntD 默认一致的 intent 语义配色，避免手动覆盖 token 颜色。",
+    "在表单提交错误等需用户纠正的场景，提供 description 说明可操作的修复路径或附带可操作 affordance。",
+    "同一视图内避免堆叠过多 Alert，重要反馈应收敛。",
+    "info 用于中性上下文提示，warning 用于需注意但不阻断的风险，error 用于需立即纠正的问题，success 用于确认正向结果。"
+  ],
+  "sourceEvidence": [
+    "https://ant.design/components/alert"
+  ],
+  "sourceRefs": [
+    "https://ant.design/components/alert"
+  ],
+  "states": [
+    "default",
+    "with-icon",
+    "with-action",
+    "closable"
+  ],
+  "system": "ant-design",
+  "tokenBindings": {
+    "error.fill": "alert.error.background",
+    "info.fill": "alert.info.background",
+    "warning.fill": "alert.warning.background"
+  },
+  "variants": {
+    "intent": {
+      "default": "info",
+      "semantics": {
+        "error": "需立即纠正的错误反馈",
+        "info": "中性上下文提示",
+        "success": "操作成功的正向确认",
+        "warning": "需用户注意的风险提示"
+      },
+      "values": [
+        "info",
+        "success",
+        "warning",
+        "error"
+      ]
+    }
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "AntD 组件 ↔ 意图 映射（喂意图路由表 intent-index）。供 indexer 生成 index/intent-index.json。",
+  "byIntent": {
+    "primary_action": ["antd.button"],
+    "secondary_action": ["antd.button"],
+    "destructive_action": ["antd.button"],
+    "destructive_confirmation": ["antd.modal", "antd.button"],
+    "navigation": ["antd.menu", "antd.breadcrumb"],
+    "data_management": ["antd.table", "antd.tag", "antd.badge"],
+    "data_entry": ["antd.form", "antd.input", "antd.select", "antd.switch"],
+    "filtering": ["antd.input", "antd.select"],
+    "search": ["antd.input"],
+    "bulk_action": ["antd.button"],
+    "empty_state": ["antd.typography", "antd.button"],
+    "status_display": ["antd.tag", "antd.badge"],
+    "toggle": ["antd.switch"],
+    "feedback": ["antd.alert"],
+    "content": ["antd.typography"],
+    "section": ["antd.layout"]
+  }
+}

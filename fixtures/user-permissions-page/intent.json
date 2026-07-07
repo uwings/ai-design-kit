@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "0.1",
+  "request": "做一个企业后台的用户权限管理页面",
+  "pageType": "enterprise-admin",
+  "businessObject": "user permission",
+  "informationStructure": ["table + filters + role management + destructive row actions"],
+  "intents": ["data_management", "section", "filtering", "destructive_confirmation"],
+  "riskActions": ["remove access", "change role"],
+  "style": "enterprise, high-density, low-saturation; 亮色；Ant Design",
+  "system": "ant-design",
+  "patterns": ["admin-user-permissions", "table-with-filters", "destructive-confirmation"],
+  "components": ["antd.layout", "antd.menu", "antd.breadcrumb", "antd.input", "antd.select", "antd.button", "antd.table", "antd.tag", "antd.modal", "antd.typography"]
+}

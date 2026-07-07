@@ -1,0 +1,820 @@
+{
+  "version": "2.13",
+  "variables": {
+    "color.primary.seed": {
+      "type": "color",
+      "value": "#1677ff"
+    },
+    "color.success.seed": {
+      "type": "color",
+      "value": "#52c41a"
+    },
+    "color.warning.seed": {
+      "type": "color",
+      "value": "#faad14"
+    },
+    "color.error.seed": {
+      "type": "color",
+      "value": "#ff4d4f"
+    },
+    "color.neutral.0": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "color.neutral.1": {
+      "type": "color",
+      "value": "#fafafa"
+    },
+    "color.neutral.2": {
+      "type": "color",
+      "value": "#f5f5f5"
+    },
+    "color.neutral.3": {
+      "type": "color",
+      "value": "#f0f0f0"
+    },
+    "color.neutral.5": {
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "color.neutral.7": {
+      "type": "color",
+      "value": "#8c8c8c"
+    },
+    "color.neutral.9": {
+      "type": "color",
+      "value": "#434343"
+    },
+    "color.neutral.10": {
+      "type": "color",
+      "value": "#000000"
+    },
+    "color.brand.primary": {
+      "type": "color",
+      "value": "#1677ff"
+    },
+    "color.success": {
+      "type": "color",
+      "value": "#52c41a"
+    },
+    "color.warning": {
+      "type": "color",
+      "value": "#faad14"
+    },
+    "color.danger": {
+      "type": "color",
+      "value": "#ff4d4f"
+    },
+    "font.size.base": {
+      "type": "number",
+      "value": 14
+    },
+    "font.lineHeight.base": {
+      "type": "number",
+      "value": 1.5715
+    },
+    "space.grid.unit": {
+      "type": "number",
+      "value": 8
+    },
+    "color.text.default": {
+      "type": "color",
+      "value": "#000000d9"
+    },
+    "color.text.secondary": {
+      "type": "color",
+      "value": "#00000073"
+    },
+    "color.text.disabled": {
+      "type": "color",
+      "value": "#00000040"
+    },
+    "color.border.default": {
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "color.bg.layout": {
+      "type": "color",
+      "value": "#f5f5f5"
+    },
+    "theme.algorithm.default": {
+      "type": "string",
+      "value": "defaultAlgorithm"
+    },
+    "button.primary.background": {
+      "type": "color",
+      "value": "#1677ff"
+    },
+    "button.primary.foreground": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "button.default.background": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "button.default.border": {
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "button.danger.background": {
+      "type": "color",
+      "value": "#ff4d4f"
+    },
+    "button.radius": {
+      "type": "number",
+      "value": 6
+    },
+    "button.height.md": {
+      "type": "number",
+      "value": 32
+    },
+    "input.border.color": {
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "input.background": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "input.height.md": {
+      "type": "number",
+      "value": 32
+    },
+    "card.background": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "card.title.fill": {
+      "type": "color",
+      "value": "#000000d9"
+    },
+    "table.header.background": {
+      "type": "color",
+      "value": "#fafafa"
+    },
+    "table.row.background": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "table.row.bg.subtle": {
+      "type": "color",
+      "value": "#fafafa"
+    },
+    "table.border.color": {
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "modal.background": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "modal.mask.background": {
+      "type": "color",
+      "value": "#00000073"
+    },
+    "tag.background": {
+      "type": "color",
+      "value": "#fafafa"
+    },
+    "badge.background": {
+      "type": "color",
+      "value": "#1677ff"
+    },
+    "alert.info.background": {
+      "type": "color",
+      "value": "#e6f4ff"
+    },
+    "alert.warning.background": {
+      "type": "color",
+      "value": "#fffbe6"
+    },
+    "alert.error.background": {
+      "type": "color",
+      "value": "#fff2f0"
+    },
+    "menu.background": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "menu.item.selected": {
+      "type": "color",
+      "value": "#1677ff"
+    }
+  },
+  "children": [
+    {
+      "id": "antd.alert",
+      "type": "frame",
+      "reusable": true,
+      "layout": "vertical",
+      "padding": 8,
+      "metadata": {
+        "type": "design-system-component",
+        "componentId": "antd.alert",
+        "contractVersion": "1.0.0",
+        "system": "ant-design",
+        "allowedDescendantOverrides": {
+          "message.content": "props.message"
+        },
+        "tokenBindings": {
+          "error.fill": "alert.error.background",
+          "info.fill": "alert.info.background",
+          "warning.fill": "alert.warning.background"
+        },
+        "slotContracts": {},
+        "variantAxes": [
+          "intent"
+        ]
+      },
+      "children": [
+        {
+          "id": "label",
+          "type": "text",
+          "content": "Alert"
+        }
+      ]
+    },
+    {
+      "id": "antd.badge",
+      "type": "badge",
+      "reusable": true,
+      "layout": "vertical",
+      "padding": 8,
+      "metadata": {
+        "type": "design-system-component",
+        "componentId": "antd.badge",
+        "contractVersion": "1.0.0",
+        "system": "ant-design",
+        "allowedDescendantOverrides": {
+          "count.content": "props.count",
+          "status.content": "props.status",
+          "text.content": "props.text"
+        },
+        "tokenBindings": {
+          "root.fill": "badge.background"
+        },
+        "slotContracts": {},
+        "variantAxes": [
+          "count",
+          "status"
+        ]
+      },
+      "fill": "$badge.background",
+      "children": [
+        {
+          "id": "label",
+          "type": "text",
+          "content": "Badge"
+        }
+      ]
+    },
+    {
+      "id": "antd.breadcrumb",
+      "type": "frame",
+      "reusable": true,
+      "layout": "vertical",
+      "padding": 8,
+      "metadata": {
+        "type": "design-system-component",
+        "componentId": "antd.breadcrumb",
+        "contractVersion": "1.0.0",
+        "system": "ant-design",
+        "allowedDescendantOverrides": {
+          "": "props.items[].title"
+        },
+        "tokenBindings": {
+          "text.fill": "color.text.secondary"
+        },
+        "slotContracts": {},
+        "variantAxes": []
+      }
+    },
+    {
+      "id": "antd.button",
+      "type": "button",
+      "reusable": true,
+      "layout": "vertical",
+      "padding": 8,
+      "metadata": {
+        "type": "design-system-component",
+        "componentId": "antd.button",
+        "contractVersion": "1.0.0",
+        "system": "ant-design",
+        "allowedDescendantOverrides": {
+          "label.content": "props.label"
+        },
+        "tokenBindings": {
+          "label.fill": "button.primary.foreground",
+          "root.cornerRadius": "button.radius",
+          "root.fill": "button.primary.background",
+          "root.height": "button.height.md"
+        },
+        "slotContracts": {},
+        "variantAxes": [
+          "intent",
+          "size"
+        ]
+      },
+      "fill": "$button.primary.background",
+      "children": [
+        {
+          "id": "label",
+          "type": "text",
+          "content": "Button",
+          "fill": "$button.primary.foreground"
+        }
+      ]
+    },
+    {
+      "id": "antd.form",
+      "type": "container",
+      "reusable": true,
+      "layout": "vertical",
+      "padding": 8,
+      "metadata": {
+        "type": "design-system-component",
+        "componentId": "antd.form",
+        "contractVersion": "1.0.0",
+        "system": "ant-design",
+        "allowedDescendantOverrides": {
+          "label.content": "props.label"
+        },
+        "tokenBindings": {},
+        "slotContracts": {
+          "fields": {
+            "accepts": [
+              "antd.input",
+              "antd.select",
+              "antd.switch"
+            ],
+            "layout": "vertical",
+            "min": 1,
+            "rules": [
+              "Each field should be wrapped by a Form.Item so its value and validation participate in onFinish.",
+              "At least one Form.Item should host a submit Button (htmlType=\"submit\") at the bottom of the form."
+            ]
+          },
+          "submit": {
+            "accepts": [
+              "antd.button"
+            ],
+            "layout": "vertical",
+            "max": 1,
+            "min": 1,
+            "required": true,
+            "rules": [
+              "Must be a single Button with htmlType=\"submit\", typically type=\"primary\", placed as the last field row."
+            ]
+          }
+        },
+        "variantAxes": [
+          "layout"
+        ]
+      },
+      "children": [
+        {
+          "id": "label",
+          "type": "text",
+          "content": "Form"
+        },
+        {
+          "id": "slot-fields",
+          "type": "frame",
+          "name": "slot:fields",
+          "slot": [
+            "antd.input",
+            "antd.select",
+            "antd.switch"
+          ],
+          "layout": "vertical",
+          "metadata": {
+            "slotName": "fields",
+            "accepts": [
+              "antd.input",
+              "antd.select",
+              "antd.switch"
+            ],
+            "min": 1,
+            "max": 999
+          }
+        },
+        {
+          "id": "slot-submit",
+          "type": "frame",
+          "name": "slot:submit",
+          "slot": [
+            "antd.button"
+          ],
+          "layout": "vertical",
+          "metadata": {
+            "slotName": "submit",
+            "accepts": [
+              "antd.button"
+            ],
+            "min": 1,
+            "max": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "antd.input",
+      "type": "input",
+      "reusable": true,
+      "layout": "vertical",
+      "padding": 8,
+      "metadata": {
+        "type": "design-system-component",
+        "componentId": "antd.input",
+        "contractVersion": "1.0.0",
+        "system": "ant-design",
+        "allowedDescendantOverrides": {
+          "label.content": "props.placeholder"
+        },
+        "tokenBindings": {
+          "root.fill": "input.background",
+          "root.height": "input.height.md",
+          "root.stroke": "input.border.color"
+        },
+        "slotContracts": {},
+        "variantAxes": [
+          "intent"
+        ]
+      },
+      "fill": "$input.background",
+      "children": [
+        {
+          "id": "label",
+          "type": "text",
+          "content": "Input"
+        }
+      ]
+    },
+    {
+      "id": "antd.layout",
+      "type": "frame",
+      "reusable": true,
+      "layout": "vertical",
+      "padding": 8,
+      "metadata": {
+        "type": "design-system-component",
+        "componentId": "antd.layout",
+        "contractVersion": "1.0.0",
+        "system": "ant-design",
+        "allowedDescendantOverrides": {},
+        "tokenBindings": {
+          "root.fill": "color.bg.layout"
+        },
+        "slotContracts": {
+          "content": {
+            "accepts": [],
+            "layout": "vertical",
+            "required": false
+          },
+          "footer": {
+            "accepts": [],
+            "layout": "horizontal",
+            "required": false
+          },
+          "header": {
+            "accepts": [],
+            "layout": "horizontal",
+            "required": false
+          },
+          "sider": {
+            "accepts": [],
+            "layout": "vertical",
+            "required": false
+          }
+        },
+        "variantAxes": [
+          "structure"
+        ]
+      },
+      "fill": "$color.bg.layout",
+      "children": [
+        {
+          "id": "slot-content",
+          "type": "frame",
+          "name": "slot:content",
+          "slot": [],
+          "layout": "vertical",
+          "metadata": {
+            "slotName": "content",
+            "accepts": [],
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "id": "slot-footer",
+          "type": "frame",
+          "name": "slot:footer",
+          "slot": [],
+          "layout": "horizontal",
+          "metadata": {
+            "slotName": "footer",
+            "accepts": [],
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "id": "slot-header",
+          "type": "frame",
+          "name": "slot:header",
+          "slot": [],
+          "layout": "horizontal",
+          "metadata": {
+            "slotName": "header",
+            "accepts": [],
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "id": "slot-sider",
+          "type": "frame",
+          "name": "slot:sider",
+          "slot": [],
+          "layout": "vertical",
+          "metadata": {
+            "slotName": "sider",
+            "accepts": [],
+            "min": 0,
+            "max": 999
+          }
+        }
+      ]
+    },
+    {
+      "id": "antd.menu",
+      "type": "menu",
+      "reusable": true,
+      "layout": "vertical",
+      "padding": 8,
+      "metadata": {
+        "type": "design-system-component",
+        "componentId": "antd.menu",
+        "contractVersion": "1.0.0",
+        "system": "ant-design",
+        "allowedDescendantOverrides": {
+          "label.content": "props.label"
+        },
+        "tokenBindings": {
+          "itemSelected.fill": "menu.item.selected",
+          "root.fill": "menu.background"
+        },
+        "slotContracts": {},
+        "variantAxes": [
+          "mode"
+        ]
+      },
+      "fill": "$menu.background"
+    },
+    {
+      "id": "antd.modal",
+      "type": "modal",
+      "reusable": true,
+      "layout": "vertical",
+      "padding": 8,
+      "metadata": {
+        "type": "design-system-component",
+        "componentId": "antd.modal",
+        "contractVersion": "1.0.0",
+        "system": "ant-design",
+        "allowedDescendantOverrides": {
+          "": ""
+        },
+        "tokenBindings": {
+          "mask.fill": "modal.mask.background",
+          "root.fill": "modal.background"
+        },
+        "slotContracts": {
+          "body": {
+            "accepts": [],
+            "layout": "vertical",
+            "max": 1,
+            "min": 1,
+            "required": true,
+            "rules": [
+              "Describe the consequence of the action concretely; name the affected object",
+              "Avoid generic filler; tell the user what happens if they confirm"
+            ]
+          },
+          "footer": {
+            "accepts": [
+              "antd.button"
+            ],
+            "layout": "horizontal",
+            "max": 2,
+            "min": 1,
+            "required": true,
+            "rules": [
+              "primary max 1",
+              "destructive must be secondary unless destructive flow"
+            ]
+          }
+        },
+        "variantAxes": [
+          "intent"
+        ]
+      },
+      "fill": "$modal.background",
+      "children": [
+        {
+          "id": "label",
+          "type": "text",
+          "content": "Modal"
+        },
+        {
+          "id": "slot-body",
+          "type": "frame",
+          "name": "slot:body",
+          "slot": [],
+          "layout": "vertical",
+          "metadata": {
+            "slotName": "body",
+            "accepts": [],
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "slot-footer",
+          "type": "frame",
+          "name": "slot:footer",
+          "slot": [
+            "antd.button"
+          ],
+          "layout": "horizontal",
+          "metadata": {
+            "slotName": "footer",
+            "accepts": [
+              "antd.button"
+            ],
+            "min": 1,
+            "max": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "antd.select",
+      "type": "select",
+      "reusable": true,
+      "layout": "vertical",
+      "padding": 8,
+      "metadata": {
+        "type": "design-system-component",
+        "componentId": "antd.select",
+        "contractVersion": "1.0.0",
+        "system": "ant-design",
+        "allowedDescendantOverrides": {
+          "label.content": "props.placeholder"
+        },
+        "tokenBindings": {
+          "root.fill": "input.background",
+          "root.stroke": "input.border.color"
+        },
+        "slotContracts": {},
+        "variantAxes": [
+          "mode"
+        ]
+      },
+      "fill": "$input.background",
+      "children": [
+        {
+          "id": "label",
+          "type": "text",
+          "content": "Select"
+        }
+      ]
+    },
+    {
+      "id": "antd.switch",
+      "type": "switch",
+      "reusable": true,
+      "layout": "vertical",
+      "padding": 8,
+      "metadata": {
+        "type": "design-system-component",
+        "componentId": "antd.switch",
+        "contractVersion": "1.0.0",
+        "system": "ant-design",
+        "allowedDescendantOverrides": {
+          "props.ariaLabel": "label.content"
+        },
+        "tokenBindings": {},
+        "slotContracts": {},
+        "variantAxes": [
+          "state"
+        ]
+      },
+      "children": [
+        {
+          "id": "label",
+          "type": "text",
+          "content": "Switch"
+        }
+      ]
+    },
+    {
+      "id": "antd.table",
+      "type": "table",
+      "reusable": true,
+      "layout": "vertical",
+      "padding": 8,
+      "metadata": {
+        "type": "design-system-component",
+        "componentId": "antd.table",
+        "contractVersion": "1.0.0",
+        "system": "ant-design",
+        "allowedDescendantOverrides": {},
+        "tokenBindings": {
+          "cell.stroke": "table.border.color",
+          "header.fill": "table.header.background",
+          "row.fill": "table.row.background",
+          "rowAlt.fill": "table.row.bg.subtle"
+        },
+        "slotContracts": {},
+        "variantAxes": [
+          "density",
+          "zebra"
+        ]
+      },
+      "children": [
+        {
+          "id": "label",
+          "type": "text",
+          "content": "Table"
+        }
+      ]
+    },
+    {
+      "id": "antd.tag",
+      "type": "tag",
+      "reusable": true,
+      "layout": "vertical",
+      "padding": 8,
+      "metadata": {
+        "type": "design-system-component",
+        "componentId": "antd.tag",
+        "contractVersion": "1.0.0",
+        "system": "ant-design",
+        "allowedDescendantOverrides": {
+          "label.content": "props.children"
+        },
+        "tokenBindings": {
+          "label.fill": "color.text.default",
+          "root.fill": "tag.background"
+        },
+        "slotContracts": {},
+        "variantAxes": [
+          "status"
+        ]
+      },
+      "fill": "$tag.background",
+      "children": [
+        {
+          "id": "label",
+          "type": "text",
+          "content": "Tag",
+          "fill": "$color.text.default"
+        }
+      ]
+    },
+    {
+      "id": "antd.typography",
+      "type": "text",
+      "reusable": true,
+      "layout": "vertical",
+      "padding": 8,
+      "metadata": {
+        "type": "design-system-component",
+        "componentId": "antd.typography",
+        "contractVersion": "1.0.0",
+        "system": "ant-design",
+        "allowedDescendantOverrides": {
+          "text.content": "props.children"
+        },
+        "tokenBindings": {
+          "secondary.fill": "color.text.secondary",
+          "text.fill": "color.text.default"
+        },
+        "slotContracts": {},
+        "variantAxes": [
+          "variant"
+        ]
+      },
+      "children": [
+        {
+          "id": "label",
+          "type": "text",
+          "content": "Typography"
+        }
+      ]
+    }
+  ]
+}

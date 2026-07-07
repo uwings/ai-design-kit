@@ -1,0 +1,61 @@
+{
+  "description": "反模式——常见错误组合与修复策略。供 critic 与 feedback-learner 引用。",
+  "antiPatterns": [
+    {
+      "id": "raw_imitation_component",
+      "name": "用 raw frame/text/rectangle 模仿系统组件",
+      "why": "绕过组件库，失去身份追踪、token 约束、slot 契约；视觉像但不是组件。",
+      "fix": "替换为对应注册组件的 ref 实例（component.insert）",
+      "severity": "blocking"
+    },
+    {
+      "id": "hardcoded_color",
+      "name": "硬编码颜色（#hex/rgb）",
+      "why": "主题切换/品牌换色失效；破坏 token 一致性。",
+      "fix": "token.reference 绑定到 semantic/component token",
+      "severity": "blocking"
+    },
+    {
+      "id": "alert_for_empty_state",
+      "name": "用 Alert 表达'无数据'",
+      "why": "无数据不是错误；Alert 制造不必要的紧迫感。",
+      "fix": "用 EmptyState 模式（typography + secondary action）",
+      "severity": "blocking"
+    },
+    {
+      "id": "primary_cta_overuse",
+      "name": "一个 action group 多个 primary 按钮",
+      "why": "稀释主行动号召，用户不知该点哪个。",
+      "fix": "只保留 1 个 primary，其余降为 secondary/default",
+      "severity": "blocking"
+    },
+    {
+      "id": "destructive_without_confirmation",
+      "name": "破坏性操作无确认弹窗",
+      "why": "误操作不可逆，高风险。",
+      "fix": "套用 destructive-confirmation 模式插入确认 Modal",
+      "severity": "blocking"
+    },
+    {
+      "id": "detached_instance",
+      "name": "detach 组件实例后自由改",
+      "why": "脱离组件库，失去更新与约束。",
+      "fix": "用 allowedDescendantOverrides 而非 detach",
+      "severity": "blocking"
+    },
+    {
+      "id": "pricing_display_token_misuse",
+      "name": "价格文本用了 hero display token",
+      "why": "信息层级错乱，破坏排版节奏。",
+      "fix": "价格用规定 type token（如 type.display.small）",
+      "severity": "risky"
+    },
+    {
+      "id": "filter_after_data",
+      "name": "筛选器放在表格之后",
+      "why": "违反数据浏览直觉，用户先看到数据再发现筛选。",
+      "fix": "filters grouped before the table",
+      "severity": "risky"
+    }
+  ]
+}

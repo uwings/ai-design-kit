@@ -1,0 +1,84 @@
+{
+  "scenarios": [
+    {
+      "id": "admin-page",
+      "displayName": "企业后台管理页",
+      "intent": [
+        "data_management",
+        "section"
+      ],
+      "structure": [
+        "layout(top+side)",
+        "header(breadcrumb+actions)",
+        "filterBar",
+        "dataTable",
+        "detailDrawer/modal"
+      ],
+      "requiredComponents": [
+        "antd.layout",
+        "antd.menu",
+        "antd.table"
+      ]
+    },
+    {
+      "id": "dashboard",
+      "displayName": "仪表盘",
+      "intent": [
+        "data_management",
+        "content"
+      ],
+      "structure": [
+        "layout",
+        "statRow(card+statistic)",
+        "chartGrid",
+        "activityFeed"
+      ],
+      "requiredComponents": []
+    },
+    {
+      "id": "settings-page",
+      "displayName": "设置页",
+      "intent": [
+        "data_entry",
+        "section"
+      ],
+      "structure": [
+        "layout",
+        "sectionNav",
+        "formBlocks",
+        "stickySaveBar"
+      ],
+      "requiredComponents": [
+        "antd.form"
+      ]
+    },
+    {
+      "id": "form-flow",
+      "displayName": "表单流程",
+      "intent": [
+        "data_entry"
+      ],
+      "structure": [
+        "form",
+        "fieldGroups",
+        "validation",
+        "submit(primary)+reset(secondary)"
+      ],
+      "requiredComponents": []
+    },
+    {
+      "id": "empty-state",
+      "displayName": "空状态",
+      "intent": [
+        "empty_state"
+      ],
+      "structure": [
+        "icon/illustration(opt)",
+        "title(typography)",
+        "description(typography secondary)",
+        "action(button secondary)"
+      ],
+      "requiredComponents": []
+    }
+  ]
+}

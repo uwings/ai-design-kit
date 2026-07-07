@@ -1,0 +1,190 @@
+{
+  "category": "data-display",
+  "code": {
+    "component": "Tag",
+    "framework": "react",
+    "import": "import { Tag } from \"antd\";",
+    "propMap": {
+      "children": "label",
+      "color": "color"
+    }
+  },
+  "compositionRules": [
+    {
+      "assert": "when color is a semantic token (success/processing/error/default/warning), an icon or text label MUST carry the status name or an accessible name so screen readers announce the status independent of color",
+      "condition": "tag.color in [success, processing, error, default, warning]",
+      "id": "tag-status-not-color-only",
+      "severity": "hard"
+    },
+    {
+      "assert": "tag color MUST be one of the semantic preset values success | processing | error | default | warning; arbitrary hex values are discouraged unless a brand-specific custom status is required and the status is also conveyed textually",
+      "condition": "component is antd.tag",
+      "id": "tag-color-semantic-only",
+      "severity": "hard"
+    }
+  ],
+  "confidence": 0.88,
+  "displayName": "Tag",
+  "examples": {
+    "bad": [
+      "<Tag color=\"#ff0000\">Error</Tag> (arbitrary hex; status conveyed by color alone)",
+      "<Tag color=\"error\">  </Tag> (empty label; status readable only via color)",
+      "<Tag color=\"green\">Paid</Tag> (non-semantic color name obscures the status meaning)",
+      "<Tag color=\"success\">Delete item</Tag> (status tag misused as an action button)"
+    ],
+    "good": [
+      "<Tag color=\"success\">Approved</Tag>",
+      "<Tag color=\"processing\">Under review</Tag>",
+      "<Tag color=\"warning\">Action needed</Tag>",
+      "<Tag color=\"error\">Payment failed</Tag>",
+      "<Tag color=\"default\">Draft</Tag>"
+    ]
+  },
+  "hardRules": [
+    {
+      "expr": "props.color != null and props.color not in ['success','processing','error','default','warning'] -> not matches(props.color, '^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$')",
+      "id": "tag-color-must-be-semantic",
+      "kind": "schema",
+      "message": "Tag.color should use a semantic preset (success | processing | error | default | warning); arbitrary colors are only acceptable as a hex literal, never as an unconstrained string."
+    },
+    {
+      "expr": "hasText(props.children) == true",
+      "id": "tag-must-have-label",
+      "kind": "schema",
+      "message": "A status Tag must carry a non-empty textual label so the status is not communicated by color alone."
+    },
+    {
+      "expr": "tokenBindings['label.fill'] in ['color.text.default','color.text.secondary'] and tokenBindings['root.fill'] in ['tag.background','badge.background','alert.info.background','alert.warning.background','alert.error.background','card.background']",
+      "id": "tag-token-bindings-valid",
+      "kind": "token",
+      "message": "tokenBindings for Tag may only bind root.fill and label.fill to the allowed non-placeholder token ids."
+    },
+    {
+      "expr": "every(variant in variants.values, variant in ['default','success','processing','error','warning'])",
+      "id": "tag-variant-axis-semantic",
+      "kind": "slot",
+      "message": "The status variant axis must only yield the AntD semantic color presets: default | success | processing | error | warning."
+    }
+  ],
+  "id": "antd.tag",
+  "intents": [
+    "status_display"
+  ],
+  "meaning": {
+    "definition": "Conveys a discrete classification or current state of an item within a compact, scannable chip so the user can recognize status, category, or attribute at a glance without reading surrounding context.",
+    "doNotUseWhen": [
+      "The element is the primary call-to-action or an interactive button — use antd.button instead.",
+      "The information must be read in detail (use typography or a description list).",
+      "Status is critical and requires interruption of the workflow — use antd.alert.",
+      "The chip is decorative and carries no semantic classification."
+    ],
+    "useWhen": [
+      "Marking the lifecycle/state of a record (e.g. Approved, Under review, Failed, Draft).",
+      "Categorizing items with a short attribute label (e.g. category, type).",
+      "Providing at-a-glance status in tables, cards, and lists where color + text encode meaning."
+    ]
+  },
+  "needsReview": false,
+  "pencil": {
+    "allowedDescendantOverrides": {
+      "label.content": "props.children"
+    },
+    "componentRefPattern": "antd.tag",
+    "forbiddenOverrides": [
+      "root.fill",
+      "root.radius",
+      "root.borderColor"
+    ],
+    "rootNodeType": "tag"
+  },
+  "props": {
+    "children": {
+      "accepts": [
+        "antd.typography",
+        "antd.badge",
+        "antd.tag"
+      ],
+      "contentRules": [
+        "Prefer a short, human-readable status noun phrase (<= 24 characters).",
+        "When used inside a table cell or list, keep label text consistent across rows for the same status."
+      ],
+      "description": "The visible status or classification label text rendered inside the tag.",
+      "maxLength": 32,
+      "required": true,
+      "type": "string"
+    },
+    "color": {
+      "accepts": [
+        "success",
+        "processing",
+        "error",
+        "default",
+        "warning"
+      ],
+      "contentRules": [
+        "Must pair the semantic color with a label that literally names or implies the same status.",
+        "Do not substitute color for text; status must survive a grayscale printout."
+      ],
+      "default": "default",
+      "description": "Semantic status preset that binds the tag to a shared system meaning (success, processing, error, default, warning). Use these instead of arbitrary hex colors so the status is consistent, theme-aware, and accessible.",
+      "enum": [
+        "default",
+        "success",
+        "processing",
+        "error",
+        "warning"
+      ],
+      "required": true,
+      "requiredWhen": "props.children is present",
+      "type": "enum"
+    }
+  },
+  "semanticRole": "status_display",
+  "slots": {},
+  "softRules": [
+    "Prefer the five semantic color presets over custom hex; reserve custom colors for genuine brand/category distinctions.",
+    "Keep tag labels short and parallel across a set (e.g. always nouns or past-participle verbs), so a column of tags reads as a consistent vocabulary.",
+    "Do not stack more than three tags on a single row of content without wrapping; prefer grouping or summarizing.",
+    "A status tag is non-interactive by default; if selection is needed, use an antd.button in text/link style or antd.switch instead."
+  ],
+  "sourceEvidence": [
+    "https://ant.design/components/tag/ — Status Tag: preset five colors (success, processing, error, default, warning) on the color property to indicate specific status.",
+    "WCAG 2.1 SC 1.4.1 (Use of Color) — status must not be conveyed by color alone, requiring a textual label alongside color."
+  ],
+  "sourceRefs": [
+    "https://ant.design/components/tag/",
+    "https://ant.design/components/tag#api"
+  ],
+  "states": [
+    "idle",
+    "success",
+    "processing",
+    "warning",
+    "error"
+  ],
+  "system": "ant-design",
+  "tokenBindings": {
+    "label.fill": "color.text.default",
+    "root.fill": "tag.background"
+  },
+  "variants": {
+    "status": {
+      "default": "default",
+      "semantics": {
+        "default": "neutral / unclassified",
+        "error": "failed or blocked state",
+        "processing": "in-progress / pending state",
+        "success": "positive outcome state",
+        "warning": "needs-attention state"
+      },
+      "values": [
+        "default",
+        "success",
+        "processing",
+        "error",
+        "warning"
+      ]
+    }
+  },
+  "version": "1.0.0"
+}

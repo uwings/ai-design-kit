@@ -1,0 +1,25 @@
+{
+  "id": "admin-user-permissions",
+  "system": "ant-design",
+  "displayName": "企业后台用户权限管理页",
+  "intent": ["data_management", "section", "destructive_confirmation"],
+  "description": "标准权限管理页：布局骨架 + 面包屑 + 筛选栏 + 用户/角色表格 + 详情抽屉 + 破坏性确认。",
+  "requiredComponents": ["antd.layout", "antd.menu", "antd.breadcrumb", "antd.table"],
+  "optionalComponents": ["antd.form", "antd.input", "antd.select", "antd.button", "antd.tag", "antd.badge", "antd.switch", "antd.alert", "antd.modal", "antd.typography"],
+  "order": ["antd.layout", "antd.menu", "antd.breadcrumb", "filterBar", "antd.table", "detailPanel", "antd.modal"],
+  "slots": {
+    "filterBar": { "accepts": ["antd.input", "antd.select", "antd.button"], "min": 1, "max": 5, "layout": "horizontal", "rules": ["filters_grouped_before_data", "reset_action_recommended"] },
+    "rowActions": { "accepts": ["antd.button"], "max": 3, "rules": ["destructive_row_action_needs_confirmation", "primary_max_one_per_action_group"] },
+    "detailPanel": { "accepts": ["antd.descriptions", "antd.typography", "antd.tag"], "layout": "vertical" }
+  },
+  "responsive": { "desktop": "sider+content", "tablet": "collapsible sider", "mobile": "top menu + stacked" },
+  "antiPatterns": [
+    { "name": "破坏性行操作无确认", "why": "误删不可逆", "fix": "destructive-confirmation 模式插入 Modal" },
+    { "name": "用 Alert 表达无用户", "why": "无数据非错误", "fix": "empty_state（Typography + secondary action）" },
+    { "name": "筛选器放在表格之后", "why": "违反浏览直觉", "fix": "filterBar 在 table 之前" }
+  ],
+  "examples": {
+    "good": [{ "structure": "Layout > (Sider Menu, Content > Breadcrumb + FilterBar[search Input, role Select, Add primary Button] + Table[role Tags, row actions: Edit default + Remove danger] + confirm Modal)" }],
+    "bad": [{ "structure": "裸 div 网格 + 多个 primary 按钮 + 删除直接执行无确认" }]
+  }
+}

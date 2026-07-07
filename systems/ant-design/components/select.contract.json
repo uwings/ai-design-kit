@@ -1,0 +1,190 @@
+{
+  "category": "data-entry",
+  "code": {
+    "component": "Select",
+    "framework": "react",
+    "import": "import { Select } from \"antd\";",
+    "propMap": {
+      "mode": "mode",
+      "options": "options",
+      "value": "value"
+    }
+  },
+  "compositionRules": [
+    {
+      "assert": "For any filtering or list-view UI, prefer antd.select over a free-text antd.input to constrain the answer set.",
+      "condition": "intent == filtering or root is list/table toolbar",
+      "id": "cmp.select.prefer-over-input",
+      "severity": "soft"
+    },
+    {
+      "assert": "Render antd.select inside antd.form.Item (not bare) so the selected value participates in form validation and submission.",
+      "condition": "component participates in a form",
+      "id": "cmp.select.in-form-item",
+      "severity": "soft"
+    }
+  ],
+  "confidence": 0.9,
+  "displayName": "Select",
+  "examples": {
+    "bad": [
+      "<Select options={[{label:'All',value:'all'},{label:'Active',value:'active'}]} placeholder=\"Filter by status\" mode=\"multiple\" />  // multi-value filtering",
+      "<Select options={users.map(u=>({label:u.name,value:u.id}))} placeholder=\"Select assignee\" />  // enum of dynamic options",
+      "<Typography><Select options={opts} value=\"opt-1\" /></Typography>  // embedded inline choice"
+    ],
+    "good": [
+      "<Select options={[{label:'All',value:'all'},{label:'Active',value:'active'}]} placeholder=\"Filter by status\" />  // single-value filtering",
+      "<Select options={[]} />  // MISSING placeholder: user sees an empty control with no guidance"
+    ]
+  },
+  "hardRules": [
+    {
+      "expr": "props.options.type == 'array'",
+      "id": "hr.select.options.required",
+      "kind": "schema",
+      "message": "Select requires options as an array of option objects (each {label,value}); without options the dropdown has nothing to choose and is invalid for data_entry."
+    },
+    {
+      "expr": "props.placeholder.requiredWhen(props.options.length > 0) == true OR props.placeholder.present == true",
+      "id": "hr.select.placeholder.required",
+      "kind": "schema",
+      "message": "When options are provided, a placeholder must be supplied to communicate the field's purpose before a value is chosen."
+    },
+    {
+      "expr": "props.mode in ['multiple','tags'] ? is_array(props.value) : is_scalar(props.value)",
+      "id": "hr.select.mode-value-arity",
+      "kind": "schema",
+      "message": "value arity must match mode: multiple/tags require an array value; default (single) mode requires a scalar value."
+    },
+    {
+      "expr": "exists(opt in props.options where opt.value == props.value) OR props.value == null OR props.mode in ['multiple','tags']",
+      "id": "hr.select.value-must-be-in-options",
+      "kind": "graph",
+      "message": "In single-select mode the selected value must correspond to one of the provided options (or be empty); out-of-range values are invalid."
+    },
+    {
+      "expr": "tokenBindings.root.stroke == 'input.border.color' AND tokenBindings.root.fill == 'input.background'",
+      "id": "hr.select.token-bindings-named",
+      "kind": "token",
+      "message": "Select border and background must bind to the named input tokens (input.border.color, input.background), not raw or placeholder colors."
+    }
+  ],
+  "id": "antd.select",
+  "intents": [
+    "data_entry",
+    "filtering"
+  ],
+  "meaning": {
+    "definition": "Lets the user commit a single choice (or a bounded set of choices) from a finite, enumerated domain — turning an open-ended question into a constrained, machine-resolvable answer. In a filtering context it narrows a dataset to the rows matching the chosen value(s).",
+    "doNotUseWhen": [
+      "The answer space is effectively unbounded or free-form (use antd.input instead).",
+      "There are only two mutually-exclusive states (use antd.switch).",
+      "The choice triggers an immediate primary action rather than recording a value (use antd.button).",
+      "The available options depend on heavy server-side search across a huge set (consider a dedicated search component)."
+    ],
+    "useWhen": [
+      "The user must pick one value from a known, finite list of options.",
+      "A form field has a constrained enum domain (status, category, assignee).",
+      "A list or table needs a filter control that reduces rows by an enumerated attribute.",
+      "Multi-select of tags or multiple items is required (mode multiple/tags)."
+    ]
+  },
+  "needsReview": false,
+  "pencil": {
+    "allowedDescendantOverrides": {
+      "label.content": "props.placeholder"
+    },
+    "componentRefPattern": "antd.select",
+    "forbiddenOverrides": [
+      "root.stroke",
+      "root.fill",
+      "root.radius"
+    ],
+    "rootNodeType": "select"
+  },
+  "props": {
+    "options": {
+      "accepts": [
+        "object"
+      ],
+      "contentRules": [
+        "Each item SHOULD carry both a human-readable label and a stable value.",
+        "value fields must be unique within the array.",
+        "Avoid embedding raw markup in label; prefer plain text."
+      ],
+      "description": "Array of option objects to populate the dropdown. Each option typically exposes at least { label, value }; extra fields drive filtering and rendering.",
+      "maxLength": 500,
+      "required": true,
+      "requiredWhen": "intent == 'data_entry' OR intent == 'filtering'",
+      "type": "array"
+    },
+    "value": {
+      "description": "Currently selected option value. Scalar for default single-select mode; array when mode is multiple or tags.",
+      "required": false,
+      "type": "string"
+    },
+    "mode": {
+      "description": "Selects the selection semantics. Omit (or unset) for single-choice; 'multiple' for choosing several from the option set; 'tags' for free creation of new entries alongside the option set.",
+      "enum": [
+        "multiple",
+        "tags"
+      ],
+      "required": false,
+      "type": "enum"
+    },
+    "placeholder": {
+      "description": "Guidance text shown inside the control before any value is chosen, communicating what the field is selecting.",
+      "maxLength": 60,
+      "required": true,
+      "requiredWhen": "props.options.length > 0",
+      "type": "string"
+    }
+  },
+  "semanticRole": "input",
+  "slots": {},
+  "softRules": [
+    "Prefer the structured options prop over declarative <Select.Option> children so the dataset stays data-driven and serializable.",
+    "Pair every Select with a visible label (via antd.form.Item label or aria-label) — the placeholder alone is not an accessible name.",
+    "For filtering intents, set optionFilterProp and a sensible default value so the control is immediately useful.",
+    "When the option list is long, enable showSearch so users can find an entry rather than scrolling.",
+    "Do not co-locate destructive actions inside a Select; selection commits a value, not an action."
+  ],
+  "sourceEvidence": [
+    "https://ant.design/components/select/"
+  ],
+  "sourceRefs": [
+    "https://ant.design/components/select/",
+    "https://ant.design/components/form/"
+  ],
+  "states": [
+    "default",
+    "hover",
+    "focus",
+    "open",
+    "disabled",
+    "loading",
+    "error",
+    "filled"
+  ],
+  "system": "ant-design",
+  "tokenBindings": {
+    "root.fill": "input.background",
+    "root.stroke": "input.border.color"
+  },
+  "variants": {
+    "mode": {
+      "default": "single",
+      "semantics": {
+        "multiple": "User may choose more than one option from the set; value is an array.",
+        "single": "Exactly one option may be chosen at a time; value is a scalar.",
+        "tags": "User may choose existing options and also create new free-text entries; value is an array of strings."
+      },
+      "values": [
+        "single",
+        "multiple",
+        "tags"
+      ]
+    }
+  },
+  "version": "1.0.0"
+}

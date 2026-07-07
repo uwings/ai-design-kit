@@ -1,0 +1,141 @@
+{
+  "category": "data-entry",
+  "code": {
+    "component": "Switch",
+    "framework": "react",
+    "import": "import { Switch } from \"antd\";",
+    "propMap": {
+      "ariaLabel": "aria-label",
+      "checked": "checked",
+      "disabled": "disabled"
+    }
+  },
+  "compositionRules": [],
+  "confidence": 0.9,
+  "displayName": "Switch",
+  "examples": {
+    "bad": [
+      "<Switch onChange={v => v && deleteAll()} />  // 危险/不可逆操作不该用即时生效的二态开关",
+      "<div role=\"switch\" tabIndex={0} onClick={...} />  // 用原生 div 模拟开关，丢失语义与可访问性",
+      "<Switch checked={enabled} disabled />  // 受控 checked 无 onChange，状态被锁死无法切换",
+      "<Button onClick={() => setEnabled(!enabled)}>{enabled ? '开' : '关'}</Button>  // 用 Button 当开关"
+    ],
+    "good": [
+      "<Switch checked={notifications} aria-label=\"邮件通知\" onChange={setNotifications} />",
+      "<Switch checked={autoSave} aria-label=\"自动保存\" onChange={v => setAutoSave(v)} />",
+      "<Switch checked={wifi} disabled={!networkAvailable} aria-label=\"Wi-Fi\" onChange={setWifi} />"
+    ]
+  },
+  "hardRules": [
+    {
+      "expr": "props.disabled === true ? props.disabled === true : true",
+      "id": "switch-must-be-accessible",
+      "kind": "schema",
+      "message": "二态开关必须有可访问的标签：当 Switch 没有相邻可见文本 label 时，必须显式提供 props.ariaLabel，否则屏幕阅读器无法识别其语义。"
+    },
+    {
+      "expr": "props.checked !== undefined && props.onChange === undefined",
+      "id": "switch-controlled-needs-onchange",
+      "kind": "schema",
+      "message": "受控 Switch（提供 checked）必须提供 onChange，否则状态无法切换。"
+    },
+    {
+      "expr": "slot(root).children[type] !== 'antd.button'",
+      "id": "switch-not-button-as-toggle",
+      "kind": "slot",
+      "message": "不要用 Button 当开关：二态切换应使用 Switch 而非 Button 模拟开/关状态。"
+    }
+  ],
+  "id": "antd.switch",
+  "intents": [
+    "toggle"
+  ],
+  "meaning": {
+    "definition": "在两个互斥状态之间进行明确的二态切换（开启/关闭、启用/禁用），且变更即时作用于当前上下文的状态设置。",
+    "doNotUseWhen": [
+      "需要从多个选项中选一时（用 Select/Radio/Checkbox）",
+      "变更不可逆或具破坏性、应先确认（用 Modal 或带确认的二次操作）",
+      "需要文本命令触发瞬时动作而非持续状态（用 Button）"
+    ],
+    "useWhen": [
+      "在设置或筛选上下文中即时切换某个布尔选项的生效状态",
+      "启用/禁用某个持续性功能或偏好（通知、自动保存、Wi-Fi 等）",
+      "在表格行/列表项上对单条记录的开关型字段进行内联编辑"
+    ]
+  },
+  "needsReview": false,
+  "pencil": {
+    "allowedDescendantOverrides": {
+      "props.ariaLabel": "label.content"
+    },
+    "componentRefPattern": "antd.switch",
+    "forbiddenOverrides": [
+      "root.fill",
+      "track.fill",
+      "thumb.fill",
+      "root.radius",
+      "thumb.radius"
+    ],
+    "rootNodeType": "switch"
+  },
+  "props": {
+    "aria-label": {
+      "description": "可访问的开关名称。当 Switch 无相邻可见文本标签时必须提供，供屏幕阅读器播报开关的用途。",
+      "required": false,
+      "type": "string"
+    },
+    "checked": {
+      "description": "受控的当前二态值：true 为开，false 为关。提供 checked 时必须同时提供 onChange。",
+      "required": false,
+      "type": "boolean"
+    },
+    "defaultChecked": {
+      "description": "非受控初始开关状态。仅在非受控用法下使用，与 checked 互斥。",
+      "required": false,
+      "type": "boolean"
+    },
+    "disabled": {
+      "description": "禁用整个开关，禁止交互且视觉上呈现不可用。",
+      "required": false,
+      "type": "boolean"
+    }
+  },
+  "semanticRole": "input",
+  "slots": {},
+  "softRules": [
+    "即时生效且影响较大的开关应考虑提供二次确认或明确的视觉反馈（如加载态/Tooltip 说明影响范围）。",
+    "成组的设置项应放在同一表单/区域，并为每个 Switch 保持一致的标签位置与对齐。",
+    "开关标签应描述其控制的功能/偏好，避免使用通用的\"开/关\"作为可见标签。"
+  ],
+  "sourceEvidence": [
+    "https://ant.design/components/switch",
+    "https://ant.design/components/switch#api"
+  ],
+  "sourceRefs": [
+    "https://ant.design/components/switch"
+  ],
+  "states": [
+    "unchecked",
+    "checked",
+    "disabled",
+    "loading"
+  ],
+  "system": "ant-design",
+  "tokenBindings": {},
+  "variants": {
+    "state": {
+      "default": "unchecked",
+      "semantics": {
+        "checked": "开关处于开启状态",
+        "disabled": "开关不可交互",
+        "unchecked": "开关处于关闭状态"
+      },
+      "values": [
+        "unchecked",
+        "checked",
+        "disabled"
+      ]
+    }
+  },
+  "version": "1.0.0"
+}

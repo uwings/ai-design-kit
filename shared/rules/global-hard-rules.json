@@ -1,0 +1,13 @@
+{
+  "description": "跨体系硬规则——违反即阻塞。每条都应可程序化校验（validator 命名函数或结构检查）。",
+  "rules": [
+    { "id": "registered_components_only", "kind": "graph", "expr": "every node.component is a registered contract id (no raw imitation)", "enforcedBy": "validator:component" },
+    { "id": "no_hardcoded_color", "kind": "token", "expr": "no prop value matches #hex/rgb when a token exists for that role", "enforcedBy": "validator:token" },
+    { "id": "token_refs_resolve", "kind": "token", "expr": "every token.reference op references an existing tokenId", "enforcedBy": "validator:token" },
+    { "id": "primary_max_one_per_action_group", "kind": "fn", "expr": "fn:primary_max_one_per_action_group", "enforcedBy": "validator:RULE_FNS" },
+    { "id": "destructive_requires_confirmation", "kind": "fn", "expr": "fn:destructive_requires_confirmation", "enforcedBy": "validator:RULE_FNS" },
+    { "id": "icon_only_requires_aria_label", "kind": "fn", "expr": "fn:icon_only_requires_aria_label", "enforcedBy": "validator:RULE_FNS" },
+    { "id": "slot_contract_enforced", "kind": "slot", "expr": "slot children must be in accepts[]; count within min/max", "enforcedBy": "validator:slot" },
+    { "id": "variant_within_contract", "kind": "schema", "expr": "variant axis values must be declared in contract", "enforcedBy": "validator:variant" }
+  ]
+}

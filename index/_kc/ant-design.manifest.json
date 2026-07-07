@@ -1,0 +1,64 @@
+{
+  "system": "ant-design",
+  "kcHookup": {
+    "enabled": false,
+    "note": "v1 仅导出清单；KC 接入后由 KC 建向量副本并 enable=true"
+  },
+  "contractFiles": [
+    "systems/ant-design/components/alert.contract.json",
+    "systems/ant-design/components/badge.contract.json",
+    "systems/ant-design/components/breadcrumb.contract.json",
+    "systems/ant-design/components/button.contract.json",
+    "systems/ant-design/components/form.contract.json",
+    "systems/ant-design/components/input.contract.json",
+    "systems/ant-design/components/layout.contract.json",
+    "systems/ant-design/components/menu.contract.json",
+    "systems/ant-design/components/modal.contract.json",
+    "systems/ant-design/components/select.contract.json",
+    "systems/ant-design/components/switch.contract.json",
+    "systems/ant-design/components/table.contract.json",
+    "systems/ant-design/components/tag.contract.json",
+    "systems/ant-design/components/typography.contract.json"
+  ],
+  "contractIds": [
+    "antd.alert",
+    "antd.badge",
+    "antd.breadcrumb",
+    "antd.button",
+    "antd.form",
+    "antd.input",
+    "antd.layout",
+    "antd.menu",
+    "antd.modal",
+    "antd.select",
+    "antd.switch",
+    "antd.table",
+    "antd.tag",
+    "antd.typography"
+  ],
+  "tokenGraph": "systems/ant-design/tokens/token-graph.json",
+  "compositionsDir": "systems/ant-design/compositions/",
+  "indexArtifacts": {
+    "componentCards": "index/component-cards.json",
+    "patternCards": "index/pattern-cards.json",
+    "intentIndex": "index/intent-index.json",
+    "scenarioCards": "index/scenario-cards.json"
+  },
+  "intentsCovered": [
+    "content",
+    "data_entry",
+    "data_management",
+    "destructive_action",
+    "destructive_confirmation",
+    "empty_state",
+    "feedback",
+    "filtering",
+    "navigation",
+    "primary_action",
+    "search",
+    "secondary_action",
+    "section",
+    "status_display",
+    "toggle"
+  ]
+}

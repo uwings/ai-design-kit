@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN" data-system="ant-design" data-mode="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Untitled</title>
+  <style>
+    :root {
+        --alert-error-background: #fff2f0;
+        --alert-info-background: #e6f4ff;
+        --alert-warning-background: #fffbe6;
+        --badge-background: #1677ff;
+        --button-danger-background: #ff4d4f;
+        --button-default-background: #ffffff;
+        --button-default-border: #d9d9d9;
+        --button-height-md: 32;
+        --button-primary-background: #1677ff;
+        --button-primary-foreground: #ffffff;
+        --button-radius: 6;
+        --card-background: #ffffff;
+        --card-title-fill: #000000d9;
+        --color-bg-layout: #f5f5f5;
+        --color-border-default: #d9d9d9;
+        --color-brand-primary: #1677ff;
+        --color-danger: #ff4d4f;
+        --color-error-seed: #ff4d4f;
+        --color-neutral-0: #ffffff;
+        --color-neutral-1: #fafafa;
+        --color-neutral-10: #000000;
+        --color-neutral-2: #f5f5f5;
+        --color-neutral-3: #f0f0f0;
+        --color-neutral-5: #d9d9d9;
+        --color-neutral-7: #8c8c8c;
+        --color-neutral-9: #434343;
+        --color-primary-seed: #1677ff;
+        --color-success: #52c41a;
+        --color-success-seed: #52c41a;
+        --color-text-default: #000000d9;
+        --color-text-disabled: #00000040;
+        --color-text-secondary: #00000073;
+        --color-warning: #faad14;
+        --color-warning-seed: #faad14;
+        --font-lineHeight-base: 1.5715;
+        --font-size-base: 14;
+        --input-background: #ffffff;
+        --input-border-color: #d9d9d9;
+        --input-height-md: 32;
+        --menu-background: #ffffff;
+        --menu-item-selected: #1677ff;
+        --modal-background: #ffffff;
+        --modal-mask-background: #00000073;
+        --space-grid-unit: 8;
+        --table-border-color: #d9d9d9;
+        --table-header-background: #fafafa;
+        --table-row-background: #ffffff;
+        --table-row-bg-subtle: #fafafa;
+        --tag-background: #fafafa;
+        --theme-algorithm-default: defaultAlgorithm;
+    }
+  </style>
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; margin: 0; }
+    .adk-page { padding: 24px; }
+  </style>
+</head>
+<body>
+  <main class="adk-page">
+    <div data-component="antd.layout" class="adk-antd-layout" data-variant-structure="hasSider">
+      <nav data-component="antd.menu" class="adk-antd-menu" data-variant-mode="inline"></nav>
+      <nav data-component="antd.breadcrumb" class="adk-antd-breadcrumb"></nav>
+      <input data-component="antd.input" class="adk-antd-input" data-variant-intent="search" />
+      <select data-component="antd.select" class="adk-antd-select" data-variant-mode="single"></select>
+      <button data-component="antd.button" class="adk-antd-button" data-variant-intent="primary" data-variant-size="middle">
+        新增用户
+      </button>
+      <table data-component="antd.table" class="adk-antd-table" data-variant-density="default" data-variant-zebra="striped"></table>
+    </div>
+    <section data-component="antd.modal" class="adk-antd-modal" data-variant-intent="confirm">
+      <button data-component="antd.button" class="adk-antd-button" data-variant-intent="default">
+        取消
+      </button>
+      <button data-component="antd.button" class="adk-antd-button" data-variant-intent="danger">
+        确认删除
+      </button>
+      <div data-component="antd.typography" class="adk-antd-typography" data-variant-variant="body"></div>
+    </section>
+  </main>
+</body>
+</html>

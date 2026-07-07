@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-design-kit/schemas/intent-taxonomy.schema.json",
+  "title": "Intent Taxonomy",
+  "description": "跨体系设计意图本体——让 AI 从'知道组件属性'升级到'知道为什么用这个组件'。每个概念带定义、允许组件、首选变体、规则。同时是设计时意图路由召回的依据。",
+  "type": "object",
+  "required": ["concepts"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "concepts": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/concept" }
+    }
+  },
+  "$defs": {
+    "concept": {
+      "type": "object",
+      "required": ["definition"],
+      "additionalProperties": false,
+      "properties": {
+        "definition": { "type": "string" },
+        "allowedComponents": { "type": "array", "items": { "type": "string" }, "description": "可表达此意图的组件 id（可跨体系）" },
+        "preferredVariants": {
+          "type": "object",
+          "description": "组件 id -> 推荐变体，如 {\"antd.button\":{\"intent\":\"primary\"}}",
+          "additionalProperties": { "type": "object" }
+        },
+        "relatedPatterns": { "type": "array", "items": { "type": "string" }, "description": "相关组合模式 id" },
+        "rules": { "type": "array", "items": { "type": "string" }, "description": "硬/软规则描述" },
+        "riskLevel": { "enum": ["none", "low", "medium", "high"] }
+      }
+    }
+  }
+}

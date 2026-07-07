@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-design-kit/schemas/pencil-library-spec.schema.json",
+  "title": "Pencil Library Spec (mapping bundle)",
+  "description": "契约 → Pencil/React 的映射规范集合（mappings/kit-to-pencil.json、kit-to-react.json 的结构）。声明体系如何编译到各端。",
+  "type": "object",
+  "required": ["system", "target"],
+  "additionalProperties": false,
+  "properties": {
+    "system": { "type": "string" },
+    "target": { "enum": ["pencil", "react", "html", "vue", "css"] },
+    "conventions": {
+      "type": "object",
+      "description": "通用约定（target=pencil 时）",
+      "properties": {
+        "reusableIdPattern": { "type": "string", "description": "可复用组件 id 模式约定" },
+        "variablePrefix": { "type": "string", "description": "Pencil 变量前缀，如 $ 或空" },
+        "metadataKey": { "type": "string", "default": "metadata" }
+      }
+    },
+    "componentMaps": {
+      "type": "array",
+      "description": "组件级映射明细（与契约 pencil/code 段互为补充/可覆盖）",
+      "items": {
+        "type": "object",
+        "required": ["componentId"],
+        "properties": {
+          "componentId": { "type": "string" },
+          "targetId": { "type": "string", "description": "目标端 id（Pencil reusable id / React 组件名）" },
+          "propMap": { "type": "object", "additionalProperties": { "type": "string" } },
+          "tokenMap": { "type": "object", "additionalProperties": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

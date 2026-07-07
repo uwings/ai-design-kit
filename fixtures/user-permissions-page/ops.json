@@ -1,0 +1,76 @@
+[
+  { "op": "component.insert", "componentId": "antd.layout", "parentId": null,
+    "node": { "id": "layout1", "variant": { "structure": "hasSider" } },
+    "reason": "整页骨架：侧栏+内容区（admin-user-permissions 模式）", "contractRefs": ["antd.layout"] },
+
+  { "op": "component.fillSlot", "nodeId": "layout1", "slot": "sider",
+    "children": [{ "id": "sideMenu", "component": "antd.menu",
+      "variant": { "mode": "inline" },
+      "props": {
+        "items": [
+          { "key": "users", "label": "用户管理" },
+          { "key": "roles", "label": "角色管理" },
+          { "key": "audit", "label": "审计日志" }
+        ],
+        "selectedKeys": ["users"] } }],
+    "reason": "侧边导航，选中'用户管理'", "contractRefs": ["antd.menu"] },
+
+  { "op": "component.fillSlot", "nodeId": "layout1", "slot": "content",
+    "children": [
+      { "id": "crumb1", "component": "antd.breadcrumb",
+        "props": { "items": [ { "title": "系统" }, { "title": "权限" }, { "title": "用户管理" } ] } },
+      { "id": "searchInput", "component": "antd.input",
+        "variant": { "intent": "search" },
+        "props": { "label": "搜索用户", "value": "", "placeholder": "按姓名/邮箱搜索" } },
+      { "id": "roleFilter", "component": "antd.select",
+        "variant": { "mode": "single" },
+        "props": { "options": [
+            { "label": "全部角色", "value": "all" },
+            { "label": "管理员", "value": "admin" },
+            { "label": "编辑", "value": "editor" } ],
+          "placeholder": "按角色筛选" } },
+      { "id": "addUserBtn", "component": "antd.button",
+        "variant": { "intent": "primary", "size": "middle" },
+        "props": { "label": "新增用户" } },
+      { "id": "usersTable", "component": "antd.table",
+        "variant": { "density": "default", "zebra": "striped" },
+        "props": {
+          "rowKey": "key",
+          "loading": false,
+          "columns": [
+            { "title": "姓名", "dataIndex": "name", "key": "name" },
+            { "title": "角色", "dataIndex": "role", "key": "role" },
+            { "title": "状态", "dataIndex": "status", "key": "status" },
+            { "title": "操作", "key": "action" }
+          ],
+          "dataSource": [
+            { "key": "1", "name": "张三", "role": "admin", "status": "active" },
+            { "key": "2", "name": "李四", "role": "editor", "status": "active" }
+          ]
+        } }
+    ],
+    "reason": "内容区：面包屑 + 筛选栏(搜索+角色+新增) + 用户表格（table-with-filters 模式；primary CTA 仅 1 个）",
+    "contractRefs": ["antd.breadcrumb", "antd.input", "antd.select", "antd.button", "antd.table"] },
+
+  { "op": "component.insert", "componentId": "antd.modal", "parentId": null,
+    "node": { "id": "confirmModal", "variant": { "intent": "confirm" },
+      "props": { "open": false, "title": "确认删除该用户？", "okText": "确认删除", "cancelText": "取消" } },
+    "reason": "破坏性删除的二次确认弹窗（destructive-confirmation 模式）", "contractRefs": ["antd.modal"] },
+
+  { "op": "component.fillSlot", "nodeId": "confirmModal", "slot": "footer",
+    "children": [
+      { "id": "cancelBtn", "component": "antd.button",
+        "variant": { "intent": "default" }, "props": { "label": "取消" } },
+      { "id": "confirmDelBtn", "component": "antd.button",
+        "variant": { "intent": "danger" }, "props": { "label": "确认删除" } }
+    ],
+    "reason": "确认弹窗 footer：取消(secondary) + 确认删除(danger)；max 2，primary 0", "contractRefs": ["antd.button"] },
+
+  { "op": "component.fillSlot", "nodeId": "confirmModal", "slot": "body",
+    "children": [
+      { "id": "confirmText", "component": "antd.typography",
+        "variant": { "variant": "body" },
+        "props": { "children": "此操作不可撤销，确定要删除该用户吗？", "variant": "body" } }
+    ],
+    "reason": "弹窗正文：明确说明后果（不可逆）", "contractRefs": ["antd.typography"] }
+]

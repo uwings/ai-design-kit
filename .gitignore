@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# ADK 运行时产物（可选缓存；编译产物 generated-code/ 与 pencil/generated/ 保留作为示例）
+.pytest_cache/
+.mypy_cache/

@@ -1,0 +1,12 @@
+[
+  { "op": "component.insert", "componentId": "antd.modal", "parentId": null,
+    "node": { "id": "m1", "variant": { "intent": "confirm" }, "props": { "open": false, "title": "确认" } },
+    "reason": "x", "contractRefs": ["antd.modal"] },
+  { "op": "component.fillSlot", "nodeId": "m1", "slot": "footer",
+    "children": [
+      { "id": "f1", "component": "antd.button", "variant": { "intent": "default" }, "props": { "label": "a" } },
+      { "id": "f2", "component": "antd.button", "variant": { "intent": "default" }, "props": { "label": "b" } },
+      { "id": "f3", "component": "antd.button", "variant": { "intent": "default" }, "props": { "label": "c" } }
+    ],
+    "reason": "footer max=2，放了 3 个（违规）", "contractRefs": ["antd.button"] }
+]

@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-design-kit/schemas/semantic-ops.schema.json",
+  "title": "Semantic Operations",
+  "description": "AI 对组件图的唯一操作接口（受控协议）。每个 op 必须带 reason（设计理由）和 contractRefs（可追溯）。格式与抢救的 PY 残片 component_op 一致。违规 op 在应用前被 engine/validator 拦截。",
+  "type": "array",
+  "items": { "$ref": "#/$defs/op" },
+  "$defs": {
+    "op": {
+      "type": "object",
+      "oneOf": [
+        { "$ref": "#/$defs/insert" },
+        { "$ref": "#/$defs/setProp" },
+        { "$ref": "#/$defs/setVariant" },
+        { "$ref": "#/$defs/fillSlot" },
+        { "$ref": "#/$defs/reorder" },
+        { "$ref": "#/$defs/bindData" },
+        { "$ref": "#/$defs/tokenRef" },
+        { "$ref": "#/$defs/themeSwitch" },
+        { "$ref": "#/$defs/applyPattern" }
+      ]
+    },
+    "common": {
+      "type": "object",
+      "required": ["op", "reason"],
+      "properties": {
+        "op": { "type": "string" },
+        "reason": { "type": "string", "description": "为什么做此操作（设计理由）" },
+        "contractRefs": { "type": "array", "items": { "type": "string" }, "description": "涉及的组件契约 id（可追溯）" }
+      }
+    },
+    "nodeSpec": {
+      "type": "object",
+      "description": "插入/填充时的节点规格",
+      "required": ["id"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "default": "component" },
+        "variant": { "type": "object", "additionalProperties": {} },
+        "props": { "type": "object", "additionalProperties": {} }
+      }
+    },
+    "insert": {
+      "type": "object",
+      "description": "插入一个注册组件实例",
+      "required": ["op", "componentId", "node", "reason"],
+      "properties": {
+        "op": { "const": "component.insert" },
+        "componentId": { "type": "string", "description": "注册组件 id，如 antd.button" },
+        "parentId": { "type": ["string", "null"], "description": "父节点 id；null=页面根" },
+        "parentSlot": { "type": "string", "description": "若插入到某父节点的 slot 通道" },
+        "afterNodeId": { "type": "string", "description": "插入位置：在某兄弟节点之后" },
+        "node": { "$ref": "#/$defs/nodeSpec" },
+        "reason": { "type": "string" },
+        "contractRefs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "setProp": {
+      "type": "object",
+      "required": ["op", "nodeId", "prop", "value", "reason"],
+      "properties": {
+        "op": { "const": "component.setProp" },
+        "nodeId": { "type": "string" },
+        "prop": { "type": "string" },
+        "value": {},
+        "reason": { "type": "string" },
+        "contractRefs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "setVariant": {
+      "type": "object",
+      "required": ["op", "nodeId", "variant", "reason"],
+      "properties": {
+        "op": { "const": "component.setVariant" },
+        "nodeId": { "type": "string" },
+        "variant": { "type": "object", "additionalProperties": {} },
+        "reason": { "type": "string" },
+        "contractRefs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "fillSlot": {
+      "type": "object",
+      "description": "向某节点的 slot 填入子组件（受 slot.accepts/min/max 约束）",
+      "required": ["op", "nodeId", "slot", "children", "reason"],
+      "properties": {
+        "op": { "const": "component.fillSlot" },
+        "nodeId": { "type": "string" },
+        "slot": { "type": "string" },
+        "children": { "type": "array", "items": { "$ref": "#/$defs/nodeSpec" } },
+        "reason": { "type": "string" },
+        "contractRefs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "reorder": {
+      "type": "object",
+      "required": ["op", "nodeId", "order", "reason"],
+      "properties": {
+        "op": { "const": "component.reorder" },
+        "nodeId": { "type": "string", "description": "容器节点 id" },
+        "slot": { "type": "string", "description": "若重排某 slot 的子节点" },
+        "order": { "type": "array", "items": { "type": "string" }, "description": "目标顺序的子节点 id" },
+        "reason": { "type": "string" },
+        "contractRefs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "bindData": {
+      "type": "object",
+      "required": ["op", "nodeId", "binding", "reason"],
+      "properties": {
+        "op": { "const": "component.bindData" },
+        "nodeId": { "type": "string" },
+        "binding": { "type": "string", "description": "数据源引用，如 data.users" },
+        "reason": { "type": "string" },
+        "contractRefs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "tokenRef": {
+      "type": "object",
+      "description": "把某节点的视觉路径绑定到 token（而非硬编码）",
+      "required": ["op", "nodeId", "path", "token", "reason"],
+      "properties": {
+        "op": { "const": "token.reference" },
+        "nodeId": { "type": "string" },
+        "path": { "type": "string", "description": "视觉路径，如 root.fill / label.fontSize" },
+        "token": { "type": "string", "description": "tokenId，如 color.brand.primary" },
+        "reason": { "type": "string" },
+        "contractRefs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "themeSwitch": {
+      "type": "object",
+      "required": ["op", "mode", "reason"],
+      "properties": {
+        "op": { "const": "theme.switch" },
+        "mode": { "type": "string", "description": "目标主题模式，如 dark" },
+        "reason": { "type": "string" },
+        "contractRefs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "applyPattern": {
+      "type": "object",
+      "description": "在某节点套用组合模式（注入模式的必需组件与结构）",
+      "required": ["op", "patternId", "targetNodeId", "reason"],
+      "properties": {
+        "op": { "const": "layout.applyPattern" },
+        "patternId": { "type": "string", "description": "组合模式 id，如 destructive-confirmation" },
+        "targetNodeId": { "type": "string" },
+        "params": { "type": "object", "additionalProperties": {} },
+        "reason": { "type": "string" },
+        "contractRefs": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

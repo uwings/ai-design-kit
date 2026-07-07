@@ -1,0 +1,416 @@
+{
+  "version": "2.13",
+  "variables": {
+    "color.primary.seed": {
+      "type": "color",
+      "value": "#1677ff"
+    },
+    "color.success.seed": {
+      "type": "color",
+      "value": "#52c41a"
+    },
+    "color.warning.seed": {
+      "type": "color",
+      "value": "#faad14"
+    },
+    "color.error.seed": {
+      "type": "color",
+      "value": "#ff4d4f"
+    },
+    "color.neutral.0": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "color.neutral.1": {
+      "type": "color",
+      "value": "#fafafa"
+    },
+    "color.neutral.2": {
+      "type": "color",
+      "value": "#f5f5f5"
+    },
+    "color.neutral.3": {
+      "type": "color",
+      "value": "#f0f0f0"
+    },
+    "color.neutral.5": {
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "color.neutral.7": {
+      "type": "color",
+      "value": "#8c8c8c"
+    },
+    "color.neutral.9": {
+      "type": "color",
+      "value": "#434343"
+    },
+    "color.neutral.10": {
+      "type": "color",
+      "value": "#000000"
+    },
+    "color.brand.primary": {
+      "type": "color",
+      "value": "#1677ff"
+    },
+    "color.success": {
+      "type": "color",
+      "value": "#52c41a"
+    },
+    "color.warning": {
+      "type": "color",
+      "value": "#faad14"
+    },
+    "color.danger": {
+      "type": "color",
+      "value": "#ff4d4f"
+    },
+    "font.size.base": {
+      "type": "number",
+      "value": 14
+    },
+    "font.lineHeight.base": {
+      "type": "number",
+      "value": 1.5715
+    },
+    "space.grid.unit": {
+      "type": "number",
+      "value": 8
+    },
+    "color.text.default": {
+      "type": "color",
+      "value": "#000000d9"
+    },
+    "color.text.secondary": {
+      "type": "color",
+      "value": "#00000073"
+    },
+    "color.text.disabled": {
+      "type": "color",
+      "value": "#00000040"
+    },
+    "color.border.default": {
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "color.bg.layout": {
+      "type": "color",
+      "value": "#f5f5f5"
+    },
+    "theme.algorithm.default": {
+      "type": "string",
+      "value": "defaultAlgorithm"
+    },
+    "button.primary.background": {
+      "type": "color",
+      "value": "#1677ff"
+    },
+    "button.primary.foreground": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "button.default.background": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "button.default.border": {
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "button.danger.background": {
+      "type": "color",
+      "value": "#ff4d4f"
+    },
+    "button.radius": {
+      "type": "number",
+      "value": 6
+    },
+    "button.height.md": {
+      "type": "number",
+      "value": 32
+    },
+    "input.border.color": {
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "input.background": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "input.height.md": {
+      "type": "number",
+      "value": 32
+    },
+    "card.background": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "card.title.fill": {
+      "type": "color",
+      "value": "#000000d9"
+    },
+    "table.header.background": {
+      "type": "color",
+      "value": "#fafafa"
+    },
+    "table.row.background": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "table.row.bg.subtle": {
+      "type": "color",
+      "value": "#fafafa"
+    },
+    "table.border.color": {
+      "type": "color",
+      "value": "#d9d9d9"
+    },
+    "modal.background": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "modal.mask.background": {
+      "type": "color",
+      "value": "#00000073"
+    },
+    "tag.background": {
+      "type": "color",
+      "value": "#fafafa"
+    },
+    "badge.background": {
+      "type": "color",
+      "value": "#1677ff"
+    },
+    "alert.info.background": {
+      "type": "color",
+      "value": "#e6f4ff"
+    },
+    "alert.warning.background": {
+      "type": "color",
+      "value": "#fffbe6"
+    },
+    "alert.error.background": {
+      "type": "color",
+      "value": "#fff2f0"
+    },
+    "menu.background": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "menu.item.selected": {
+      "type": "color",
+      "value": "#1677ff"
+    }
+  },
+  "children": [
+    {
+      "id": "page",
+      "type": "frame",
+      "name": "page",
+      "layout": "vertical",
+      "width": 1440,
+      "metadata": {
+        "type": "page",
+        "system": "ant-design"
+      },
+      "children": [
+        {
+          "id": "layout1",
+          "type": "ref",
+          "ref": "antd.layout",
+          "metadata": {
+            "componentId": "antd.layout",
+            "system": "ant-design",
+            "contractVersion": "1.0.0",
+            "variant": {
+              "structure": "hasSider"
+            },
+            "dataBinding": null
+          },
+          "slots": {
+            "sider": [
+              {
+                "id": "sideMenu",
+                "type": "ref",
+                "ref": "antd.menu",
+                "metadata": {
+                  "componentId": "antd.menu",
+                  "system": "ant-design",
+                  "contractVersion": "1.0.0",
+                  "variant": {
+                    "mode": "inline"
+                  },
+                  "dataBinding": null
+                }
+              }
+            ],
+            "content": [
+              {
+                "id": "crumb1",
+                "type": "ref",
+                "ref": "antd.breadcrumb",
+                "metadata": {
+                  "componentId": "antd.breadcrumb",
+                  "system": "ant-design",
+                  "contractVersion": "1.0.0",
+                  "variant": {},
+                  "dataBinding": null
+                }
+              },
+              {
+                "id": "searchInput",
+                "type": "ref",
+                "ref": "antd.input",
+                "metadata": {
+                  "componentId": "antd.input",
+                  "system": "ant-design",
+                  "contractVersion": "1.0.0",
+                  "variant": {
+                    "intent": "search"
+                  },
+                  "dataBinding": null
+                },
+                "descendants": {
+                  "label": {
+                    "content": "按姓名/邮箱搜索"
+                  }
+                }
+              },
+              {
+                "id": "roleFilter",
+                "type": "ref",
+                "ref": "antd.select",
+                "metadata": {
+                  "componentId": "antd.select",
+                  "system": "ant-design",
+                  "contractVersion": "1.0.0",
+                  "variant": {
+                    "mode": "single"
+                  },
+                  "dataBinding": null
+                },
+                "descendants": {
+                  "label": {
+                    "content": "按角色筛选"
+                  }
+                }
+              },
+              {
+                "id": "addUserBtn",
+                "type": "ref",
+                "ref": "antd.button",
+                "metadata": {
+                  "componentId": "antd.button",
+                  "system": "ant-design",
+                  "contractVersion": "1.0.0",
+                  "variant": {
+                    "intent": "primary",
+                    "size": "middle"
+                  },
+                  "dataBinding": null
+                },
+                "descendants": {
+                  "label": {
+                    "content": "新增用户"
+                  }
+                }
+              },
+              {
+                "id": "usersTable",
+                "type": "ref",
+                "ref": "antd.table",
+                "metadata": {
+                  "componentId": "antd.table",
+                  "system": "ant-design",
+                  "contractVersion": "1.0.0",
+                  "variant": {
+                    "density": "default",
+                    "zebra": "striped"
+                  },
+                  "dataBinding": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "confirmModal",
+          "type": "ref",
+          "ref": "antd.modal",
+          "metadata": {
+            "componentId": "antd.modal",
+            "system": "ant-design",
+            "contractVersion": "1.0.0",
+            "variant": {
+              "intent": "confirm"
+            },
+            "dataBinding": null
+          },
+          "slots": {
+            "footer": [
+              {
+                "id": "cancelBtn",
+                "type": "ref",
+                "ref": "antd.button",
+                "metadata": {
+                  "componentId": "antd.button",
+                  "system": "ant-design",
+                  "contractVersion": "1.0.0",
+                  "variant": {
+                    "intent": "default"
+                  },
+                  "dataBinding": null
+                },
+                "descendants": {
+                  "label": {
+                    "content": "取消"
+                  }
+                }
+              },
+              {
+                "id": "confirmDelBtn",
+                "type": "ref",
+                "ref": "antd.button",
+                "metadata": {
+                  "componentId": "antd.button",
+                  "system": "ant-design",
+                  "contractVersion": "1.0.0",
+                  "variant": {
+                    "intent": "danger"
+                  },
+                  "dataBinding": null
+                },
+                "descendants": {
+                  "label": {
+                    "content": "确认删除"
+                  }
+                }
+              }
+            ],
+            "body": [
+              {
+                "id": "confirmText",
+                "type": "ref",
+                "ref": "antd.typography",
+                "metadata": {
+                  "componentId": "antd.typography",
+                  "system": "ant-design",
+                  "contractVersion": "1.0.0",
+                  "variant": {
+                    "variant": "body"
+                  },
+                  "dataBinding": null
+                },
+                "descendants": {
+                  "text": {
+                    "content": "此操作不可撤销，确定要删除该用户吗？"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

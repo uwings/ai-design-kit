@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-design-kit/schemas/correction.schema.json",
+  "title": "Correction",
+  "description": "人类纠错/校验失败/review 意见的结构化表示。每条纠错必须落盘成至少一种持久化产物（契约 patch / 规则 patch / good-bad 示例 / 校验器测试）。",
+  "type": "object",
+  "required": ["id", "type", "target", "summary"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string" },
+    "type": { "enum": ["semantic", "usage", "token", "visual", "composition", "code", "pencil"] },
+    "summary": { "type": "string", "description": "纠错一句话摘要" },
+    "detail": { "type": "string" },
+    "target": {
+      "type": "object",
+      "required": ["kind"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "enum": ["contract", "rule", "example", "antiExample", "validator", "pattern", "token"], "description": "落盘成哪类产物" },
+        "path": { "type": "string", "description": "目标文件/字段路径，如 systems/ant-design/components/antd.modal.contract.json#hardRules" },
+        "system": { "type": "string" },
+        "componentId": { "type": "string" }
+      }
+    },
+    "patch": { "type": "object", "description": "结构化 patch（op/path/value 或直接片段）", "additionalProperties": {} },
+    "source": { "type": "string", "description": "来源：人工 review / 校验失败报告 / 修改 diff" },
+    "sourceEvidence": { "type": "array", "items": { "type": "string" } },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "appliedAt": { "type": "string", "description": "应用时间（落盘时写）" }
+  }
+}

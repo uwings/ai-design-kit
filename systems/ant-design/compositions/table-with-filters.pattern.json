@@ -1,0 +1,18 @@
+{
+  "id": "table-with-filters",
+  "system": "ant-design",
+  "displayName": "表格 + 筛选栏",
+  "intent": ["data_management", "filtering"],
+  "description": "数据密集列表的标准模式：筛选栏在表格之上，结果即时反馈，含空/加载态。",
+  "requiredComponents": ["antd.table"],
+  "optionalComponents": ["antd.input", "antd.select", "antd.button", "antd.tag", "antd.badge"],
+  "order": ["filterBar", "antd.table", "emptyState?"],
+  "slots": {
+    "filterBar": { "accepts": ["antd.input", "antd.select", "antd.button"], "min": 1, "max": 5, "layout": "horizontal" }
+  },
+  "responsive": { "mobile": "筛选器折叠/堆叠；表格横向滚动" },
+  "antiPatterns": [
+    { "name": "filter_after_data", "why": "用户先看到全部数据才发现筛选", "fix": "filterBar 在 table 之前" },
+    { "name": "缺少空态", "why": "无结果时表格空白困惑", "fix": "empty_state 含 reset action" }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "0.1",
+  "request": "做一个通知偏好设置页（邮件/桌面/周报开关 + 保存）",
+  "pageType": "settings",
+  "intents": ["data_entry", "toggle"],
+  "system": "ant-design",
+  "patterns": ["settings form"]
+}

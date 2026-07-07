@@ -1,0 +1,170 @@
+{
+  "category": "navigation",
+  "code": {
+    "component": "Menu",
+    "framework": "react",
+    "import": "import { Menu } from \"antd\";",
+    "propMap": {
+      "items": "items",
+      "mode": "mode",
+      "selected": "selectedKeys"
+    }
+  },
+  "compositionRules": [
+    {
+      "assert": "Root navigation slot of antd.layout may contain antd.menu; menu does not nest another menu as its own item tree.",
+      "condition": "parent == 'antd.layout#navigation'",
+      "id": "menu-in-layout-sider-header",
+      "severity": "soft"
+    },
+    {
+      "assert": "Menu is for navigation routing only; never use antd.button inside antd.menu to perform pure navigation.",
+      "condition": "intent == 'navigation'",
+      "id": "menu-not-button-nav",
+      "severity": "hard"
+    }
+  ],
+  "confidence": 0.88,
+  "displayName": "Menu",
+  "examples": {
+    "bad": [
+      "<Menu items={[{ key: 'inbox', label: 'Inbox' }, { key: 'sent', label: 'Sent' }]} selectedKeys={['inbox']} /> // missing selectedKeys on route change leaves stale highlight",
+      "<Button onClick={() => navigate('/inbox')}>Inbox</Button> // using Button for pure navigation instead of Menu",
+      "<Menu items={[]} /> // empty items with no fallback leaves dead navigation chrome",
+      "<Menu items={[{ key: 'x', label: 'X' }]} selectedKeys={['x']} mode='vertical' /> // mixing vertical mode with inline-selected styling expectations",
+      "<div onClick={...}>Profile</div> // raw nav instead of Menu item with key for selectedKeys tracking"
+    ],
+    "good": [
+      "<Menu mode='inline' selectedKeys={['inbox']} items={[{ key: 'inbox', label: 'Inbox' }, { key: 'sent', label: 'Sent' }]} />",
+      "<Menu mode='horizontal' selectedKeys={['products']} items={[{ key: 'home', label: 'Home' }, { key: 'products', label: 'Products' }]} />",
+      "<Menu mode='vertical' selectedKeys={['settings']} items={[{ key: 'profile', label: 'Profile' }, { key: 'settings', label: 'Settings' }]} />"
+    ]
+  },
+  "hardRules": [
+    {
+      "expr": "props.mode == null || props.mode in ['inline','vertical','horizontal']",
+      "id": "mode-in-allowed-axis",
+      "kind": "schema",
+      "message": "mode must be one of inline | vertical | horizontal"
+    },
+    {
+      "expr": "props.selectedKeys in $root.children[*].key",
+      "id": "selected-keys-exist-in-items",
+      "kind": "graph",
+      "message": "every key in selectedKeys must match an item key in items"
+    },
+    {
+      "expr": "exists(props.items) && count(props.items) > 0",
+      "id": "items-non-empty",
+      "kind": "schema",
+      "message": "Menu must declare non-empty items; do not render an empty Menu for primary navigation"
+    },
+    {
+      "expr": "tokenBindings.itemSelected.fill == 'menu.item.selected'",
+      "id": "selected-state-token-bound",
+      "kind": "token",
+      "message": "selected item fill must bind to menu.item.selected token"
+    }
+  ],
+  "id": "antd.menu",
+  "intents": [
+    "navigation"
+  ],
+  "meaning": {
+    "definition": "Provides persistent navigation structure, indicating the user's current location within an application and offering destinations reachable in one step.",
+    "doNotUseWhen": [
+      "Triggering a one-off action that is not a destination (use Button)",
+      "Showing transient status that is not a navigational location (use Alert/Tag)",
+      "Primary task execution (use Button)"
+    ],
+    "useWhen": [
+      "Navigating between top-level or section destinations",
+      "Showing current selection/location in a persistent navigation tree",
+      "Side or top navigation menus with many peer destinations"
+    ]
+  },
+  "needsReview": false,
+  "pencil": {
+    "allowedDescendantOverrides": {
+      "label.content": "props.label"
+    },
+    "componentRefPattern": "antd.menu",
+    "forbiddenOverrides": [
+      "root.fill",
+      "itemSelected.fill"
+    ],
+    "rootNodeType": "menu"
+  },
+  "props": {
+    "items": {
+      "accepts": [
+        "object"
+      ],
+      "contentRules": [
+        "Each item should carry a unique key",
+        "selectedKeys values must match item keys"
+      ],
+      "description": "Menu item tree; each item has a stable unique key plus label content.",
+      "required": true,
+      "type": "array"
+    },
+    "mode": {
+      "default": "vertical",
+      "description": "Layout orientation axis for the menu (inline | vertical | horizontal).",
+      "enum": [
+        "inline",
+        "vertical",
+        "horizontal"
+      ],
+      "required": false,
+      "type": "enum"
+    },
+    "selectedKeys": {
+      "description": "Keys of currently selected items; drives the active-location highlight.",
+      "required": false,
+      "type": "array"
+    }
+  },
+  "semanticRole": "navigation",
+  "slots": {},
+  "softRules": [
+    "Prefer Menu over a row of Buttons when destinations are peers in a navigation context",
+    "Bind the menu background to the menu.background token so sidebar/header chrome stays consistent",
+    "Use a single canonical mode per placement: inline for sider, horizontal for header, vertical for narrow columns",
+    "Keep item labels concise; long labels degrade horizontal menus"
+  ],
+  "sourceEvidence": [
+    "https://ant.design/components/menu"
+  ],
+  "sourceRefs": [
+    "https://ant.design/components/menu"
+  ],
+  "states": [
+    "default",
+    "selected",
+    "hover",
+    "disabled",
+    "expanded"
+  ],
+  "system": "ant-design",
+  "tokenBindings": {
+    "itemSelected.fill": "menu.item.selected",
+    "root.fill": "menu.background"
+  },
+  "variants": {
+    "mode": {
+      "default": "vertical",
+      "semantics": {
+        "horizontal": "Top-level horizontal navigation bar, typically in the header",
+        "inline": "Vertical inline menu that expands/collapses submenus inline; used in sider navigation",
+        "vertical": "Vertical column of items; submenus pop out"
+      },
+      "values": [
+        "inline",
+        "vertical",
+        "horizontal"
+      ]
+    }
+  },
+  "version": "1.0.0"
+}

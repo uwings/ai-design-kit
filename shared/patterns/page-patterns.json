@@ -1,0 +1,40 @@
+{
+  "description": "页面级模式——高层页面骨架原型，跨体系。体系内具体组合见 systems/<sys>/compositions/。",
+  "patterns": [
+    {
+      "id": "admin-page",
+      "displayName": "企业后台管理页",
+      "intent": ["data_management", "section"],
+      "structure": ["layout(top+side)", "header(breadcrumb+actions)", "filterBar", "dataTable", "detailDrawer/modal"],
+      "requiredComponents": ["antd.layout", "antd.menu", "antd.table"],
+      "notes": "破坏性行操作需 confirmation；空/加载/错误三态齐全"
+    },
+    {
+      "id": "dashboard",
+      "displayName": "仪表盘",
+      "intent": ["data_management", "content"],
+      "structure": ["layout", "statRow(card+statistic)", "chartGrid", "activityFeed"],
+      "notes": "数据卡用 Card 包裹"
+    },
+    {
+      "id": "settings-page",
+      "displayName": "设置页",
+      "intent": ["data_entry", "section"],
+      "structure": ["layout", "sectionNav", "formBlocks", "stickySaveBar"],
+      "requiredComponents": ["antd.form"]
+    },
+    {
+      "id": "form-flow",
+      "displayName": "表单流程",
+      "intent": ["data_entry"],
+      "structure": ["form", "fieldGroups", "validation", "submit(primary)+reset(secondary)"]
+    },
+    {
+      "id": "empty-state",
+      "displayName": "空状态",
+      "intent": ["empty_state"],
+      "structure": ["icon/illustration(opt)", "title(typography)", "description(typography secondary)", "action(button secondary)"],
+      "antiPatterns": ["alert_for_empty_state"]
+    }
+  ]
+}

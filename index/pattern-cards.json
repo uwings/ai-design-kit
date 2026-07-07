@@ -1,0 +1,67 @@
+{
+  "patterns": [
+    {
+      "id": "admin-user-permissions",
+      "system": "ant-design",
+      "displayName": "企业后台用户权限管理页",
+      "intent": [
+        "data_management",
+        "section",
+        "destructive_confirmation"
+      ],
+      "requiredComponents": [
+        "antd.layout",
+        "antd.menu",
+        "antd.breadcrumb",
+        "antd.table"
+      ],
+      "summary": "标准权限管理页：布局骨架 + 面包屑 + 筛选栏 + 用户/角色表格 + 详情抽屉 + 破坏性确认。",
+      "order": [
+        "antd.layout",
+        "antd.menu",
+        "antd.breadcrumb",
+        "filterBar",
+        "antd.table",
+        "detailPanel",
+        "antd.modal"
+      ]
+    },
+    {
+      "id": "destructive-confirmation",
+      "system": "ant-design",
+      "displayName": "破坏性操作确认流",
+      "intent": [
+        "destructive_confirmation",
+        "destructive_action"
+      ],
+      "requiredComponents": [
+        "antd.modal",
+        "antd.button"
+      ],
+      "summary": "破坏性操作执行前，用 Modal 阻断式二次确认。footer 含明确动作 + 取消。",
+      "order": [
+        "antd.button(intent=danger 触发)",
+        "antd.modal(intent=confirm)",
+        "footer[antd.button(default=取消), antd.button(danger=确认执行)]"
+      ]
+    },
+    {
+      "id": "table-with-filters",
+      "system": "ant-design",
+      "displayName": "表格 + 筛选栏",
+      "intent": [
+        "data_management",
+        "filtering"
+      ],
+      "requiredComponents": [
+        "antd.table"
+      ],
+      "summary": "数据密集列表的标准模式：筛选栏在表格之上，结果即时反馈，含空/加载态。",
+      "order": [
+        "filterBar",
+        "antd.table",
+        "emptyState?"
+      ]
+    }
+  ]
+}

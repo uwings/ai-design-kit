@@ -1,0 +1,216 @@
+{
+  "schemaVersion": "0.1",
+  "project": {
+    "name": "Untitled",
+    "system": "ant-design"
+  },
+  "pages": [
+    {
+      "id": "page",
+      "type": "page",
+      "width": 1440,
+      "children": [
+        {
+          "id": "layout1",
+          "component": "antd.layout",
+          "variant": {
+            "structure": "hasSider"
+          },
+          "slots": {
+            "sider": [
+              {
+                "id": "sideMenu",
+                "component": "antd.menu",
+                "variant": {
+                  "mode": "inline"
+                },
+                "props": {
+                  "items": [
+                    {
+                      "key": "users",
+                      "label": "用户管理"
+                    },
+                    {
+                      "key": "roles",
+                      "label": "角色管理"
+                    },
+                    {
+                      "key": "audit",
+                      "label": "审计日志"
+                    }
+                  ],
+                  "selectedKeys": [
+                    "users"
+                  ]
+                }
+              }
+            ],
+            "content": [
+              {
+                "id": "crumb1",
+                "component": "antd.breadcrumb",
+                "props": {
+                  "items": [
+                    {
+                      "title": "系统"
+                    },
+                    {
+                      "title": "权限"
+                    },
+                    {
+                      "title": "用户管理"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "searchInput",
+                "component": "antd.input",
+                "variant": {
+                  "intent": "search"
+                },
+                "props": {
+                  "label": "搜索用户",
+                  "value": "",
+                  "placeholder": "按姓名/邮箱搜索"
+                }
+              },
+              {
+                "id": "roleFilter",
+                "component": "antd.select",
+                "variant": {
+                  "mode": "single"
+                },
+                "props": {
+                  "options": [
+                    {
+                      "label": "全部角色",
+                      "value": "all"
+                    },
+                    {
+                      "label": "管理员",
+                      "value": "admin"
+                    },
+                    {
+                      "label": "编辑",
+                      "value": "editor"
+                    }
+                  ],
+                  "placeholder": "按角色筛选"
+                }
+              },
+              {
+                "id": "addUserBtn",
+                "component": "antd.button",
+                "variant": {
+                  "intent": "primary",
+                  "size": "middle"
+                },
+                "props": {
+                  "label": "新增用户"
+                }
+              },
+              {
+                "id": "usersTable",
+                "component": "antd.table",
+                "variant": {
+                  "density": "default",
+                  "zebra": "striped"
+                },
+                "props": {
+                  "rowKey": "key",
+                  "loading": false,
+                  "columns": [
+                    {
+                      "title": "姓名",
+                      "dataIndex": "name",
+                      "key": "name"
+                    },
+                    {
+                      "title": "角色",
+                      "dataIndex": "role",
+                      "key": "role"
+                    },
+                    {
+                      "title": "状态",
+                      "dataIndex": "status",
+                      "key": "status"
+                    },
+                    {
+                      "title": "操作",
+                      "key": "action"
+                    }
+                  ],
+                  "dataSource": [
+                    {
+                      "key": "1",
+                      "name": "张三",
+                      "role": "admin",
+                      "status": "active"
+                    },
+                    {
+                      "key": "2",
+                      "name": "李四",
+                      "role": "editor",
+                      "status": "active"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "confirmModal",
+          "component": "antd.modal",
+          "variant": {
+            "intent": "confirm"
+          },
+          "props": {
+            "open": false,
+            "title": "确认删除该用户？",
+            "okText": "确认删除",
+            "cancelText": "取消"
+          },
+          "slots": {
+            "footer": [
+              {
+                "id": "cancelBtn",
+                "component": "antd.button",
+                "variant": {
+                  "intent": "default"
+                },
+                "props": {
+                  "label": "取消"
+                }
+              },
+              {
+                "id": "confirmDelBtn",
+                "component": "antd.button",
+                "variant": {
+                  "intent": "danger"
+                },
+                "props": {
+                  "label": "确认删除"
+                }
+              }
+            ],
+            "body": [
+              {
+                "id": "confirmText",
+                "component": "antd.typography",
+                "variant": {
+                  "variant": "body"
+                },
+                "props": {
+                  "children": "此操作不可撤销，确定要删除该用户吗？",
+                  "variant": "body"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

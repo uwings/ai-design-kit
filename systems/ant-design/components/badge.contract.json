@@ -1,0 +1,199 @@
+{
+  "category": "data-display",
+  "code": {
+    "component": "Badge",
+    "framework": "react",
+    "import": "import { Badge } from \"antd\";",
+    "propMap": {
+      "count": "count",
+      "status": "status"
+    }
+  },
+  "compositionRules": [],
+  "confidence": 0.9,
+  "displayName": "Badge",
+  "examples": {
+    "bad": [
+      "<Badge count={5} /> without context — use only when there is unread/unprocessed state",
+      "<Badge status=\"processing\" /> on a static, completed record",
+      "Using Badge where Tag fits — Tag is for categories, Badge is for counts/status",
+      "<Badge count=\"success\" /> — count must be a number, use status for semantic states"
+    ],
+    "good": [
+      "<Badge count={8}><Avatar /></Badge>",
+      "<Badge status=\"success\" /><Badge status=\"processing\" /><Badge status=\"error\" /><Badge status=\"warning\" /><Badge status=\"default\" />",
+      "<Badge status=\"processing\" text=\"Running\" />",
+      "<Badge count={0} showZero />"
+    ]
+  },
+  "hardRules": [
+    {
+      "expr": "props.count!=null ? typeof props.count === 'number' : true",
+      "id": "badge.count_type_number",
+      "kind": "schema",
+      "message": "count 必须是 number；语义状态请用 status prop"
+    },
+    {
+      "expr": "props.status!=null ? props.status in ['success','processing','default','error','warning'] : true",
+      "id": "badge.status_enum",
+      "kind": "schema",
+      "message": "status 只能取 success|processing|default|error|warning"
+    },
+    {
+      "expr": "(props.status!=null ? status_token_map(props.status) === props.tokenBindings['root.fill'] : true) || props.tokenBindings['root.fill']==null",
+      "id": "badge.status_uses_status_token",
+      "kind": "token",
+      "message": "status 语义状态应映射到对应语义 token (badge.background/alert.*.background)，不要用任意颜色"
+    },
+    {
+      "expr": "props.tokenBindings['root.fill']==null ? false : props.tokenBindings['root.fill'] in ['badge.background','color.success','color.warning','color.danger','alert.info.background','alert.warning.background','alert.error.background']",
+      "id": "badge.root.fill_named_token",
+      "kind": "token",
+      "message": "root.fill 必须绑定到具名徽标/状态 token，不允许占位符"
+    }
+  ],
+  "id": "antd.badge",
+  "intents": [
+    "status_display"
+  ],
+  "meaning": {
+    "definition": "在锚点元素旁（如头像、列表项、按钮、标签）标注少量数字计数或单一语义状态（如成功/处理中/错误/警告），用于传递'有未读/有更新/处于某状态'的当前上下文信号，而非触发操作。",
+    "doNotUseWhen": [
+      "需要触发用户操作时（用 Button）",
+      "需要对事物做分类标签时（用 Tag）",
+      "需要展示长文本说明时",
+      "在没有锚点的纯装饰场景使用"
+    ],
+    "useWhen": [
+      "需要标注未读消息/通知/待办数量",
+      "需要在列表项或头像上标注单一运行状态（success/processing/error/warning）",
+      "需要用一个小点提示'有更新/新内容'"
+    ]
+  },
+  "needsReview": false,
+  "pencil": {
+    "allowedDescendantOverrides": {
+      "count.content": "props.count",
+      "status.content": "props.status",
+      "text.content": "props.text"
+    },
+    "componentRefPattern": "antd.badge",
+    "forbiddenOverrides": [
+      "root.fill",
+      "root.color"
+    ],
+    "rootNodeType": "badge"
+  },
+  "props": {
+    "count": {
+      "accepts": [
+        "number"
+      ],
+      "contentRules": [
+        "优先用具体数字而非占位符",
+        "count=0 且需要显示时配合 showZero"
+      ],
+      "description": "要显示的数字计数",
+      "type": "number"
+    },
+    "offset": {
+      "description": "徽标相对于默认位置的偏移 [x, y]",
+      "type": "object"
+    },
+    "overflowCount": {
+      "default": 99,
+      "description": "超过该值显示为 N+，默认 99",
+      "type": "number"
+    },
+    "showZero": {
+      "default": false,
+      "description": "count 为 0 时是否仍显示徽标",
+      "type": "boolean"
+    },
+    "size": {
+      "default": "default",
+      "description": "徽标尺寸",
+      "enum": [
+        "default",
+        "small"
+      ],
+      "type": "enum"
+    },
+    "status": {
+      "accepts": [
+        "success",
+        "processing",
+        "default",
+        "error",
+        "warning"
+      ],
+      "description": "语义状态点（不显示数字），优先用于运行/结果状态",
+      "enum": [
+        "success",
+        "processing",
+        "default",
+        "error",
+        "warning"
+      ],
+      "type": "enum"
+    },
+    "text": {
+      "description": "当 badge 作为独立状态点（无子节点）时附带的文字说明",
+      "type": "string"
+    }
+  },
+  "semanticRole": "status_display",
+  "slots": {},
+  "softRules": [
+    "分类用 Tag，计数/未读用 Badge，二者职责不要混用",
+    "status 为语义状态时（如 processing/error），应映射到对应语义 token 而非任意颜色",
+    "纯数字徽标应锚定到具体子节点（头像/按钮/列表项），避免孤立漂浮",
+    "overflowCount 应使用平台默认（99），如非业务必要不要随意改动"
+  ],
+  "sourceEvidence": [
+    "https://ant.design/components/badge"
+  ],
+  "sourceRefs": [
+    "https://ant.design/components/badge"
+  ],
+  "states": [
+    "default",
+    "success",
+    "processing",
+    "error",
+    "warning"
+  ],
+  "system": "ant-design",
+  "tokenBindings": {
+    "root.fill": "badge.background"
+  },
+  "variants": {
+    "count": {
+      "semantics": {
+        "default": "未读/待办计数"
+      },
+      "values": [
+        "counted",
+        "status-only"
+      ]
+    },
+    "status": {
+      "default": "default",
+      "semantics": {
+        "default": "默认中性",
+        "error": "错误或失败状态",
+        "processing": "处理中/进行中",
+        "success": "成功完成",
+        "warning": "警告"
+      },
+      "values": [
+        "success",
+        "processing",
+        "default",
+        "error",
+        "warning"
+      ]
+    }
+  },
+  "version": "1.0.0"
+}

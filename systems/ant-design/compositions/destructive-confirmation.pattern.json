@@ -1,0 +1,20 @@
+{
+  "id": "destructive-confirmation",
+  "system": "ant-design",
+  "displayName": "破坏性操作确认流",
+  "intent": ["destructive_confirmation", "destructive_action"],
+  "description": "破坏性操作执行前，用 Modal 阻断式二次确认。footer 含明确动作 + 取消。",
+  "requiredComponents": ["antd.modal", "antd.button"],
+  "optionalComponents": ["antd.typography", "antd.alert"],
+  "order": ["antd.button(intent=danger 触发)", "antd.modal(intent=confirm)", "footer[antd.button(default=取消), antd.button(danger=确认执行)]"],
+  "slots": {
+    "modal.footer": { "accepts": ["antd.button"], "min": 2, "max": 2, "layout": "horizontal", "rules": ["primary max 1", "destructive must be the confirm, not cancel", "cancel on the left/secondary"] },
+    "modal.body": { "accepts": ["antd.typography", "antd.alert"], "layout": "vertical" }
+  },
+  "responsive": { "mobile": "Modal 全屏/底部抽屉适配" },
+  "antiPatterns": [
+    { "name": "破坏性操作无确认", "why": "误操作不可逆", "fix": "套用本模式插入 confirm Modal" },
+    { "name": "确认按钮用 primary（绿/蓝）", "why": "弱化了风险信号", "fix": "确认用 danger variant" },
+    { "name": "取消与确认文案含糊（是/否）", "why": "用户须阅读正文才知道哪个是哪个", "fix": "用动词明确（删除/取消）" }
+  ]
+}

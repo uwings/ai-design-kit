@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-design-kit/schemas/token-graph.schema.json",
+  "title": "Token Graph",
+  "description": "四层 token 依赖图（primitive→semantic→component→state）+ 主题模式 + 别名 + 消费者。主题切换只改 semantic token，让别名传播。别名循环检测/模式完整性由 engine/tokens.py 在运行时校验（非 schema 层）。",
+  "type": "object",
+  "required": ["schemaVersion", "system", "modes", "defaultMode", "tokens"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "system": { "type": "string" },
+    "modes": { "type": "array", "items": { "type": "string" }, "minItems": 1, "description": "主题模式，如 [light, dark]" },
+    "defaultMode": { "type": "string" },
+    "tokens": {
+      "type": "object",
+      "description": "tokenId -> token 定义。token 可为：直接值、别名引用、或按模式取值",
+      "additionalProperties": { "$ref": "#/$defs/token" }
+    },
+    "bindings": {
+      "type": "object",
+      "description": "消费者索引（派生）：tokenId -> [componentId:visualPath, ...]。可由 engine 重建",
+      "additionalProperties": { "type": "array", "items": { "type": "string" } }
+    }
+  },
+  "$defs": {
+    "token": {
+      "type": "object",
+      "required": ["type", "level"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "enum": ["color", "number", "string", "boolean"] },
+        "level": { "enum": ["primitive", "semantic", "component", "state"], "description": "primitive=原值；semantic=语义别名；component=组件级；state=状态级" },
+        "value": {
+          "description": "直接值（color 用 hex 字符串；number/string/boolean 用对应类型）。与 alias/modes 互斥"
+        },
+        "alias": { "type": "string", "description": "别名引用另一 tokenId（如 {color.brand.primary}）。与 value/modes 互斥" },
+        "modes": {
+          "type": "object",
+          "description": "按模式取值（每模式可为直接值或别名引用字符串）。如 {\"light\":\"#fff\",\"dark\":\"#000\"}",
+          "additionalProperties": {}
+        },
+        "description": { "type": "string" }
+      }
+    }
+  }
+}

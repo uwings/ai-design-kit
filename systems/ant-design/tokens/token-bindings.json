@@ -1,0 +1,10 @@
+{
+  "description": "token 绑定索引（与 token-graph.json#bindings 互为补充；详细见 token-graph.json）。本文件便于人读与外部消费（含未来 KC 接入）。",
+  "system": "ant-design",
+  "bindings": {
+    "color.brand.primary": { "consumers": ["antd.button:root.fill", "antd.badge:root.fill", "antd.menu:item.selected.fill"], "note": "改此一处即可整体换品牌主色" },
+    "color.border.default": { "consumers": ["antd.input:root.stroke", "antd.button:root.stroke", "antd.table:cell.stroke"] },
+    "color.text.default": { "consumers": ["antd.typography:text.fill", "antd.card:title.fill"] },
+    "color.bg.layout": { "consumers": ["antd.layout:root.fill"] }
+  }
+}

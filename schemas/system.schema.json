@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-design-kit/schemas/system.schema.json",
+  "title": "Design System (per-system manifest)",
+  "description": "单个设计体系（如 ant-design）的元信息：源出处、ingest 时间、覆盖率、组件清单、KC 接入预留。",
+  "type": "object",
+  "required": ["name", "displayName", "version"],
+  "additionalProperties": false,
+  "properties": {
+    "name": { "type": "string", "description": "体系 id，如 ant-design" },
+    "displayName": { "type": "string" },
+    "version": { "type": "string" },
+    "description": { "type": "string" },
+    "source": {
+      "type": "object",
+      "description": "源出处",
+      "properties": {
+        "kind": { "enum": ["figma", "code", "storybook", "url", "docs", "mixed"] },
+        "url": { "type": "string" },
+        "figmaKey": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "ingestedAt": { "type": "string" },
+    "coverage": {
+      "type": "object",
+      "description": "覆盖率（编译产物）",
+      "properties": {
+        "components": { "type": "integer" },
+        "tokens": { "type": "integer" },
+        "patterns": { "type": "integer" },
+        "notes": { "type": "string" }
+      }
+    },
+    "components": { "type": "array", "items": { "type": "string" }, "description": "已编译组件 id 清单" },
+    "kcHookup": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "exportPath": { "type": "string", "description": "KC 消费的导出清单路径，如 index/_kc/ant-design.manifest.json" }
+      }
+    }
+  }
+}

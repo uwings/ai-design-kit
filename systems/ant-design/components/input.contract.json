@@ -1,0 +1,186 @@
+{
+  "category": "data-entry",
+  "code": {
+    "component": "Input",
+    "framework": "react",
+    "import": "import { Input } from \"antd\";",
+    "propMap": {
+      "allowClear": "allowClear",
+      "placeholder": "placeholder",
+      "value": "value"
+    }
+  },
+  "compositionRules": [
+    {
+      "assert": "Every Input MUST be associated with an accessible label, typically provided by a parent Form.Item's label.",
+      "condition": "always",
+      "id": "antd.input.uses_form_item_for_label",
+      "severity": "hard"
+    },
+    {
+      "assert": "Use a single Input instance per logical field; do not stack multiple Inputs for the same value.",
+      "condition": "always",
+      "id": "antd.input.single_per_field",
+      "severity": "soft"
+    }
+  ],
+  "confidence": 0.9,
+  "displayName": "Input",
+  "examples": {
+    "bad": [
+      "<Input /> without any surrounding Form.Item or aria-label, leaving the field unlabeled",
+      "<Form.Item name=\"note\"><Input value=\"hardcoded\" /></Form.Item> (value hardcoded instead of controlled by form state)",
+      "<Input enterButton=\"Search\" /> used inside an intent=\"default\" context (search affordance without intent=\"search\")",
+      "maxLength=\"5\" (numeric string instead of number)"
+    ],
+    "good": [
+      "<Form.Item label=\"Email\" name=\"email\"><Input placeholder=\"you@example.com\" allowClear /></Form.Item>",
+      "<Input.Search placeholder=\"Search products\" allowClear onSearch={onSearch} /> (intent=\"search\")",
+      "<Form.Item label=\"Note\" name=\"note\"><Input maxLength={200} showCount /></Form.Item>"
+    ]
+  },
+  "hardRules": [
+    {
+      "expr": "label.content exists OR props.label exists OR ancestor::antd.form[descendant::antd.form.item with label]",
+      "id": "antd.input.has_accessible_label",
+      "kind": "schema",
+      "message": "Input must have an accessible label: place it inside a Form.Item with a label, or supply a visible label / aria-label. A bare Input with only a placeholder is not acceptable."
+    },
+    {
+      "expr": "props.value == null OR fn:isControlledValue(props.value)",
+      "id": "antd.input.value_type_string",
+      "kind": "schema",
+      "message": "value must be a string (single line). For multi-line content use TextArea, for numeric content use InputNumber."
+    },
+    {
+      "expr": "props.maxLength == null OR props.maxLength > 0",
+      "id": "antd.input.maxlength_positive",
+      "kind": "schema",
+      "message": "maxLength must be a non-negative number of characters."
+    },
+    {
+      "expr": "variants.intent.values ⊇ [\"default\",\"search\",\"password\"]",
+      "id": "antd.input.intent_in_values",
+      "kind": "schema",
+      "message": "intent axis must expose the canonical values default, search, and password."
+    },
+    {
+      "id": "input-placeholder-len",
+      "kind": "schema",
+      "expr": "props.placeholder.maxLength<=50",
+      "message": "Input placeholder 必须 ≤ 50 字符（人审纠错固化）"
+    }
+  ],
+  "id": "antd.input",
+  "intents": [
+    "data_entry",
+    "search",
+    "filtering"
+  ],
+  "meaning": {
+    "definition": "Captures a single line of free-form text input from the user as the value of a decision variable within a form or filtering context. intent=search designates the field as a query submission affordance rather than a generic data-entry field, implying a search action is available; intent=password designates a sensitive credential field that must be masked.",
+    "doNotUseWhen": [
+      "Multi-line text entry is needed (use TextArea).",
+      "A constrained value from a finite set is required (use Select).",
+      "A numeric value with units / step semantics is required (use InputNumber).",
+      "A date or time is required (use DatePicker / TimePicker)."
+    ],
+    "useWhen": [
+      "A single short free-text value (name, title, identifier, note) must be collected",
+      "The field is a search box that triggers query/filtering submission (intent=\"search\")",
+      "A sensitive credential such as a password must be entered with masked display (intent=\"password\")"
+    ]
+  },
+  "needsReview": false,
+  "pencil": {
+    "allowedDescendantOverrides": {
+      "label.content": "props.placeholder"
+    },
+    "componentRefPattern": "antd.input",
+    "forbiddenOverrides": [
+      "root.fill",
+      "root.stroke",
+      "root.height"
+    ],
+    "rootNodeType": "input"
+  },
+  "props": {
+    "allowClear": {
+      "default": false,
+      "description": "Shows a clear (x) affordance to empty the field in one action. Recommended for search and filter inputs where fast re-entry is expected.",
+      "type": "boolean"
+    },
+    "label": {
+      "accepts": [
+        "antd.typography"
+      ],
+      "description": "Accessible name for the field. In practice this is provided by the surrounding Form.Item's label rather than as a prop on Input itself; it is modeled here so the validator can enforce that an accessible label exists. Maps to the visible field label content.",
+      "required": true,
+      "type": "componentRef"
+    },
+    "maxLength": {
+      "description": "Maximum number of characters the field will accept. Use to enforce length constraints at entry time.",
+      "minimum": 0,
+      "type": "number"
+    },
+    "placeholder": {
+      "description": "Prompt text shown inside the field before a value is entered. A placeholder is NOT a substitute for an accessible label.",
+      "maxLength": 50,
+      "type": "string"
+    },
+    "value": {
+      "description": "The controlled single-line string value of the field. Must be bound to state (or a Form.Item name) so the field reflects and updates the decision variable.",
+      "required": true,
+      "type": "string"
+    }
+  },
+  "semanticRole": "input",
+  "slots": {},
+  "softRules": [
+    "Prefer allowClear on intent=\"search\" and filtering inputs to enable fast re-query.",
+    "Prefer maxLength with showCount when a known character budget exists, to prevent overlong submissions.",
+    "placeholder should give a concrete example value, not duplicate the field label.",
+    "Do not use placeholder as the only affordance for required format constraints; surface those in helper/error text or the label."
+  ],
+  "sourceEvidence": [
+    "https://ant.design/components/input",
+    "https://ant.design/components/input#api (Input props: value string, placeholder string, allowClear boolean, maxLength number)",
+    "https://ant.design/components/input#input-search (Input.Search variant / intent=search)",
+    "https://ant.design/components/input#input-password (Input.Password variant / intent=password)",
+    "https://ant.design/components/form (Form.Item provides the accessible label for nested fields)"
+  ],
+  "sourceRefs": [
+    "https://ant.design/components/input",
+    "https://ant.design/components/form"
+  ],
+  "states": [
+    "empty",
+    "filled",
+    "focused",
+    "hovered",
+    "disabled",
+    "error"
+  ],
+  "system": "ant-design",
+  "tokenBindings": {
+    "root.fill": "input.background",
+    "root.height": "input.height.md",
+    "root.stroke": "input.border.color"
+  },
+  "variants": {
+    "intent": {
+      "default": "default",
+      "semantics": {
+        "default": "A single-line text field for collecting a free-form value within a form or data-entry context.",
+        "password": "A masked credential field that hides characters for sensitive entry.",
+        "search": "A field designated as a search / query input, typically paired with a submit affordance."
+      },
+      "values": [
+        "default",
+        "search",
+        "password"
+      ]
+    }
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,198 @@
+{
+  "primary_action": {
+    "definition": "当前局部决策上下文中，最希望用户采取的动作。",
+    "components": [
+      "antd.button"
+    ],
+    "patterns": [
+      "admin-user-permissions",
+      "destructive-confirmation"
+    ],
+    "preferredVariants": {
+      "antd.button": {
+        "intent": "primary"
+      }
+    },
+    "riskLevel": "low"
+  },
+  "secondary_action": {
+    "definition": "支持主路径、但不应在视觉上与主 CTA 竞争的动作。",
+    "components": [
+      "antd.button"
+    ],
+    "patterns": [],
+    "preferredVariants": {
+      "antd.button": {
+        "intent": "default"
+      }
+    },
+    "riskLevel": "none"
+  },
+  "destructive_action": {
+    "definition": "删除、撤销、移除或造成不可逆/高风险变化的动作。",
+    "components": [
+      "antd.button"
+    ],
+    "patterns": [
+      "destructive-confirmation"
+    ],
+    "preferredVariants": {
+      "antd.button": {
+        "intent": "danger"
+      }
+    },
+    "riskLevel": "high"
+  },
+  "destructive_confirmation": {
+    "definition": "破坏性操作执行前，阻断式要求用户二次确认的交互。",
+    "components": [
+      "antd.modal",
+      "antd.button"
+    ],
+    "patterns": [
+      "admin-user-permissions",
+      "destructive-confirmation"
+    ],
+    "preferredVariants": {
+      "antd.modal": {
+        "intent": "confirm"
+      },
+      "antd.button": {
+        "intent": "danger"
+      }
+    },
+    "riskLevel": "high"
+  },
+  "navigation": {
+    "definition": "在信息架构间移动（页面/视图/锚点），非触发业务动作。",
+    "components": [
+      "antd.menu",
+      "antd.breadcrumb"
+    ],
+    "patterns": [],
+    "preferredVariants": {},
+    "riskLevel": "none"
+  },
+  "data_management": {
+    "definition": "浏览/操作一批同构记录（表格、列表）。",
+    "components": [
+      "antd.table",
+      "antd.tag",
+      "antd.badge"
+    ],
+    "patterns": [
+      "table-with-filters",
+      "admin-user-permissions"
+    ],
+    "preferredVariants": {},
+    "riskLevel": "none"
+  },
+  "data_entry": {
+    "definition": "用户输入结构化数据。",
+    "components": [
+      "antd.form",
+      "antd.input",
+      "antd.select",
+      "antd.switch"
+    ],
+    "patterns": [],
+    "preferredVariants": {},
+    "riskLevel": "none"
+  },
+  "filtering": {
+    "definition": "缩小数据集合的范围操作（搜索/筛选/排序）。",
+    "components": [
+      "antd.input",
+      "antd.select"
+    ],
+    "patterns": [
+      "table-with-filters"
+    ],
+    "preferredVariants": {},
+    "riskLevel": "none"
+  },
+  "search": {
+    "definition": "按关键词查找记录。",
+    "components": [
+      "antd.input"
+    ],
+    "patterns": [],
+    "preferredVariants": {
+      "antd.input": {
+        "intent": "search"
+      }
+    },
+    "riskLevel": "none"
+  },
+  "bulk_action": {
+    "definition": "对多条选中记录批量执行动作。",
+    "components": [
+      "antd.button"
+    ],
+    "patterns": [],
+    "preferredVariants": {},
+    "riskLevel": "none"
+  },
+  "empty_state": {
+    "definition": "解释内容缺失并引导下一步。",
+    "components": [
+      "antd.typography",
+      "antd.button"
+    ],
+    "patterns": [],
+    "preferredVariants": {},
+    "riskLevel": "none"
+  },
+  "status_display": {
+    "definition": "紧凑表达记录/对象的状态、分类或计数。",
+    "components": [
+      "antd.tag",
+      "antd.badge"
+    ],
+    "patterns": [],
+    "preferredVariants": {},
+    "riskLevel": "none"
+  },
+  "toggle": {
+    "definition": "在两个互斥状态间切换（开/关、启用/禁用）。",
+    "components": [
+      "antd.switch"
+    ],
+    "patterns": [],
+    "preferredVariants": {},
+    "riskLevel": "none"
+  },
+  "feedback": {
+    "definition": "向用户传达系统状态/结果（提示、告警、错误）。",
+    "components": [
+      "antd.alert"
+    ],
+    "patterns": [],
+    "preferredVariants": {},
+    "riskLevel": "none"
+  },
+  "content": {
+    "definition": "结构化文本（标题、说明、正文）。",
+    "components": [
+      "antd.typography"
+    ],
+    "patterns": [],
+    "preferredVariants": {
+      "antd.typography": {
+        "variant": "default"
+      }
+    },
+    "riskLevel": "none"
+  },
+  "section": {
+    "definition": "页面布局容器与分区。",
+    "components": [
+      "antd.layout"
+    ],
+    "patterns": [
+      "admin-user-permissions"
+    ],
+    "preferredVariants": {},
+    "riskLevel": "none"
+  }
+}

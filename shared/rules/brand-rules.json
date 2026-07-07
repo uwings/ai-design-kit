@@ -1,0 +1,11 @@
+{
+  "description": "品牌/调性软规则——偏好与禁忌，不阻塞但影响 critic 评分。",
+  "rules": [
+    { "id": "one_primary_cta_above_fold", "severity": "soft", "expr": "营销页首屏最多 1 个 primary CTA" },
+    { "id": "prefer_card_over_raw_frame", "severity": "soft", "expr": "分组内容优先用 Card 而非裸 Frame" },
+    { "id": "prefer_stack_grid_over_absolute", "severity": "soft", "expr": "优先 Stack/Grid 布局，避免绝对定位（装饰/海报除外）" },
+    { "id": "max_3_font_sizes_per_card", "severity": "soft", "expr": "单卡片内不超过 3 种字号" },
+    { "id": "empty_state_has_action", "severity": "soft", "expr": "空状态包含 title + description + action" },
+    { "id": "enterprise_tone", "severity": "soft", "expr": "企业后台调性：克制、高密度、低饱和；避免过度游戏化视觉", "note": "destructive 用 danger 语义色而非花哨配色" }
+  ]
+}

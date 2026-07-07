@@ -1,0 +1,5 @@
+[
+  { "op": "component.insert", "componentId": "antd.button", "parentId": null,
+    "node": { "id": "b1", "variant": { "intent": "mega" }, "props": { "label": "x" } },
+    "reason": "intent=mega 不在枚举内（违规）", "contractRefs": ["antd.button"] }
+]

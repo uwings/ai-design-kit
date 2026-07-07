@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "0.1",
+  "project": {
+    "name": "Untitled",
+    "system": "ant-design"
+  },
+  "pages": [
+    {
+      "id": "page",
+      "type": "page",
+      "width": 1440,
+      "children": [
+        {
+          "id": "notifForm",
+          "component": "antd.form",
+          "variant": {
+            "layout": "vertical"
+          },
+          "props": {
+            "onFinish": "handleSubmit"
+          },
+          "slots": {
+            "fields": [
+              {
+                "id": "emailSwitch",
+                "component": "antd.switch",
+                "props": {
+                  "checked": true,
+                  "ariaLabel": "邮件通知"
+                }
+              },
+              {
+                "id": "desktopSwitch",
+                "component": "antd.switch",
+                "props": {
+                  "checked": false,
+                  "ariaLabel": "桌面推送"
+                }
+              },
+              {
+                "id": "weeklyDigestSwitch",
+                "component": "antd.switch",
+                "props": {
+                  "checked": true,
+                  "ariaLabel": "每周摘要"
+                }
+              }
+            ],
+            "submit": [
+              {
+                "id": "saveBtn",
+                "component": "antd.button",
+                "variant": {
+                  "intent": "primary"
+                },
+                "props": {
+                  "label": "保存设置"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

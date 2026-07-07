@@ -1,0 +1,32 @@
+{
+  "name": "ai-design-kit",
+  "version": "2.0.1",
+  "schemaVersion": "0.1",
+  "maturityLevel": 2,
+  "maturityTarget": "Level 2 — 组件可控：AI 只能通过合法 operation 使用组件，违规被 validator 拦截",
+  "description": "AI Design Kit — 把设计规范编译成 AI 可消费、可校验、可执行的组件契约。AI 只操作组件图，不直接画像素/写 HTML。语义图是唯一真相源，Pencil 与代码都是编译目标。",
+  "systems": [
+    "ant-design"
+  ],
+  "defaultSystem": "ant-design",
+  "corePrinciples": [
+    "AI 不生成最终设计文件；AI 生成对组件图的操作。",
+    "组件库不是 UI 资产仓库，是 AI 可调用的设计 API。",
+    "AI 设计师可以提方案，但 AI Design Kit 决定它能不能落地。",
+    "Pencil 和 HTML 都是编译目标，不是设计源。",
+    "模型负责语义推理；Kit 负责长期知识；Validator 负责硬约束；Compiler 负责确定性输出；Memory 负责持续学习。",
+    "上下文分层管理：模型通过检索拿到当前任务所需的最小知识包，不记住整个组件库。"
+  ],
+  "kcHookup": {
+    "enabled": false,
+    "exportInterface": "engine.ingest.export_for_kc:export_for_kc",
+    "retrieverBackends": [
+      "fileread",
+      "vector",
+      "kc"
+    ],
+    "note": "向量检索/语义召回由知识编译引擎（KC）接入时实现。KC 会消费本 Kit 编译产物（契约 + cards + 意图索引）建向量副本，专门负责设计规范的检索与召回。v1 设计时直接读文件 + 意图路由。"
+  },
+  "generatedAt": "2026-07-07",
+  "sourceOfTruth": "systems/<system>/components/*.contract.json + tokens/token-graph.json；设计中间产物在 semantic/；编译产物在 pencil/ 与 generated-code/"
+}

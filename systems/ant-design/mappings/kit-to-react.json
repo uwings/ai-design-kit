@@ -1,0 +1,21 @@
+{
+  "system": "ant-design",
+  "target": "react",
+  "conventions": { "framework": "react", "package": "antd" },
+  "componentMaps": [
+    { "componentId": "antd.button", "targetId": "Button", "propMap": { "label": "children", "intent": "type", "size": "size", "iconOnly": "icon", "ariaLabel": "aria-label" } },
+    { "componentId": "antd.table", "targetId": "Table", "propMap": { "dataSource": "dataSource", "columns": "columns", "rowKey": "rowKey" } },
+    { "componentId": "antd.form", "targetId": "Form", "propMap": { "layout": "layout" } },
+    { "componentId": "antd.input", "targetId": "Input", "propMap": { "value": "value", "placeholder": "placeholder", "intent": "variant" } },
+    { "componentId": "antd.select", "targetId": "Select", "propMap": { "options": "options", "value": "value" } },
+    { "componentId": "antd.modal", "targetId": "Modal", "propMap": { "title": "title", "open": "open", "intent": "—" } },
+    { "componentId": "antd.tag", "targetId": "Tag", "propMap": { "color": "color", "label": "children" } },
+    { "componentId": "antd.badge", "targetId": "Badge", "propMap": { "count": "count" } },
+    { "componentId": "antd.switch", "targetId": "Switch", "propMap": { "checked": "checked", "ariaLabel": "aria-label" } },
+    { "componentId": "antd.alert", "targetId": "Alert", "propMap": { "intent": "type", "message": "message", "description": "description" } },
+    { "componentId": "antd.typography", "targetId": "Typography", "propMap": { "variant": "—", "text": "children" } },
+    { "componentId": "antd.layout", "targetId": "Layout", "propMap": {} },
+    { "componentId": "antd.menu", "targetId": "Menu", "propMap": { "items": "items", "selected": "selectedKeys" } },
+    { "componentId": "antd.breadcrumb", "targetId": "Breadcrumb", "propMap": { "items": "items" } }
+  ]
+}

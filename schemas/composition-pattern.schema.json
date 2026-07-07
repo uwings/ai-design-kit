@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-design-kit/schemas/composition-pattern.schema.json",
+  "title": "Composition Pattern",
+  "description": "页面组合模式：必需组件、可选组件、顺序、slot 规则、响应式、反模式。让 AI 不止'组件级正确'，且页面结构合理。",
+  "type": "object",
+  "required": ["id", "intent", "requiredComponents", "order"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string" },
+    "system": { "type": "string" },
+    "displayName": { "type": "string" },
+    "intent": { "type": "array", "items": { "type": "string" }, "description": "匹配的意图标签（见 intent-taxonomy）" },
+    "description": { "type": "string" },
+    "requiredComponents": { "type": "array", "items": { "type": "string" }, "description": "必须出现的 component id" },
+    "optionalComponents": { "type": "array", "items": { "type": "string" } },
+    "order": { "type": "array", "items": { "type": "string" }, "description": "组件/区域推荐顺序（id 或角色）" },
+    "slots": {
+      "type": "object",
+      "description": "模式级 slot 规则：slot 名 -> 约束",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "accepts": { "type": "array", "items": { "type": "string" } },
+          "min": { "type": "integer" },
+          "max": { "type": "integer" },
+          "rules": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "responsive": { "type": "object", "additionalProperties": {}, "description": "desktop/tablet/mobile 布局差异" },
+    "antiPatterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "why"],
+        "properties": {
+          "name": { "type": "string" },
+          "why": { "type": "string" },
+          "fix": { "type": "string" }
+        }
+      }
+    },
+    "examples": { "type": "object", "properties": { "good": { "type": "array", "items": {} }, "bad": { "type": "array", "items": {} } } }
+  }
+}

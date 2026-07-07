@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-design-kit/schemas/kit.schema.json",
+  "title": "Kit Manifest",
+  "description": "Kit 顶层元信息：版本、已注册体系、成熟度、KC 接入预留。",
+  "type": "object",
+  "required": ["name", "version", "systems", "defaultSystem"],
+  "additionalProperties": false,
+  "properties": {
+    "name": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "schemaVersion": { "type": "string" },
+    "maturityLevel": { "type": "integer", "minimum": 1, "maximum": 3 },
+    "maturityTarget": { "type": "string" },
+    "description": { "type": "string" },
+    "systems": { "type": "array", "items": { "type": "string" } },
+    "defaultSystem": { "type": "string" },
+    "corePrinciples": { "type": "array", "items": { "type": "string" } },
+    "kcHookup": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "exportInterface": { "type": "string" },
+        "retrieverBackends": { "type": "array", "items": { "type": "string" } },
+        "note": { "type": "string" }
+      }
+    },
+    "generatedAt": { "type": "string" },
+    "sourceOfTruth": { "type": "string" }
+  }
+}

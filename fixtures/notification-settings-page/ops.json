@@ -1,0 +1,25 @@
+[
+  { "op": "component.insert", "componentId": "antd.form", "parentId": null,
+    "node": { "id": "notifForm", "variant": { "layout": "vertical" },
+      "props": { "onFinish": "handleSubmit" } },
+    "reason": "通知偏好设置表单（settings 模式：vertical 布局）", "contractRefs": ["antd.form"] },
+
+  { "op": "component.fillSlot", "nodeId": "notifForm", "slot": "fields",
+    "children": [
+      { "id": "emailSwitch", "component": "antd.switch",
+        "props": { "checked": true, "ariaLabel": "邮件通知" } },
+      { "id": "desktopSwitch", "component": "antd.switch",
+        "props": { "checked": false, "ariaLabel": "桌面推送" } },
+      { "id": "weeklyDigestSwitch", "component": "antd.switch",
+        "props": { "checked": true, "ariaLabel": "每周摘要" } }
+    ],
+    "reason": "三个通知偏好开关，每个带 accessible label", "contractRefs": ["antd.switch"] },
+
+  { "op": "component.fillSlot", "nodeId": "notifForm", "slot": "submit",
+    "children": [
+      { "id": "saveBtn", "component": "antd.button",
+        "variant": { "intent": "primary" },
+        "props": { "label": "保存设置" } }
+    ],
+    "reason": "保存按钮（primary，该 action group 仅 1 个 primary）", "contractRefs": ["antd.button"] }
+]

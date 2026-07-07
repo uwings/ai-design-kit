@@ -1,0 +1,5 @@
+[
+  { "op": "component.insert", "componentId": "antd.date-picker", "parentId": null,
+    "node": { "id": "dp1", "props": { "label": "日期" } },
+    "reason": "插入未注册组件（antd.date-picker 不在本 Kit 14 组件内）", "contractRefs": ["antd.date-picker"] }
+]

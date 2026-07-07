@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "0.1",
+  "system": "ant-design",
+  "ingestedAt": "2026-07-07",
+  "sourceKind": "docs",
+  "sourceUrl": "https://ant.design/components/overview",
+  "notes": "从 Ant Design 公开文档抽取的事实快照（v1 手工归一化；Figma MCP/Code Connect 自动抽取为后续扩展）。严禁脑补——只采集有证据的事实。抢救的 PY 残片提供了 25 个组件清单与 9 个 token 引用，本快照覆盖其中权限页所需的 14 个。",
+  "components": [
+    {
+      "id": "antd.button",
+      "name": "Button",
+      "figmaKey": null,
+      "codeImport": "import { Button } from 'antd'",
+      "props": [
+        { "name": "type", "type": "enum", "values": ["primary", "default", "dashed", "link", "text"], "default": "default" },
+        { "name": "size", "type": "enum", "values": ["large", "middle", "small"], "default": "middle" },
+        { "name": "danger", "type": "boolean", "default": false },
+        { "name": "disabled", "type": "boolean", "default": false },
+        { "name": "icon", "type": "component", "accepts": ["ReactNode"] },
+        { "name": "children", "type": "string" }
+      ],
+      "evidence": ["https://ant.design/components/button#api"]
+    },
+    {
+      "id": "antd.table",
+      "name": "Table",
+      "codeImport": "import { Table } from 'antd'",
+      "props": [
+        { "name": "dataSource", "type": "array" },
+        { "name": "columns", "type": "array" },
+        { "name": "rowKey", "type": "string" },
+        { "name": "loading", "type": "boolean" },
+        { "name": "pagination", "type": "object|boolean" }
+      ],
+      "evidence": ["https://ant.design/components/table#api"]
+    },
+    {
+      "id": "antd.modal",
+      "name": "Modal",
+      "codeImport": "import { Modal } from 'antd'",
+      "props": [
+        { "name": "open", "type": "boolean" },
+        { "name": "title", "type": "string" },
+        { "name": "onOk", "type": "function" },
+        { "name": "onCancel", "type": "function" },
+        { "name": "okText", "type": "string" },
+        { "name": "cancelText", "type": "string" }
+      ],
+      "evidence": ["https://ant.design/components/modal#api"]
+    },
+    {
+      "id": "antd.form",
+      "name": "Form",
+      "codeImport": "import { Form } from 'antd'",
+      "props": [{ "name": "layout", "type": "enum", "values": ["horizontal", "vertical", "inline"], "default": "horizontal" }],
+      "evidence": ["https://ant.design/components/form#api"]
+    },
+    {
+      "id": "antd.input",
+      "name": "Input",
+      "codeImport": "import { Input } from 'antd'",
+      "props": [{ "name": "value", "type": "string" }, { "name": "placeholder", "type": "string" }, { "name": "allowClear", "type": "boolean" }],
+      "evidence": ["https://ant.design/components/input#input"]
+    },
+    {
+      "id": "antd.select",
+      "name": "Select",
+      "codeImport": "import { Select } from 'antd'",
+      "props": [{ "name": "options", "type": "array" }, { "name": "value", "type": "string|number" }, { "name": "mode", "type": "enum", "values": ["multiple", "tags"] }],
+      "evidence": ["https://ant.design/components/select#api"]
+    },
+    {
+      "id": "antd.tag",
+      "name": "Tag",
+      "codeImport": "import { Tag } from 'antd'",
+      "props": [{ "name": "color", "type": "string" }, { "name": "children", "type": "string" }],
+      "evidence": ["https://ant.design/components/tag#api"]
+    },
+    {
+      "id": "antd.badge",
+      "name": "Badge",
+      "codeImport": "import { Badge } from 'antd'",
+      "props": [{ "name": "count", "type": "number" }, { "name": "status", "type": "enum", "values": ["success", "processing", "default", "error", "warning"] }],
+      "evidence": ["https://ant.design/components/badge#api"]
+    },
+    {
+      "id": "antd.switch",
+      "name": "Switch",
+      "codeImport": "import { Switch } from 'antd'",
+      "props": [{ "name": "checked", "type": "boolean" }, { "name": "disabled", "type": "boolean" }, { "name": "aria-label", "type": "string" }],
+      "evidence": ["https://ant.design/components/switch#api"]
+    },
+    {
+      "id": "antd.alert",
+      "name": "Alert",
+      "codeImport": "import { Alert } from 'antd'",
+      "props": [{ "name": "type", "type": "enum", "values": ["success", "info", "warning", "error"] }, { "name": "message", "type": "string" }, { "name": "description", "type": "string" }, { "name": "showIcon", "type": "boolean" }],
+      "evidence": ["https://ant-design/components/alert#api"]
+    },
+    {
+      "id": "antd.layout",
+      "name": "Layout",
+      "codeImport": "import { Layout } from 'antd'",
+      "props": [],
+      "evidence": ["https://ant.design/components/layout"]
+    },
+    {
+      "id": "antd.menu",
+      "name": "Menu",
+      "codeImport": "import { Menu } from 'antd'",
+      "props": [{ "name": "items", "type": "array" }, { "name": "selectedKeys", "type": "array" }, { "name": "mode", "type": "enum", "values": ["vertical", "horizontal", "inline"] }],
+      "evidence": ["https://ant.design/components/menu#api"]
+    },
+    {
+      "id": "antd.breadcrumb",
+      "name": "Breadcrumb",
+      "codeImport": "import { Breadcrumb } from 'antd'",
+      "props": [{ "name": "items", "type": "array" }],
+      "evidence": ["https://ant.design/components/breadcrumb#api"]
+    },
+    {
+      "id": "antd.typography",
+      "name": "Typography",
+      "codeImport": "import { Typography } from 'antd'",
+      "props": [{ "name": "variant", "type": "enum", "values": ["h1", "h2", "h3", "body", "secondary"] }, { "name": "children", "type": "string" }],
+      "evidence": ["https://ant.design/components/typography"]
+    }
+  ],
+  "tokenRefs": [
+    "font.size.base", "font.lineHeight.base", "space.grid.unit",
+    "color.text.default", "color.text.secondary", "color.text.disabled",
+    "color.border.default", "color.bg.layout", "theme.algorithm.default"
+  ],
+  "coverage": { "componentsSelected": 14, "componentsTotalInSource": 25, "notes": "权限管理页所需 14 个；其余 11 个增量补齐" }
+}

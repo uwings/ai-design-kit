@@ -1,0 +1,196 @@
+{
+  "category": "data-display",
+  "code": {
+    "component": "Table",
+    "framework": "react",
+    "import": "import { Table } from \"antd\";",
+    "propMap": {
+      "columns": "columns",
+      "dataSource": "dataSource",
+      "loading": "loading",
+      "rowKey": "rowKey"
+    }
+  },
+  "compositionRules": [
+    {
+      "assert": "All children of a cell must originate from column.render or dataSource fields, not from arbitrary JSX placed as table children.",
+      "condition": "node.children.length === 0",
+      "id": "table-no-stray-children",
+      "severity": "hard"
+    },
+    {
+      "assert": "Table is a leaf display node; do not embed it as a layout root.",
+      "condition": "parent.semanticRole === 'layout' || parent.semanticRole === 'data_display'",
+      "id": "table-not-in-layout-slot",
+      "severity": "soft"
+    }
+  ],
+  "confidence": 0.9,
+  "displayName": "Table",
+  "examples": {
+    "bad": [
+      "用 Table 渲染营销卡片网格（每行一张促销卡片）——应使用 antd.layout + card",
+      "把 dataSource 留空且不传 locale.emptyText，导致空态无引导文案",
+      "Table 既无 loading 也无 rowKey，数据异步加载时出现 key 警告与空白闪烁",
+      "在列定义里用 render 渲染超大图片墙或富媒体广告，使表格变成画廊"
+    ],
+    "good": [
+      "用户管理列表：dataSource=users(rowKey=id)，含名称/角色列 + 行尾操作列(render 注入编辑/删除按钮)",
+      "订单状态表：dataSource=orders(rowKey=orderNo)，状态列用 render 返回 antd.tag（paid→success 色）",
+      "后台审计日志：columns 含时间、操作人、事件、IP；开启 pagination 与 loading 三态"
+    ]
+  },
+  "hardRules": [
+    {
+      "expr": "props.columns.every(c => c && typeof c === 'object' && 'dataIndex' in c) && node.children.length === 0",
+      "id": "data-driven-not-slot",
+      "kind": "schema",
+      "message": "Table 必须数据驱动：通过 columns + dataSource 渲染记录，不得作为布局 slot 嵌入任意子节点。"
+    },
+    {
+      "expr": "exists(node.state) && ['empty','loading','error'].every(s => s in node.state)",
+      "id": "three-states-present",
+      "kind": "schema",
+      "message": "Table 必须声明空、加载、错误三态。"
+    },
+    {
+      "expr": "every(variant in variants where variant.size === 'mobile' or viewport === 'mobile' => count(columns) <= 8)",
+      "id": "mobile-column-limit",
+      "kind": "schema",
+      "message": "移动端 columns 数量 ≤ 8。"
+    },
+    {
+      "expr": "props.rowKey != null || (props.dataSource.length === 0) || every(props.columns, c => 'key' in c) || every(props.dataSource, r => typeof r.id !== 'undefined')",
+      "id": "rowkey-required",
+      "kind": "schema",
+      "message": "rowKey 必须存在或每行记录含稳定唯一键，避免 React key 告警与状态错位。"
+    }
+  ],
+  "id": "antd.table",
+  "intents": [
+    "data_management"
+  ],
+  "meaning": {
+    "definition": "在结构化、同构的记录集合上提供可扫描、可对比、可逐行操作的视图，支撑用户对数据进行浏览、定位与行级管理。",
+    "doNotUseWhen": [
+      "用 Table 画营销卡片或富媒体网格——它是记录容器而非视觉排版工具",
+      "只展示一两个字段、无对比或排序需求时，过度工程",
+      "需要树形/分组的探索式分析而非扁平记录浏览时"
+    ],
+    "useWhen": [
+      "需要逐行展示同构记录（如用户列表、订单、日志）",
+      "用户需要在多个字段间横向对比、排序、分页",
+      "需要行内/行尾对单条记录执行操作（编辑、删除、查看详情）"
+    ]
+  },
+  "needsReview": false,
+  "pencil": {
+    "allowedDescendantOverrides": {},
+    "componentRefPattern": "antd.table",
+    "forbiddenOverrides": [
+      "root.fill",
+      "header.fill",
+      "row.fill",
+      "cell.fill",
+      "cell.stroke",
+      "root.radius",
+      "header.textColor"
+    ],
+    "rootNodeType": "table"
+  },
+  "props": {
+    "columns": {
+      "accepts": [
+        "antd.table"
+      ],
+      "contentRules": [
+        "每项含 title 与 dataIndex 或 render",
+        "操作列应通过 render 注入按钮/链接，而非作为独立 slot"
+      ],
+      "description": "列定义数组；每项描述一个字段的表头与取值/渲染方式。",
+      "required": true,
+      "type": "array"
+    },
+    "dataSource": {
+      "contentRules": [
+        "应为同构对象数组",
+        "每条记录建议含稳定唯一键，否则需配 rowKey"
+      ],
+      "description": "要渲染的同构记录数组，Table 是数据驱动而非子节点驱动的。",
+      "required": true,
+      "type": "array"
+    },
+    "loading": {
+      "description": "是否处于加载态；true 时显示加载骨架/指示器覆盖表格。",
+      "type": "boolean"
+    },
+    "pagination": {
+      "description": "分页配置；传 false 表示不分页（全量渲染，慎用于大数据集）。",
+      "type": "object"
+    },
+    "rowKey": {
+      "contentRules": [
+        "值应为记录中唯一字段的键名"
+      ],
+      "description": "行的唯一标识字段名或取值函数，保证行身份稳定。",
+      "required": true,
+      "type": "string"
+    }
+  },
+  "semanticRole": "data_display",
+  "slots": {},
+  "softRules": [
+    "操作列固定置于最右侧并设 fixed:'right'，避免横向滚动时丢失操作入口。",
+    "状态/枚举字段优先用 antd.tag 渲染，金额/数字考虑右对齐。",
+    "宽列集（>8 列）在桌面端启用横向滚动而非压缩列宽到不可读。",
+    "为大数据集启用分页或虚拟滚动，避免一次性渲染上万行。"
+  ],
+  "sourceEvidence": [
+    "https://ant.design/components/table"
+  ],
+  "sourceRefs": [
+    "https://ant.design/components/table"
+  ],
+  "states": [
+    "default",
+    "loading",
+    "empty",
+    "error",
+    "hover",
+    "selected"
+  ],
+  "system": "ant-design",
+  "tokenBindings": {
+    "cell.stroke": "table.border.color",
+    "header.fill": "table.header.background",
+    "row.fill": "table.row.background",
+    "rowAlt.fill": "table.row.bg.subtle"
+  },
+  "variants": {
+    "density": {
+      "default": "middle",
+      "semantics": {
+        "compact": "行高压缩，用于密集数据对比",
+        "default": "标准行高",
+        "loose": "行高放宽，提升可读性与点击命中率"
+      },
+      "values": [
+        "default",
+        "compact",
+        "loose"
+      ]
+    },
+    "zebra": {
+      "default": "none",
+      "semantics": {
+        "none": "纯白行底",
+        "striped": "隔行使用 table.row.bg.subtle 提升可扫描性"
+      },
+      "values": [
+        "none",
+        "striped"
+      ]
+    }
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,131 @@
+{
+  "category": "navigation",
+  "code": {
+    "component": "Breadcrumb",
+    "framework": "react",
+    "import": "import { Breadcrumb } from \"antd\";",
+    "propMap": {
+      "items": "items"
+    }
+  },
+  "compositionRules": [],
+  "confidence": 0.85,
+  "displayName": "Breadcrumb",
+  "examples": {
+    "bad": [
+      "<Breadcrumb><Button>Edit</Button><Button>Save</Button></Breadcrumb>",
+      "用 Breadcrumb 物料路径项作为删除该物料的操作按钮（带 onClick 跳转/删除）",
+      "<Breadcrumb items={[{ title: 'Orders', onClick: refetch }, { title: '#1234' }]} />",
+      "<Breadcrumb items={[{ title: <Badge status=\"error\" text=\"Issues\" />}]} />",
+      "在 Breadcrumb 项内放 Form 或 Table 等大块交互内容"
+    ],
+    "good": [
+      "<Breadcrumb items={[{ title: 'Home' }, { title: 'Orders' }, { title: '#1234' }]} />",
+      "<Breadcrumb items={[{ title: <Link to=\"/\">Home</Link> }, { title: 'Settings' }, { title: 'Profile' }]} />",
+      "<Breadcrumb items={[{ title: 'Dashboard' }, { title: 'Analytics' }, { title: 'Revenue' }]} />",
+      "页面顶部用 Breadcrumb 显示 当前位置：产品 / 分类 / 详情"
+    ]
+  },
+  "hardRules": [
+    {
+      "expr": "root.intents == ['navigation']",
+      "id": "antd.breadcrumb.intent.only-navigation",
+      "kind": "schema",
+      "message": "Breadcrumb 仅用于 navigation 意图（路径层级指示），不得声明为 primary_action/destructive_action 等动作意图。"
+    },
+    {
+      "expr": "every $item in props.items satisfies not(has_key($item, 'onClick') or has_key($item, 'danger') or has_key($item, 'loading'))",
+      "id": "antd.breadcrumb.items.no-action-trigger",
+      "kind": "token",
+      "message": "Breadcrumb 是路径层级指示而非动作触发器；items 项不应携带 onClick/danger/loading 等动作语义属性。最后一项为当前位置（非可点击）。"
+    },
+    {
+      "expr": "root.tokenBindings.text.fill == 'color.text.secondary'",
+      "id": "antd.breadcrumb.token.secondary-text",
+      "kind": "token",
+      "message": "Breadcrumb 文本应绑定 secondary 文本色 token（color.text.secondary），以表达其在层级中的辅助指示定位。"
+    },
+    {
+      "expr": "count(root.slots) == 0",
+      "id": "antd.breadcrumb.no-slots",
+      "kind": "slot",
+      "message": "Breadcrumb 不暴露布局 slot；内容经 props.items（{title}）声明，不接受任意子布局内容。"
+    }
+  ],
+  "id": "antd.breadcrumb",
+  "intents": [
+    "navigation"
+  ],
+  "meaning": {
+    "definition": "指示当前页面在站点/应用层级结构中的位置（一条从根到当前位置的路径），帮助用户理解所在上下文并定位可回溯的上级路径，而非触发明确操作。",
+    "doNotUseWhen": [
+      "需要触发一个明确的用户操作（保存/提交/删除）——用 Button 或 Link",
+      "需要切换或切换状态——用 Switch",
+      "需要分页导航——用 Pagination",
+      "需要主导航/菜单切换——用 Menu",
+      "用于展示当前决策的操作按钮组——用 Button 组"
+    ],
+    "useWhen": [
+      "需要展示当前页面在层级路径中的位置（面包屑路径）",
+      "需要让用户了解「我从哪里来 / 我在哪」的导航上下文",
+      "需要提供回溯到上级页面的层级指示"
+    ]
+  },
+  "needsReview": false,
+  "pencil": {
+    "allowedDescendantOverrides": {
+      "": "props.items[].title"
+    },
+    "componentRefPattern": "antd.breadcrumb",
+    "forbiddenOverrides": [
+      "root.fill",
+      "root.fill",
+      "root.stroke",
+      "root.borderWidth",
+      "root.cornerRadius",
+      "root.shadow"
+    ]
+  },
+  "props": {
+    "items": {
+      "accepts": [
+        "antd.typography"
+      ],
+      "contentRules": [
+        "每个 item 为对象，title 为展示文本（当前页通常为最后一项，非可点击）",
+        "title 可接受字符串、ReactNode 或链接组件"
+      ],
+      "description": "面包屑项数组，每项形如 { title }。title 为该项的展示文本/节点。",
+      "required": true,
+      "type": "array"
+    }
+  },
+  "semanticRole": "navigation",
+  "slots": {},
+  "softRules": [
+    "最后一项应表示当前页面（当前位置），通常不可点击",
+    "上级路径项可使用链接组件以允许回溯导航，但点击是导航而非动作触发",
+    "避免在 title 节点中嵌入按钮、开关等强交互组件",
+    "items 数量一般控制在 2~5 项，层级过深应考虑重构信息架构",
+    "与页面标题/PageHeader 组合使用，放置在页面顶部内容区之上",
+    "AntD 的 separator 通过组件级 separator prop 控制，不归约为独立 variant 轴"
+  ],
+  "sourceEvidence": [
+    "https://ant.design/components/breadcrumb"
+  ],
+  "sourceRefs": [
+    "https://ant.design/components/breadcrumb"
+  ],
+  "states": [
+    "default",
+    "hover",
+    "active",
+    "disabled"
+  ],
+  "system": "ant-design",
+  "tokenBindings": {
+    "text.fill": "color.text.secondary"
+  },
+  "variants": {},
+  "version": "1.0.0"
+}

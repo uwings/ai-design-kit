@@ -1,0 +1,19 @@
+{
+  "description": "AntD 组件语义角色映射——每个组件在本体系里的语义定位（与跨体系 intent-taxonomy 对齐）。",
+  "roles": {
+    "antd.layout": { "semanticRole": "container", "intents": ["section"], "summary": "整页骨架：Header/Sider/Content 布局容器" },
+    "antd.menu": { "semanticRole": "navigation", "intents": ["navigation"], "summary": "侧边/顶部导航；选中态用 menu.item.selected token" },
+    "antd.breadcrumb": { "semanticRole": "navigation", "intents": ["navigation"], "summary": "路径层级指示，非动作触发" },
+    "antd.table": { "semanticRole": "data_display", "intents": ["data_management"], "summary": "同构记录的密集表格；斑马纹用 table.row.bg.subtle" },
+    "antd.form": { "semanticRole": "container", "intents": ["data_entry"], "summary": "结构化输入容器；校验反馈必需" },
+    "antd.input": { "semanticRole": "input", "intents": ["data_entry", "search", "filtering"], "summary": "单行文本/搜索输入" },
+    "antd.select": { "semanticRole": "input", "intents": ["data_entry", "filtering"], "summary": "枚举选择" },
+    "antd.button": { "semanticRole": "action_trigger", "intents": ["primary_action", "secondary_action", "destructive_action"], "summary": "触发动作；intent 决定语义严重度" },
+    "antd.modal": { "semanticRole": "feedback", "intents": ["destructive_confirmation", "feedback"], "summary": "阻断式决策弹窗；破坏性操作必需" },
+    "antd.tag": { "semanticRole": "status_display", "intents": ["status_display"], "summary": "分类/状态标签，颜色须语义化" },
+    "antd.badge": { "semanticRole": "status_display", "intents": ["status_display"], "summary": "计数/未读徽标" },
+    "antd.switch": { "semanticRole": "input", "intents": ["toggle"], "summary": "二态切换，需 accessible label" },
+    "antd.alert": { "semanticRole": "feedback", "intents": ["feedback"], "summary": "信息/警告/错误横幅；非空状态" },
+    "antd.typography": { "semanticRole": "content", "intents": ["content", "empty_state"], "summary": "标题/正文文本" }
+  }
+}

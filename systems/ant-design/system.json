@@ -1,0 +1,28 @@
+{
+  "name": "ant-design",
+  "displayName": "Ant Design",
+  "version": "5.x (public docs)",
+  "description": "Ant Design 组件体系——首版编译自公开文档与组件 API。用作 ADK 端到端验证的设计规范源。",
+  "source": {
+    "kind": "docs",
+    "url": "https://ant.design/components/overview",
+    "notes": "基于 Ant Design 公开文档与组件 API；抢救的 PY 入口残片提供了 25 个组件清单与 9 个 token 引用。Figma MCP 接入为后续扩展。"
+  },
+  "ingestedAt": "2026-07-07",
+  "coverage": {
+    "components": 14,
+    "tokens": 46,
+    "patterns": 3,
+    "notes": "首版精选权限管理页所需 14 个组件；架构支持增量补齐其余 11 个（共 25）与更多。"
+  },
+  "components": [
+    "antd.layout", "antd.menu", "antd.breadcrumb", "antd.table",
+    "antd.form", "antd.input", "antd.select", "antd.button",
+    "antd.modal", "antd.tag", "antd.badge", "antd.switch",
+    "antd.alert", "antd.typography"
+  ],
+  "kcHookup": {
+    "enabled": false,
+    "exportPath": "index/_kc/ant-design.manifest.json"
+  }
+}

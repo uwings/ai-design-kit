@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "counts": {
+    "blocking": 0,
+    "risky": 0,
+    "improvement": 0
+  },
+  "issues": []
+}
